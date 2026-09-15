@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="en" data-os="minipc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%230b1013%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%277%27 fill=%27none%27 stroke=%27%237fd89b%27 stroke-width=%273%27/%3E%3C/svg%3E">
+<title>Manifold Fedimint Guardian setup guide</title>
+<meta name="description" content="Step by step: run a Manifold Fedimint Guardian on Umbrel or Start9, get authorized, sell guardian seats to federation founders, and withdraw what you earn.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,501,700,701,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b1013; --body:#4c5257; --dim:#858585; --line:#e8e8ea; --wash:#f5f5f6;
+  --sky:#ebf5ff; --blue:#0088ff; --rose:#ffd9ec; --lav:#ddd0ff; --mint:#cff2dd;
+  --butter:#fff0cc; --green:#2c8a4a; --gold:#f7b500; --red:#c8382d;
+  --sans:'Satoshi',-apple-system,'Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,monospace;
+  --r-card:24px; --r-band:40px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:84px;}
+html,body{background:#fff;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+body{font-size:16.5px;line-height:1.6;font-weight:500;}
+img,svg,video{max-width:100%;display:block;}
+a{color:inherit;}
+code,kbd{font-family:var(--mono);font-size:.88em;background:var(--wash);border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:#1d2226;overflow-wrap:anywhere;}
+pre{font-family:var(--mono);font-size:13.5px;line-height:1.55;background:#0f1418;color:#e6e9ec;border-radius:16px;padding:18px 20px;overflow-x:auto;margin:14px 0 4px;}
+pre code{background:none;border:0;padding:0;color:inherit;white-space:pre;}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
+
+/* ribbon + nav */
+.ribbon{background:var(--butter);color:#6d5312;font-size:12.5px;font-weight:500;text-align:center;padding:9px 16px;}
+.ribbon a{color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px;}
+nav.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+.nav-in{max-width:1140px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;color:#212121;font-size:17px;letter-spacing:-.02em;}
+.brand img{height:20px;display:block;}
+.brand .sep{color:#c9cbce;font-weight:500;}
+.nav-in .spacer{flex:1;}
+.nav-in a.lnk{font-size:13.5px;font-weight:600;color:var(--body);text-decoration:none;white-space:nowrap;}
+.nav-in .btn{white-space:nowrap;flex:none;}
+.nav-in a.lnk:hover{color:var(--ink);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-size:15px;font-weight:500;text-decoration:none;border-radius:100px;padding:14px 26px;cursor:pointer;border:1px solid transparent;transition:transform .16s ease,box-shadow .16s ease;}
+.btn:active{transform:scale(.98);}
+.btn-ink{background:var(--ink);color:#fff;}
+.btn-ink:hover{box-shadow:0 8px 22px rgba(11,16,19,.24);transform:translateY(-1px);}
+.btn-ghost{background:#fff;color:var(--ink);border-color:#d8d9dc;}
+.btn-ghost:hover{border-color:var(--ink);}
+.btn-sm{padding:9px 18px;font-size:13.5px;}
+@media(max-width:1120px){.nav-in a.lnk{display:none;}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:64px 0 48px;}
+.aurora{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.aurora i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.7;}
+.aurora .a1{width:560px;height:420px;background:var(--mint);top:-140px;left:-120px;}
+.aurora .a2{width:600px;height:460px;background:var(--lav);top:-160px;right:-140px;}
+.aurora .a3{width:460px;height:360px;background:var(--butter);bottom:-120px;left:36%;opacity:.55;}
+.aurora::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.7) 60%,#fff 100%);}
+.hero .wrap{position:relative;z-index:1;}
+.kicker{font-size:12px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;color:var(--blue);}
+.hero h1{font-size:clamp(34px,5vw,60px);font-weight:700;letter-spacing:-.045em;line-height:1.05;color:#212121;margin:14px 0 18px;max-width:900px;}
+.lede{font-size:clamp(16px,1.7vw,19px);color:#5d6267;max-width:720px;line-height:1.6;}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#3f454a;background:rgba(255,255,255,.7);border:1px solid rgba(11,16,19,.09);padding:8px 14px;border-radius:100px;}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
+.chip .dot.gold{background:var(--gold);}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;align-items:center;}
+
+/* platform switch */
+.osbar{margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;}
+.osbar .lbl{font-size:13.5px;font-weight:700;color:#5d6166;}
+.seg{display:inline-flex;background:#fff;border:1px solid #d8d9dc;border-radius:100px;padding:4px;}
+.seg button{font-family:var(--sans);font-size:14px;font-weight:700;border:0;background:transparent;color:#5d6166;padding:9px 18px;border-radius:100px;cursor:pointer;transition:background .15s,color .15s;}
+.seg button.on{background:var(--ink);color:#fff;}
+.osbar .hint{font-size:13px;color:#7d8287;}
+html[data-os="startos"] .os-umbrel{display:none!important;}
+html[data-os="umbrel"] .os-startos,html[data-os="minipc"] .os-startos{display:none!important;}
+html:not([data-os="minipc"]) .os-minipc{display:none!important;}
+
+/* walkthrough video */
+.videoband{padding:8px 0 40px;}
+.video-head{max-width:720px;margin:0 0 22px;}
+.video-head h2{font-size:clamp(24px,3vw,32px);}
+.player{border-radius:var(--r-card);overflow:hidden;background:#0b1013;box-shadow:0 30px 80px -40px rgba(11,16,19,.55);border:1px solid var(--line);}
+.player video{width:100%;height:auto;display:block;aspect-ratio:16/10;background:#0b1013;}
+
+/* layout: sticky toc + content */
+.page{display:grid;grid-template-columns:210px minmax(0,1fr);min-width:0;gap:56px;align-items:start;padding-top:24px;}
+.toc{position:sticky;top:84px;font-size:13.5px;min-width:0;}
+main{min-width:0;}
+.toc .t{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#9a9ea3;margin-bottom:12px;}
+.toc a{display:block;color:#5d6166;text-decoration:none;padding:6px 0 6px 14px;border-left:2px solid var(--line);font-weight:600;transition:color .15s,border-color .15s;}
+.toc a:hover{color:var(--ink);}
+.toc a.on{color:var(--ink);border-color:var(--ink);}
+.toc .num{display:inline-block;width:22px;color:#a2a5a9;font-family:var(--mono);font-size:11.5px;}
+@media(max-width:1040px){.page{grid-template-columns:minmax(0,1fr);gap:0;}.toc{position:static;display:flex;gap:6px;overflow-x:auto;padding:6px 0 14px;border-bottom:1px solid var(--line);margin-bottom:8px;}.toc .t{display:none;}.toc a{border-left:0;border:1px solid var(--line);border-radius:100px;padding:7px 13px;white-space:nowrap;font-size:12.5px;}.toc a.on{background:var(--ink);color:#fff;border-color:var(--ink);}.toc .num{display:none;}}
+
+/* sections */
+section.blk{padding:64px 0 24px;}
+section.blk + section.blk{border-top:1px solid var(--line);}
+.sec-head{max-width:720px;margin-bottom:34px;}
+h2{font-size:clamp(27px,3.4vw,38px);font-weight:700;letter-spacing:-.04em;line-height:1.12;color:#212121;margin-top:10px;}
+h3{font-size:18.5px;font-weight:700;letter-spacing:-.015em;color:var(--ink);}
+.sec-sub{margin-top:14px;font-size:16.5px;color:var(--body);line-height:1.65;}
+.stepnum{font-family:var(--mono);font-size:12px;color:#a2a5a9;letter-spacing:.5px;}
+p.note{font-size:14px;color:#6a6f74;}
+
+/* how it works strip */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:8px;}
+.flow .f{background:var(--wash);border-radius:20px;padding:22px 20px 24px;position:relative;}
+.flow .f .n{width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;margin-bottom:14px;}
+.flow .f h3{font-size:16px;margin-bottom:6px;}
+.flow .f p{font-size:14px;color:var(--body);line-height:1.55;}
+@media(max-width:900px){.flow{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.flow{grid-template-columns:1fr;}}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;min-width:0;}
+.cards.two{grid-template-columns:repeat(2,minmax(0,1fr));}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px 24px 22px;box-shadow:0 1px 2px rgba(11,16,19,.04),0 18px 44px -34px rgba(11,16,19,.35);}
+.card h3{font-size:16.5px;margin-bottom:8px;}
+.card p,.card li{font-size:14.5px;color:var(--body);line-height:1.58;}
+.card ul{padding-left:18px;margin-top:6px;}
+.card .ic{display:flex;align-items:center;margin-bottom:14px;color:var(--ink);}
+.card .ic svg{width:26px;height:26px;stroke-width:1.75;}
+@media(max-width:900px){.cards,.cards.two{grid-template-columns:minmax(0,1fr);}}
+
+/* ram table */
+table{width:100%;border-collapse:collapse;font-size:14.5px;}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+th{font-size:11.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#7d8287;}
+td b{font-weight:700;color:var(--ink);}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px;margin-top:18px;}
+.tblwrap table{min-width:0;}
+.tblwrap th,.tblwrap td{padding:12px 16px;}
+.tblwrap tr:last-child td{border-bottom:0;}
+.ramtbl th{font-size:10.5px;letter-spacing:1px;padding:9px 12px;}
+.ramtbl td{padding:9px 12px;font-size:14px;}
+.ramtbl td:first-child{white-space:nowrap;}
+
+/* numbered steps */
+.steps{list-style:none;counter-reset:st;margin-top:8px;}
+.steps li{position:relative;padding:0 0 30px 62px;counter-increment:st;}
+.steps li::before{content:counter(st);position:absolute;left:0;top:-2px;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--line);font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;color:var(--ink);}
+.steps li::after{content:'';position:absolute;left:19.5px;top:42px;bottom:6px;width:1px;background:#dcdde0;}
+.steps li:last-child::after{display:none;}
+.steps h3{font-size:18px;margin-bottom:6px;}
+.steps p{font-size:15px;color:var(--body);max-width:640px;}
+.steps p + p{margin-top:8px;}
+.steps .fine{font-size:13px;color:#8b9095;margin-top:8px;max-width:640px;}
+.steps .path{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 4px;font-size:13.5px;}
+.steps .path span{background:var(--wash);border:1px solid var(--line);border-radius:8px;padding:3px 9px;font-weight:600;color:#2b3136;}
+.steps .path i{color:#a2a5a9;font-style:normal;}
+
+/* callouts */
+.call{border-radius:18px;padding:16px 20px;font-size:14.5px;line-height:1.58;margin:16px 0;display:flex;gap:12px;align-items:flex-start;}
+.call b{font-weight:700;}
+.call.info{background:var(--sky);color:#0b4f8a;}
+.call.warn{background:var(--butter);color:#6d5312;}
+.call.stop{background:#fde7e5;color:#8a2a22;}
+.call.ok{background:var(--mint);color:#1e6b38;}
+.call svg{width:18px;height:18px;flex:none;margin-top:3px;}
+
+/* screenshots */
+.shot{margin:22px 0 6px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#f7f7f8;box-shadow:0 24px 60px -40px rgba(11,16,19,.4);}
+.shot img{width:100%;height:auto;display:block;}
+.shot-cap{font-size:13px;color:#7d8287;margin:10px 4px 0;}
+.shot-cap b{color:var(--ink);}
+.shots2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start;}
+@media(max-width:820px){.shots2{grid-template-columns:minmax(0,1fr);}}
+
+/* checklist */
+.check{list-style:none;margin-top:10px;}
+.check li{position:relative;padding:12px 0 12px 38px;border-bottom:1px solid var(--line);font-size:15px;color:var(--body);}
+.check li::before{content:'';position:absolute;left:0;top:13px;width:22px;height:22px;border-radius:50%;border:1.5px solid #c9cbce;}
+.check li::after{content:'';position:absolute;left:8px;top:17px;width:6px;height:11px;border:solid #c9cbce;border-width:0 2px 2px 0;transform:rotate(45deg);}
+.check li b{color:var(--ink);}
+
+/* dark band */
+.band{background:var(--ink);color:#fff;border-radius:var(--r-band);padding:56px 56px 52px;margin:10px 0 20px;position:relative;overflow:hidden;}
+.band .glow{position:absolute;width:640px;height:480px;border-radius:50%;background:radial-gradient(closest-side,rgba(44,138,74,.32),transparent 70%);top:-200px;right:-160px;pointer-events:none;}
+.band .kicker{color:#7fd89b;}
+.band h2{color:#fff;}
+.band .sec-sub{color:#b6bbc0;}
+.band .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px;position:relative;}
+.band .g{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px 22px 20px;}
+.band .g .num{font-family:var(--mono);font-size:22px;font-weight:600;color:#7fd89b;display:block;margin-bottom:8px;}
+.band .g h3{color:#fff;font-size:16px;margin-bottom:6px;}
+.band .g p{font-size:14px;color:#a9aeb4;line-height:1.55;}
+@media(max-width:900px){.band{padding:40px 28px;}.band .grid{grid-template-columns:1fr;}}
+
+/* troubleshooting */
+.trouble .r{display:grid;grid-template-columns:1.1fr 1fr 1.3fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--line);font-size:14.5px;}
+.trouble .r b{color:var(--ink);font-weight:700;}
+.trouble .r span{color:var(--body);}
+.trouble .h{font-size:11.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#7d8287;border-bottom:1px solid var(--line);padding-bottom:10px;}
+@media(max-width:820px){.trouble .r{grid-template-columns:minmax(0,1fr);gap:4px;}.trouble .h{display:none;}}
+
+/* faq */
+.faq details{border-bottom:1px solid var(--line);}
+.faq summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 4px;font-size:16.5px;font-weight:700;letter-spacing:-.01em;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:'+';font-weight:500;color:#9a9ea3;font-size:22px;line-height:1;}
+.faq details[open] summary::after{content:'−';}
+.faq .a{padding:0 4px 22px;font-size:15px;color:var(--body);max-width:680px;}
+
+/* sources */
+.rowlist{margin-top:18px;border:1px solid var(--line);border-radius:20px;overflow:hidden;}
+.rowlist .r{display:grid;grid-template-columns:230px 1fr;gap:18px;padding:14px 22px;align-items:start;font-size:14px;}
+.rowlist .r + .r{border-top:1px solid var(--line);}
+.rowlist .r b{font-weight:700;color:var(--ink);}
+.rowlist .r a{color:var(--body);word-break:break-all;}
+@media(max-width:700px){.rowlist .r{grid-template-columns:minmax(0,1fr);gap:4px;}}
+
+footer{border-top:1px solid var(--line);margin-top:56px;padding:34px 0 60px;font-size:12.5px;color:#9aa0a6;}
+footer .foot-in{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;}
+footer a{color:#6a6f74;}
+
+.rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease;}
+.rv.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important;transition:none;}}
+
+/* shared:css:start */
+/* ── Nav ──────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,16,19,.06);}
+.nav-in{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px;}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#212121;}
+.brand .logo{height:21px;width:auto;flex:none;display:block;}
+.brand .sep{color:#c9cbce;font-weight:500;}
+.brand .prod{font-weight:700;}
+.nav-links{display:flex;align-items:center;gap:22px;margin-left:auto;}
+.nav-links>a{display:inline-flex;align-items:center;line-height:1.6;}
+.nav-links a{font-size:14px;font-weight:500;color:#565b60;text-decoration:none;transition:color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-cta{margin-left:6px;}
+.nav-item{position:relative;display:flex;align-items:center;line-height:1.6;}
+.nav-trigger{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:14px;font-weight:500;color:#565b60;background:none;border:0;cursor:pointer;padding:0;line-height:1.6;transition:color .15s;}
+.nav-trigger:hover,.nav-item.open .nav-trigger{color:var(--ink);}
+.nav-trigger .caret{width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-1px);transition:transform .18s;}
+.nav-item.open .nav-trigger .caret{transform:rotate(225deg) translateY(-2px);}
+.nav-menu{position:absolute;top:calc(100% + 14px);left:-14px;min-width:212px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 14px 40px rgba(11,16,19,.12);padding:8px;display:none;flex-direction:column;gap:2px;}
+.nav-item.open .nav-menu{display:flex;}
+.nav-menu a{font-size:14px;font-weight:500;color:#565b60;text-decoration:none;padding:8px 12px;border-radius:10px;white-space:nowrap;transition:.15s;}
+.nav-menu a:hover{color:var(--ink);background:var(--wash);}
+/* hamburger + mobile panel */
+.nav-burger{display:none;margin-left:auto;width:40px;height:40px;flex:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:0;}
+.nav-burger span{display:block;position:relative;width:17px;height:1.8px;border-radius:2px;background:var(--ink);transition:transform .2s,opacity .15s;}
+.nav-burger span::before,.nav-burger span::after{content:"";position:absolute;left:0;width:17px;height:1.8px;border-radius:2px;background:var(--ink);transition:transform .2s;}
+.nav-burger span::before{top:-5.5px;}
+.nav-burger span::after{top:5.5px;}
+.nav-burger:hover{transform:none;box-shadow:none;}
+nav.open .nav-burger span{background:transparent;}
+nav.open .nav-burger span::before{transform:translateY(5.5px) rotate(45deg);}
+nav.open .nav-burger span::after{transform:translateY(-5.5px) rotate(-45deg);}
+.nav-in .nav-cta-mobile{display:none;}
+@media(max-width:860px){
+  .nav-burger{display:inline-flex;}
+  .nav-in .nav-cta{display:none;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;margin-left:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 22px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 18px 40px rgba(11,16,19,.1);max-height:calc(100vh - 64px);overflow-y:auto;}
+  nav.open .nav-links{display:flex;}
+  .nav-item{display:block;border-bottom:1px solid var(--line);}
+  .nav-trigger{width:100%;justify-content:space-between;padding:14px 2px;font-size:15px;}
+  .nav-menu{position:static;display:none;min-width:0;border:0;border-radius:0;box-shadow:none;padding:0 0 10px 2px;}
+  .nav-item.open .nav-menu{display:flex;}
+  .nav-menu a{font-size:14.5px;padding:9px 10px;white-space:normal;}
+  .nav-links>a{padding:14px 2px;font-size:15px;border-bottom:1px solid var(--line);}
+  .nav-in .nav-cta-mobile{display:inline-flex;margin-top:18px;width:100%;}
+}
+
+/* ── Footer ───────────────────────────────────── */
+footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between;font-size:13.5px;color:#7d8287;}
+.foot-in .brand{font-size:15px;}
+.foot-links{display:flex;flex-wrap:wrap;gap:20px;}
+.foot-links a{text-decoration:none;color:#565b60;font-weight:500;}
+.foot-links a:hover{color:var(--ink);}
+.foot-note{flex-basis:100%;font-size:12.5px;color:#9a9ea3;margin-top:6px;}
+/* shared:css:end */
+</style>
+</head>
+<body>
+<!-- shared:header:start -->
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="Fedi / Manifold">
+      <img class="logo" src="fedi-logo.svg" alt="Fedi">
+      <span class="sep">/</span><span class="prod">Manifold</span>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <div class="nav-item">
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Fedi For<span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-menu">
+          <a href="https://fedi.xyz/fedi-for-u" target="_blank" rel="noopener">You</a>
+          <a href="https://fedi.xyz/fedi-for-communities" target="_blank" rel="noopener">Communities</a>
+          <a href="https://fedi.xyz/fedi-for-orgs" target="_blank" rel="noopener">Organizations</a>
+          <a href="https://fedi.xyz/fedi-for-builders" target="_blank" rel="noopener">Builders</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Get Involved<span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-menu">
+          <a href="https://fedi.xyz/get-the-app" target="_blank" rel="noopener">Get the App</a>
+          <a href="https://fedi.xyz/create-a-community" target="_blank" rel="noopener">Create a Community</a>
+          <a href="https://fedi.xyz/create-a-wallet-service" target="_blank" rel="noopener">Create a Wallet Service</a>
+          <a href="https://fedi.xyz/explore-mini-apps" target="_blank" rel="noopener">Explore Mini Apps</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Learn<span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-menu">
+          <a href="https://fedi.xyz/blog" target="_blank" rel="noopener">Blog</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">About<span class="caret" aria-hidden="true"></span></button>
+        <div class="nav-menu">
+          <a href="https://fedi.xyz/company" target="_blank" rel="noopener">Company</a>
+          <a href="https://fedi.xyz/ecosystem" target="_blank" rel="noopener">Ecosystem</a>
+          <a href="https://fedi.xyz/media" target="_blank" rel="noopener">Media</a>
+          <a href="https://support.fedi.xyz" target="_blank" rel="noopener">Support</a>
+          <a href="https://bitcoinerjobs.com/company/fedi" target="_blank" rel="noopener">Jobs</a>
+        </div>
+      </div>
+      <a href="https://fedi.xyz/contact" target="_blank" rel="noopener">Contact</a>
+      <a class="btn btn-ink btn-sm nav-cta-mobile" href="https://fedi.xyz/get-the-app" target="_blank" rel="noopener">Download Fedi</a>
+    </div>
+    <button type="button" class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="nav-links" aria-label="Menu"><span></span></button>
+    <a class="btn btn-ink btn-sm nav-cta" href="https://fedi.xyz/get-the-app" target="_blank" rel="noopener">Download Fedi</a>
+  </div>
+</nav>
+<!-- shared:header:end -->
+
+<header class="hero">
+  <div class="aurora"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+  <div class="wrap">
+    <div class="kicker">Guardian setup guide &#183; Manifold Fedimint Guardian</div>
+    <h1>Run a Manifold Fedimint Guardian and earn sats hosting seats</h1>
+    <div class="osbar">
+      <span class="lbl">Show steps for</span>
+      <div class="seg" role="tablist" aria-label="Platform">
+        <button type="button" data-os="minipc" class="on" role="tab" aria-selected="true">Mini PC + umbrelOS</button>
+        <button type="button" data-os="umbrel" role="tab" aria-selected="false">Umbrel</button>
+        <button type="button" data-os="startos" role="tab" aria-selected="false">Start9</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="videoband" id="video">
+  <div class="wrap">
+    <div class="video-head">
+      <div class="kicker">Walkthrough &#183; 3 minutes &#183; <span class="os-umbrel">Umbrel</span><span class="os-startos">Start9</span></div>
+      <h2>Manifold Fedimint Guardian install step by step guide</h2>
+    </div>
+    <div class="player os-umbrel">
+      <video controls preload="none" playsinline poster="media/guardian-guide/guardian-umbrel-poster.jpg" width="1280" height="800">
+        <source src="media/guardian-guide/guardian-umbrel-walkthrough.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="player os-startos">
+      <video controls preload="none" playsinline poster="media/guardian-guide/guardian-startos-poster.jpg" width="1280" height="800">
+        <source src="media/guardian-guide/guardian-startos-walkthrough.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<div class="wrap page">
+<aside class="toc" aria-label="On this page">
+  <div class="t">On this page</div>
+  <a href="#how"><span class="num">00</span>How it works</a>
+  <a href="#requirements"><span class="num">01</span>Requirements</a>
+  <a href="#box" class="os-minipc"><span class="num">02</span>Prepare the mini PC</a>
+  <a href="#bitcoin"><span class="num">03</span>Bitcoin node</a>
+  <a href="#install"><span class="num">04</span>Install</a>
+  <a href="#setup"><span class="num">05</span>Set up the fleet</a>
+  <a href="#discover"><span class="num">06</span>Get discovered</a>
+  <a href="#earn"><span class="num">07</span>Earn</a>
+  <a href="#withdraw"><span class="num">08</span>Withdraw</a>
+  <a href="#maintain"><span class="num">09</span>Keep it running</a>
+  <a href="#trouble"><span class="num">10</span>Troubleshooting</a>
+  <a href="#faq"><span class="num">11</span>FAQ</a>
+  <a href="#sources"><span class="num">12</span>Sources</a>
+</aside>
+
+<main>
+
+<!-- 00 HOW -->
+<section class="blk" id="how">
+  <div class="sec-head">
+    <div class="kicker">00 &#183; How it works</div>
+    <h2>Four things happen, in this order</h2>
+    <p class="sec-sub">Manifold Fedimint Guardian is the guardian software behind Manifold. It runs one Fedimint guardian process per seat you sell, validates against a Bitcoin Core node on the same box, and handles the selling for you. It is not a Lightning wallet, and it does not replace the Bitcoin node: it needs one.</p>
+  </div>
+  <div class="flow rv">
+    <div class="f"><div class="n">1</div><h3>Prepare the box, start the node</h3><p>umbrelOS or StartOS on a mini PC with a 2 TB SSD, then Bitcoin Core. Its sync takes days, so it goes first and runs in the background.</p></div>
+    <div class="f"><div class="n">2</div><h3>Install and set up the guardian</h3><p>The guardian app installs from a store and holds a small fleet of guardian seats. Setup is a four screen wizard in your browser.</p></div>
+    <div class="f"><div class="n">3</div><h3>Get advertised, sell seats</h3><p>Once a verifier has authorized your fleet and you have set a price, your open seats are announced on Nostr. A founder in the Fedi app picks a set, pays once, and your box starts one guardian per seat sold.</p></div>
+    <div class="f"><div class="n">4</div><h3>Earn and withdraw</h3><p>You receive the seat price up front and a share of that federation's transaction fees for as long as it runs. Both leave to a Lightning address from the Payouts page.</p></div>
+  </div>
+  <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Words used on this page.</b> A <b>seat</b> is one guardian slot you offer. A <b>federation founder</b> is the person creating a federation in the Fedi app (the protocol calls them the initiator). The <b>dashboard</b> is the guardian software's own web page, served by your box. <b>The node</b> is the Bitcoin Core you run on the same box; the guardian validates against it.</div></div>
+</section>
+
+<!-- 01 REQUIREMENTS -->
+<section class="blk" id="requirements">
+  <div class="sec-head">
+    <div class="kicker">01 &#183; Requirements</div>
+    <h2>What you need before you start</h2>
+    <p class="sec-sub">A guardian is a small, always on server: a mini PC, a Bitcoin node on it, and patience for one long sync. It still needs no public address, no domain and no certificate, because the whole protocol was designed to run from a home connection.</p>
+  </div>
+  <div class="cards rv">
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <h3>A mini PC with a 2 TB SSD</h3>
+      <p>Any 64 bit Intel or AMD PC; a refurbished corporate mini is the sweet spot. Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>2 TB SSD as the system disk</b>, because the Bitcoin chain lives on it. New box? <a href="#box" data-switch="minipc">Prepare the mini PC</a> walks through the one time install. StartOS needs version <b>0.4.0 stable or later</b> and also runs on ARM servers; umbrelOS is x86 only.</p>
+      <ul><li>Wired ethernet to your router. Wi‑Fi will not get you through setup or the sync.</li><li>A laptop or phone on the same network with a browser.</li></ul>
+    </div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v10H4zM8 7v10M16 7v10"/></svg></div>
+      <h3>RAM decides how many seats you can sell</h3>
+      <p>Each seat is a separate guardian process, and Bitcoin Core on the same box takes 2 to 3 GB for itself. The dashboard recommends one seat per 1.5 GB of RAM that is free when it starts, capped at 8. You can override the number, but the recommendation is a safe default.</p>
+      <div class="tblwrap ramtbl" style="margin-top:14px;"><table>
+        <tr><th>Box RAM</th><th>Seats, node running</th></tr>
+        <tr><td>8 GB</td><td><b>2 to 3</b></td></tr>
+        <tr><td>16 GB</td><td><b>8</b>, the cap</td></tr>
+        <tr><td>32 GB</td><td><b>8</b>, the cap, with room to spare</td></tr>
+      </table></div>
+      <p class="note" style="margin-top:10px;">16 GB is the comfortable minimum for a guardian that also runs its own node.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
+      <h3>A Bitcoin Core node on the same box, no public IP</h3>
+      <p>The guardian validates against your own <b>unpruned</b> Bitcoin Core. <a href="#bitcoin">Bitcoin node</a> installs it; its sync takes days, which is why it comes before the guardian in this guide. Everything on the network side is outbound or hole punched: nothing to forward, no certificate to buy.</p>
+      <ul><li>Optional: forwarding <b>UDP 31000 to 31031</b> on your router improves direct connections between guardians. Without it, traffic falls back to public relays and still works.</li></ul>
+    </div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+      <h3>A Lightning address for payouts</h3>
+      <p>Everything you earn leaves to one Lightning address or LNURL-pay link that you save once. A bolt11 invoice is not accepted because it is single use.</p>
+      
+    </div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <h3>Someone to authorize your fleet</h3>
+      <p>Founders only see fleets that a verifier has vouched for. The dashboard gives you a public key; a holder signs an authorization over it. A verifier scans that key's QR code with the credential app and publishes the authorization. <b>Arrange your verifier before you start</b>; the FAQ lists where to ask.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16M6 16V8m6 8V4m6 12v-6"/></svg></div>
+      <h3>Pen, paper, and patience</h3>
+      <p>The wizard shows a 12 word recovery phrase exactly once. Write it on paper before you continue: it is the entire identity of the fleet and its only backup. Plan about an hour hands on, the node sync running for days in the background, and however long the badge takes to arrive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 PREPARE THE MINI PC -->
+<section class="blk os-minipc" id="box">
+  <div class="sec-head">
+    <div class="kicker">02 &#183; Prepare the mini PC</div>
+    <h2>From a box in a drawer to umbrelOS on your network</h2>
+    <p class="sec-sub">Twenty minutes with a screen, once. This is the part most guides skip: nobody mentions that a monitor and a keyboard are needed, once. Written for <b>umbrelOS 1.7.4</b>, the current stable release.</p>
+  </div>
+
+  <div class="cards rv">
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 12h.01M11 12h6"/></svg></div>
+      <h3>The box</h3>
+      <p>Any 64 bit Intel or AMD mini PC. Refurbished office minis are cheap and quiet: Lenovo ThinkCentre Tiny (M720q, M920q), HP EliteDesk 800 Mini, Dell OptiPlex Micro, Intel NUC. <b>16 GB of RAM</b> runs the node and the full 8 seats; 8 GB leaves room for 2 or 3.</p>
+      <p class="note" style="margin-top:8px;">Fit a <b>2 TB SSD</b> before you install and install umbrelOS onto it. On umbrelOS 1.x every app, the Bitcoin node included, keeps its data on the disk umbrelOS lives on, so the big disk has to be the system disk. Most office minis take a 2.5 inch SATA or M.2 drive; the Tiny takes both.</p>
+    </div>
+    <div class="card mint">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <h3>Needed once, for the install</h3>
+      <ul style="margin-top:4px;">
+        <li>A monitor or TV with HDMI or DisplayPort, and the cable.</li>
+        <li>A USB keyboard.</li>
+        <li>A USB stick of 4 GB or more. It gets erased.</li>
+        <li>An ethernet cable from the box to your router.</li>
+        <li>A second computer to download and flash from. Mac users: check you have a USB A port or an adapter for the stick.</li>
+      </ul>
+    </div>
+    <div class="card butter">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 8l8 8M16 8l-8 8"/></svg></div>
+      <h3>Not this</h3>
+      <ul style="margin-top:4px;">
+        <li>Wi‑Fi. The install and the app both want a wire.</li>
+        <li>ARM boards, phones, Apple silicon. umbrelOS on x86 only.</li>
+        <li>umbrelOS 2.0 beta. The downloads page leads with it; stay on 1.7.4 stable for a guardian box.</li>
+        <li>Running umbrelOS from the USB stick itself. Install it onto the internal disk.</li>
+      </ul>
+    </div>
+  </div>
+
+  <ol class="steps rv" style="margin-top:34px;">
+    <li>
+      <h3>Download the umbrelOS USB installer and check it</h3>
+      <p>Two x86 files exist. You want the <b>USB installer</b>, which copies umbrelOS onto the internal disk. The other one, the plain disk image, runs umbrelOS off the stick and wears it out.</p>
+      <pre><code>https://download.umbrel.com/release/1.7.4/umbrelos-amd64-usb-installer.iso</code></pre>
+      <p>Then check the download against Umbrel's published checksum. The expected value for this file is:</p>
+      <pre><code>d30f4e495630b79e946cb6e98cc0f0404a72f69291df5debd7e8908bf106ac40</code></pre>
+      <p class="fine">macOS: <code>shasum -a 256 umbrelos-amd64-usb-installer.iso</code> &#183; Windows PowerShell: <code>Get-FileHash umbrelos-amd64-usb-installer.iso</code> &#183; Linux: <code>sha256sum umbrelos-amd64-usb-installer.iso</code>. The full list is at <code>download.umbrel.com/release/1.7.4/SHA256SUMS</code>.</p>
+    </li>
+    <li>
+      <h3>Flash it to the USB stick</h3>
+      <div class="path"><span>balenaEtcher</span><i>&#8250;</i><span>Flash from file</span><i>&#8250;</i><span>the .iso</span><i>&#8250;</i><span>Select target: your stick</span><i>&#8250;</i><span>Flash</span></div>
+      <p>Get balenaEtcher from <a href="https://etcher.balena.io" target="_blank" rel="noopener">etcher.balena.io</a>. On Windows, Rufus does the same job. Everything on the stick is erased.</p>
+    </li>
+    <li>
+      <h3>Plug in and open the BIOS</h3>
+      <p>Connect monitor, keyboard, ethernet and the stick. <b>Unplug any external drive</b> so you cannot install onto it by mistake. Power on and tap the setup key at the maker's logo: Lenovo <kbd>F1</kbd>, HP <kbd>Esc</kbd> then <kbd>F10</kbd>, Dell <kbd>F2</kbd>, Intel NUC <kbd>F2</kbd>.</p>
+    </li>
+    <li>
+      <h3>Three settings, then save</h3>
+      <p><b>Secure Boot: Disabled.</b> umbrelOS's bootloader is unsigned; with Secure Boot on, the stick will not boot and you get a "Secure Boot Violation". On a Lenovo it is under Security. <b>Keep UEFI</b>; do not switch to Legacy or CSM. <b>After power loss: Power on</b> (Lenovo: Power &#8250; After Power Loss), so the box comes back by itself after an outage. A guardian that stays off until someone presses a button is a guardian that is down. Save and exit, usually <kbd>F10</kbd>.</p>
+    </li>
+    <li>
+      <h3>Boot from the stick</h3>
+      <p>Open the boot menu at the logo: Lenovo <kbd>F12</kbd>, HP <kbd>F9</kbd>, Dell <kbd>F12</kbd>. Pick the entry that starts with <b>UEFI:</b> and names your stick, not a plain "USB HDD" entry.</p>
+    </li>
+    <li>
+      <h3>Install onto the internal disk</h3>
+      <p>The installer lists the disks it found. Type the number of the <b>internal SSD</b>, recognised by its size (about 238 GB for a 256 GB drive, about 1.8 TB for a 2 TB one), never the stick. If you fitted a 2 TB SSD for the Bitcoin node, this is the moment it matters: pick that disk. It starts writing immediately, without a confirmation. When it reports that umbrelOS has been installed: power off, remove the stick, power on.</p>
+    </li>
+    <li>
+      <h3>First boot and account</h3>
+      <p>Give it about five minutes. On your other computer open <code>http://umbrel.local</code>. On Windows try <code>http://umbrel</code>, or find the box's address in your router's device list and open that. Create the account and put the password in a password manager: on Umbrel it is also what protects the guardian dashboard. In Settings, install any 1.x update it offers.</p>
+    </li>
+    <li>
+      <h3>Unplug the screen, fix the address, walk away</h3>
+      <p>Monitor and keyboard can go. In your router, give the box a fixed address (a DHCP reservation) so <code>umbrel.local</code> keeps resolving after reboots. A small UPS is worth it if your power is unreliable. Then continue with <a href="#install">Install</a>.</p>
+    </li>
+  </ol>
+
+  <div class="call ok rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><div><b>Next: the Bitcoin node, before the guardian.</b> Its sync is the longest step of the whole setup and everything else can proceed while it runs. The one choice that cannot be fixed later without a reinstall is the disk umbrelOS went onto.</div></div>
+
+</section>
+
+<!-- 03 BITCOIN NODE -->
+<section class="blk" id="bitcoin">
+  <div class="sec-head">
+    <div class="kicker">03 &#183; Bitcoin node</div>
+    <h2>Install the Bitcoin node first and let it sync while you do the rest</h2>
+    <p class="sec-sub">A mainnet guardian validates against a Bitcoin Core node <b>you</b> run on the same box, unpruned. The initial sync is the slowest step of the whole setup, one to three days on an SSD and one to two weeks on a spinning USB disk, so it comes first: start it now, then carry on with the guardian install and setup while it runs. Nothing later waits for it, except selling your first seat.</p>
+  </div>
+
+  <div class="cards rv">
+    <div class="card butter">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v10H4zM8 7v10M16 7v10"/></svg></div>
+      <h3>Disk: 2 TB, and it must be the system disk</h3>
+      <p>The unpruned chain is about 760 GB today and grows 60 to 80 GB a year. A guardian cannot run pruned. <span class="os-umbrel">On umbrelOS 1.x apps keep their data on the disk umbrelOS was installed to, so the 2 TB SSD has to be the one you installed onto. If umbrelOS is already on a small drive, fit the SSD and reinstall; a guardian comes back from its 12 words.</span><span class="os-startos">StartOS keeps services on its data drive too, so install StartOS onto the 2 TB SSD.</span></p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+      <h3>Time: leave it on and wired</h3>
+      <p>Expect one to three days on an internal SSD with a decent connection, one to two weeks on a spinning USB disk, longer on Wi‑Fi or a metered line. The box must stay on the whole time; the After Power Loss BIOS setting from the mini PC section is what makes that survivable.</p>
+    </div>
+    <div class="card mint">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <h3>What to keep at the end</h3>
+      <p>Three values the mainnet package will ask for: the node's <b>RPC address</b>, <b>RPC username</b> and <b>RPC password</b>. Put them in your password manager the day you set the node up.</p>
+    </div>
+  </div>
+
+  <ol class="steps os-umbrel rv" style="margin-top:34px;">
+    <li>
+      <h3>Check the disk before anything else</h3>
+      <div class="path"><span>umbrelOS</span><i>&#8250;</i><span>Settings</span><i>&#8250;</i><span>Storage</span></div>
+      <p>You need about 1 TB free today and 2 TB to be comfortable for years. Less than that means the node fills the disk mid sync and stops. If the number is too small, go back to <a href="#box" data-switch="minipc">Prepare the mini PC</a>, fit the SSD, and reinstall onto it.</p>
+    </li>
+    <li>
+      <h3>Install the Bitcoin Node app</h3>
+      <div class="path"><span>App Store</span><i>&#8250;</i><span>Bitcoin</span><i>&#8250;</i><span>Bitcoin Node</span><i>&#8250;</i><span>Install</span></div>
+      <p>This is Umbrel's official app, powered by Bitcoin Core, in the main App Store rather than the Fedi Dev one. Version 1.4.0 (Sep 2026) ships Bitcoin Core v31.1. It starts syncing the moment it is installed.</p>
+      <p><a class="btn btn-ghost btn-sm" href="https://apps.umbrel.com/app/bitcoin" target="_blank" rel="noopener">Bitcoin Node on apps.umbrel.com &#8594;</a> &nbsp; <a class="btn btn-ghost btn-sm" href="https://github.com/getumbrel/umbrel-bitcoin" target="_blank" rel="noopener">Source on GitHub &#8594;</a></p>
+    </li>
+    <li>
+      <h3>Five settings to check, once</h3>
+      <div class="path"><span>Bitcoin Node</span><i>&#8250;</i><span>Settings</span></div>
+      <p>The app has over twenty advanced settings. Only these matter for a guardian:</p>
+      <div class="tblwrap"><table>
+        <tr><th>Setting</th><th>Value</th><th>Why</th></tr>
+        <tr><td><b>Prune Old Blocks</b></td><td>Off</td><td>A guardian needs the full chain. Turning pruning on later throws blocks away that you would have to download again.</td></tr>
+        <tr><td><b>Bitcoin Network</b></td><td>Mainnet</td><td>The default; the guardian needs the main network.</td></tr>
+        <tr><td><b>Bitcoin Core Version</b></td><td>Always use the latest version</td><td>Keeps the node current; v31.1 as of September 2026.</td></tr>
+        <tr><td><b>Enable Transaction Indexing</b></td><td>On</td><td>Fedimint's reference Bitcoin Core configuration exposes the transaction index as a switch, and guardians look transactions up by id. Turning it on after the sync forces a re-index that takes hours; during the sync it is free.</td></tr>
+        <tr><td><b>Cache Size</b></td><td>2000 MB on a 16 GB box, 1000 MB on 8 GB</td><td>Speeds up the initial sync noticeably. You can lower it again afterwards.</td></tr>
+      </table></div>
+      <p class="fine">Leave <b>Max Upload Target</b> alone unless your line is metered, and leave the peer connection settings on their defaults. Changing settings restarts the node, which pauses the sync for a minute.</p>
+    </li>
+    <li>
+      <h3>Watch the sync, and know how to read it</h3>
+      <p>The app's home screen shows the current <b>block height</b>, a <b>Synchronizing</b> percentage and the peers it is connected to. The percentage misleads: it is weighted by transactions, and early blocks hold almost none, so it sits under 1 percent for the first day while the block count climbs past hundreds of thousands, then races through the last years. Watch the block height instead and compare it with a public explorer such as <a href="https://mempool.space" target="_blank" rel="noopener">mempool.space</a>; when the two numbers match, the sync is done.</p>
+      <div class="shot"><img src="media/guardian-guide/bitcoin-node-gallery-1.jpg" alt="Umbrel's Bitcoin Node app, fully synchronized: block height, peers and latest blocks" width="2160" height="1350" loading="lazy"></div>
+      <p class="shot-cap"><b>What a synced node looks like.</b> Umbrel's Bitcoin Node app once it has caught up: Synchronized 100%, peer connections, latest blocks. Image from the app's store listing.</p>
+    </li>
+    <li>
+      <h3>Copy the RPC details</h3>
+      <div class="path"><span>Bitcoin Node</span><i>&#8250;</i><span>Connect</span><i>&#8250;</i><span>Bitcoin Core RPC</span></div>
+      <p>The Connect panel shows <b>Host</b>, <b>Port</b> (8332), <b>Username</b> and <b>Password</b>. These are the credentials the mainnet guardian package will ask for. Store them now. The password is generated by the app and always visible here, so it cannot be lost, but a reinstall of the app generates a new one.</p>
+      <div class="shot"><img src="media/guardian-guide/bitcoin-node-gallery-2.jpg" alt="The Connect panel of Umbrel's Bitcoin Node app showing RPC username, password, host and port" width="2160" height="1350" loading="lazy"></div>
+      <p class="shot-cap"><b>The Connect panel.</b> RPC Details is the tab with the username, password, host and port. Image from the app's store listing.</p>
+    </li>
+    <li>
+      <h3>Done when</h3>
+      <ul class="check" style="margin-top:6px;">
+        <li>Block height matches the explorer and the app no longer says Synchronizing.</li>
+        <li>Prune Old Blocks is off and the disk still shows at least 10 percent free.</li>
+        <li>Host, port, username and password are in your password manager.</li>
+        <li>The box has been left on since; a node that is switched off falls behind and has to catch up before a guardian can use it.</li>
+      </ul>
+    </li>
+  </ol>
+
+  <ol class="steps os-startos rv" style="margin-top:34px;">
+    <li>
+      <h3>Install Bitcoin Core from the Start9 registry</h3>
+      <div class="path"><span>StartOS</span><i>&#8250;</i><span>Marketplace</span><i>&#8250;</i><span>Bitcoin Core</span><i>&#8250;</i><span>Install</span></div>
+      <p>Start9's own package, Bitcoin Core v31.1 (release v31.1_16, Sep 6, 2026). It installs onto the StartOS data drive, so that drive has to be the 2 TB one.</p>
+      <p><a class="btn btn-ghost btn-sm" href="https://github.com/Start9Labs/bitcoin-core-startos" target="_blank" rel="noopener">Package on GitHub &#8594;</a> &nbsp; <a class="btn btn-ghost btn-sm" href="https://docs.start9.com/latest/service-guides/bitcoin/index.html" target="_blank" rel="noopener">Start9 Bitcoin guide &#8594;</a></p>
+    </li>
+    <li>
+      <h3>Turn pruning off before the sync gets far</h3>
+      <div class="path"><span>Bitcoin Core</span><i>&#8250;</i><span>Actions</span><i>&#8250;</i><span>Config</span></div>
+      <p>Start9's package <b>prunes automatically by default</b>, sized to the free space. A guardian needs an archival node, so open the config, find the pruning option under the advanced settings and turn it off. Enable the transaction index in the same place if it is offered. Changing pruning after the fact triggers a full re-index, so do this first.</p>
+    </li>
+    <li>
+      <h3>Watch the sync</h3>
+      <p>The service page shows the block height and sync state. Start9 quotes "under a day to several days" depending on hardware and bandwidth; a spinning USB disk stretches that to weeks. Compare the block height with <a href="https://mempool.space" target="_blank" rel="noopener">mempool.space</a>; matching numbers mean done.</p>
+    </li>
+    <li>
+      <h3>Copy the RPC credentials from Properties</h3>
+      <div class="path"><span>Bitcoin Core</span><i>&#8250;</i><span>Properties</span></div>
+      <p>Properties shows the <b>RPC username</b> and <b>password</b> (and a QuickConnect code for wallets). Store them; the mainnet guardian package will ask for them. If a password is ever lost, the <b>Delete RPC Users</b> action removes the old user so a new one can be created.</p>
+    </li>
+  </ol>
+
+  <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>How the guardian finds the node.</b> The guardian app takes the node's RPC address and credentials from the platform: on Umbrel, apps normally read them from the Bitcoin Node app they depend on; on StartOS, from the Bitcoin Core service. Keep the details in your password manager in case the app asks for them.</div></div>
+</section>
+
+<!-- 02 INSTALL -->
+<section class="blk" id="install">
+  <div class="sec-head">
+    <div class="kicker">04 &#183; Install</div>
+    <h2 class="os-umbrel">Install on Umbrel</h2>
+    <h2 class="os-startos">Install on Start9 (StartOS)</h2>
+    <p class="sec-sub os-umbrel">The guardian software is published in a community app store, so Umbrel installs and updates it like any other app. Umbrel's own login protects the dashboard, so there is no extra password.</p>
+    <p class="sec-sub os-startos">StartOS installs the package from a single file you download from GitHub and sideload. The dashboard has its own generated password, shown by an action inside StartOS.</p>
+  </div>
+
+  <ol class="steps os-umbrel rv">
+    <li>
+      <h3>Have umbrelOS running and open its dashboard</h3>
+      <p>Install umbrelOS on the box if you have not (<a href="https://umbrel.com/umbrelos" target="_blank" rel="noopener">umbrel.com/umbrelos</a>: flash a USB stick, boot the box from it, follow the on screen setup). Then open the Umbrel dashboard from a browser on the same network and sign in.</p>
+    </li>
+    <li>
+      <h3>Add the Fedi Dev community app store</h3>
+      <div class="path"><span>App Store</span><i>&#8250;</i><span>&#8943; menu, top right</span><i>&#8250;</i><span>Community App Stores</span></div>
+      <p>Paste this address and click Add:</p>
+      <pre><code>https://github.com/fedibtc/manifold-umbrel-store.git</code></pre>
+      <p class="fine">The store is public. Nothing to log into and no token to paste.</p>
+    </li>
+    <li>
+      <h3>Install Manifold Fedimint Guardian</h3>
+      <p>Open the new <b>Fedi Dev</b> store and install <b>Manifold Fedimint Guardian</b>. The store tile shows its technical name, Fleet Manager; it is the same app. Umbrel pulls the image from GitHub's registry; the first pull takes a minute or two.</p>
+      
+    </li>
+    <li>
+      <h3>Open the app</h3>
+      <p>Click the app tile. The dashboard opens behind Umbrel's own login, so you are already signed in. It lands on the setup wizard described in the next section.</p>
+      <div class="call warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><div><b>Known quirk.</b> The screen before the wizard may briefly flash an <code>[object Object]</code> error. It is a display bug; the wizard works. Reload if it does not appear within a few seconds.</div></div>
+    </li>
+  </ol>
+
+  <ol class="steps os-startos rv">
+    <li>
+      <h3>Make sure StartOS is on 0.4.0 stable or later</h3>
+      <div class="path"><span>System</span><i>&#8250;</i><span>Software Update</span></div>
+      <p>On a 0.4.0 beta build the sideload page fails with an <code>alerts is undefined</code> error. Update the OS first.</p>
+      <p class="fine">Bare mini PC? StartOS installs like umbrelOS does: download <code>x86_64.iso</code> from Start9's releases, flash it with balenaEtcher to an 8 GB stick, boot from it with Secure Boot off, and run the setup wizard at <code>http://start.local</code>. Start9's guide: <a href="https://docs.start9.com/latest/flashing-guides/os-x86.html" target="_blank" rel="noopener">docs.start9.com &#8250; flashing guides &#8250; x86</a>. The mini PC shopping list and BIOS settings in this guide's Mini PC path apply to StartOS too.</p>
+    </li>
+    <li>
+      <h3>Download the package file</h3>
+      <p>From the latest release of the packaging repo, download <code>fedi-dev-fleet-manager_x86_64.s9pk</code> (about 53 MB). ARM servers take the <code>_aarch64.s9pk</code> file instead.</p>
+      <p><a class="btn btn-ghost btn-sm" href="https://github.com/fedibtc/manifold-fman-startos/releases/latest" target="_blank" rel="noopener">Latest release on GitHub &#8594;</a></p>
+    </li>
+    <li>
+      <h3>Sideload it</h3>
+      <div class="path"><span>Top navigation bar</span><i>&#8250;</i><span>Sideload</span></div>
+      <p>Drop the file in and wait for the install to finish. The image is embedded in the file, so the box never pulls from a registry.</p>
+    </li>
+    <li>
+      <h3>Start the service and wait for the health check</h3>
+      <p>Start the <b>Manifold Fedimint Guardian</b> service (listed under its technical name, Fleet Manager) and wait until the <b>Operator Dashboard</b> health check turns green.</p>
+    </li>
+    <li>
+      <h3>Get the dashboard password</h3>
+      <div class="path"><span>Actions tab</span><i>&#8250;</i><span>Show Dashboard Password</span></div>
+      <p>Copy it. StartOS has no authenticating proxy in front of apps, so the dashboard protects itself with this generated password.</p>
+    </li>
+    <li>
+      <h3>Open the dashboard and sign in</h3>
+      <p>Use the interface's <b>address entries</b>, the Local <code>https://…</code> one, and accept the self signed certificate warning (unless you have installed your server's root certificate). Enter the password on the Sign in screen.</p>
+      <div class="call warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><div><b>Known StartOS quirk.</b> If you browse StartOS from the server itself (a kiosk, or a browser inside a VM), the Open button builds a dead <code>127.0.0.1</code> link. Use the address entries instead.</div></div>
+    </li>
+  </ol>
+</section>
+
+<!-- 03 SETUP -->
+<section class="blk" id="setup">
+  <div class="sec-head">
+    <div class="kicker">05 &#183; Set up the fleet</div>
+    <h2>The four screen setup wizard</h2>
+    <p class="sec-sub">Setup happens once, in the dashboard. Every step is saved as you go, so a closed tab or a restarted box resumes where you left off. The same four screens on Umbrel and Start9. The dashboard still uses the technical name in a few of its own labels; read them as Manifold Fedimint Guardian.</p>
+  </div>
+
+  <ol class="steps rv">
+    <li>
+      <span class="stepnum">SCREEN 1</span>
+      <h3>Choose: a new fleet, or recover one</h3>
+      <p>Two doors. <b>Start a new fleet</b> generates a fresh recovery phrase and starts with no seats. This is the usual choice. <b>Recover from your phrase</b> rebuilds a fleet whose original host is gone, from its 12 words, and brings its seats back with it.</p>
+      <p class="fine">Recovery is only offered here. Once a host is set up, the choice is made and cannot be revisited on that host.</p>
+      <div class="shot"><img src="media/guardian-guide/setup-doors.png" alt="Setup screen 1: Start a new fleet, or Recover from your phrase" width="1000" height="820" loading="lazy"></div>
+    </li>
+    <li>
+      <span class="stepnum">SCREEN 2</span>
+      <h3>"Record your recovery phrase"</h3>
+      <p>Click <b>Reveal phrase</b> and write the 12 words down on paper, in order. They are never stored in the browser, and there is no other backup: losing them loses every seat's guardian identity. Then click <b>I've written it down, continue</b>.</p>
+      <div class="call stop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><div><b>Do not photograph or type the phrase anywhere.</b> Anyone holding these words owns your fleet and everything it earns. You can reveal them again later from the Backup page if you need to check your copy.</div></div>
+      <div class="shot"><img src="media/guardian-guide/setup-phrase.png" alt="Setup screen 2: the twelve word recovery phrase" width="1000" height="820" loading="lazy"></div>
+    </li>
+    <li>
+      <span class="stepnum">SCREEN 3</span>
+      <h3>"Get this fleet authorized"</h3>
+      <p>The screen shows a QR code and your fleet's <b>service Nostr public key</b> (a 64 character string). A holder signs an authorization over this key; until one exists, founders have no way to evaluate you, so this step cannot be skipped.</p>
+      <p>Show the QR code to your verifier, who scans it with the credential app, or click <b>Copy the authorization request</b> and send them the copied request to paste in. Once they have signed and published it, click <b>Check now</b>. The wizard does not poll in the background, so nothing happens until you click.</p>
+      <p class="fine">When the relay carries your authorization the status changes to "Authorization observed" and the wizard moves on to the price step by itself after two seconds.</p>
+      <div class="shot"><img src="media/guardian-guide/setup-authorization.png" alt="Setup screen 3: QR code and service Nostr public key, waiting for a holder authorization" width="1000" height="820" loading="lazy"></div>
+    </li>
+    <li>
+      <span class="stepnum">SCREEN 4</span>
+      <h3>"Set your price"</h3>
+      <p><b>Maximum active seats</b> is prefilled with the RAM based recommendation; lower it if the box does other work. <b>Price per seat (sats)</b> is the whole offer: the gross amount a founder pays for one seat, before mint and Lightning fees. The dashboard suggests the equivalent of $2 to $3; a lower price fills seats sooner.</p>
+      <p>Click <b>Finish setup</b>. Leaving the price blank finishes setup without selling anything; you can set a price any time from the Overview.</p>
+      <div class="call info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Expect "Loading…" for about two minutes after this step.</b> The fleet joins the network's shared setup payment federation, the one founders pay you through, and scans its history once. It only happens the first time.</div></div>
+      <div class="shot"><img src="media/guardian-guide/setup-price.png" alt="Setup screen 4: maximum active seats and price per seat" width="1000" height="820" loading="lazy"></div>
+    </li>
+  </ol>
+  <div class="call ok rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><div><b>You are set up.</b> The dashboard now opens on the Overview with six pages in the left menu: Overview, Authorization, Seats, Wallet, Payouts and Backup. Your fleet has a two word name (for example <i>cranked-bonobo</i>) that founders and support can recognise it by; it is shown top left and on the Backup page.</div></div>
+  <div class="shot rv"><img src="media/guardian-guide/overview-fresh.png" alt="Overview right after setup: nothing sold yet" width="1000" height="820" loading="lazy"></div>
+  <p class="shot-cap"><b>Overview right after setup.</b> Zero everywhere is normal. The next section is about getting from here to the first sale.</p>
+</section>
+
+<!-- 04 DISCOVER -->
+<section class="blk" id="discover">
+  <div class="sec-head">
+    <div class="kicker">06 &#183; Get discovered</div>
+    <h2>Three conditions, then one restart</h2>
+    <p class="sec-sub">A fleet is invisible to founders until it has an authorization, a price, and a wallet that can receive payment. The dashboard shows all three. Then the software publishes your advertisement and keeps it fresh on its own.</p>
+  </div>
+  <ul class="check rv">
+    <li><b>Authorization observed.</b> Open <b>Authorization</b> in the left menu. It should list at least one holder under "Observed holders". This is the badge from screen 3.</li>
+    <li><b>A price is set.</b> The Overview's "Your offer" card shows a price per seat rather than "Not selling seats". Change it any time with <b>Change price</b>.</li>
+    <li><b>The wallet can receive.</b> Open <b>Wallet</b>. At least one payment federation should be listed. You did not add it and cannot remove it: membership follows the network's published setup payment policy, and the fleet joins automatically.</li>
+    <li><b>Restart the app once.</b> <span class="os-umbrel">Umbrel: open the app tile's <b>&#8943;</b> menu and choose <b>Restart</b>.</span><span class="os-startos">StartOS: <b>Stop</b> the service, then <b>Start</b> it again.</span> The advertisement loop stays quiet while the wallet is still joining and nothing wakes it when the join lands. A restart publishes immediately.</li>
+    <li><b>Confirm.</b> The Overview banner reads <b>Advertised and healthy</b>. That is the whole check. Anyone can additionally see your advertisement (a kind 37701 Nostr event) published from your service Nostr key on the Manifold relay.</li>
+  </ul>
+  <div class="call warn rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><div><b>Still not advertised after a few minutes?</b> The loop runs every 30 minutes, and a cycle that fires while the wallet is still opening (about three minutes after a start) is skipped silently. Wait until the Wallet page shows the federation, then restart once more.</div></div>
+</section>
+
+<!-- 05 EARN -->
+<section class="blk" id="earn">
+  <div class="sec-head">
+    <div class="kicker">07 &#183; Earn</div>
+    <h2>What happens when someone buys your seat</h2>
+    <p class="sec-sub">You do nothing. Founders pick, pay and form the federation from the Fedi app; the fleet accepts, starts a guardian and reports. Here is what you will see, and where the money comes from.</p>
+  </div>
+  <ol class="steps rv">
+    <li>
+      <h3>A founder assembles a guardian set</h3>
+      <p>In the Fedi app the founder opens Wallets, taps Create, and the app assembles a set of guardians from advertised fleets: cheapest first, then most free slots. One founder buys at most one seat from your fleet per federation.</p>
+    </li>
+    <li>
+      <h3>They pay once, for the whole set</h3>
+      <p>The founder pays the total in ecash through the shared setup payment federation. Your fleet receives your seat price, gross, before mint and Lightning fees. Every offered seat accepts automatically once a valid payment lands; there is no approval step and no "create seat" button on your side.</p>
+      <p class="fine">The Overview counts this as an accepted payment claim, which is not yet the same as a settled payment. The fleet reconciles the claim in the background and the Wallet balance follows.</p>
+    </li>
+    <li>
+      <h3>A seat appears and forms the federation</h3>
+      <p>Open <b>Seats</b>. The new seat moves from Created to DKG (the guardians generating their shared keys) to <b>Running</b>. From then on your box is one of that federation's guardians. Click a seat for its detail page: federation, health, fee policy and payment evidence.</p>
+      <div class="shot"><img src="media/guardian-guide/seats-mixed.png" alt="Seats page with seats in different states" width="1000" height="820" loading="lazy"></div>
+    </li>
+    <li>
+      <h3>Fees accrue for as long as the federation runs</h3>
+      <p>Every transaction members make inside the federation pays a small fee, split by a fixed rule: the founder holds <b>4 shares</b>, <b>each guardian 1 share</b>, and Fedi <b>1 share</b>, so a federation with 10 guardians has 15 shares and you hold one of them. The rate starts at 0.5% (5,000 ppm) and the founder can change it within the network's bounds. Your share is remitted into a per seat fee account that you collect from Payouts.</p>
+    </li>
+  </ol>
+  <div class="shot rv"><img src="media/guardian-guide/overview-earnings.png" alt="Overview with seat sales and guardian fees over several days" width="1000" height="993" loading="lazy"></div>
+  <p class="shot-cap"><b>Overview with revenue.</b> The four tiles are Wallet balance, Earned all time, Seat sales and Guardian fees. Everything is gross. The Earnings list groups seat sales and fee remittances by day. A dash means the fleet could not read that figure yet, not that it is zero.</p>
+  
+</section>
+
+<!-- 06 WITHDRAW -->
+<section class="blk" id="withdraw">
+  <div class="sec-head">
+    <div class="kicker">08 &#183; Withdraw</div>
+    <h2>Payouts: one destination, two kinds of revenue</h2>
+    <p class="sec-sub">Payouts is the only page where money leaves the fleet. It is ordered the way the software is: destination first, then seat sales, then guardian fees. A sweep always sends the largest amount the wallet can economically fund, through a gateway the software selects. There is no amount to type and no gateway to pick.</p>
+  </div>
+  <ol class="steps rv">
+    <li>
+      <h3>Save a payout destination</h3>
+      <p>In the <b>Payout destination</b> card, paste a <b>Lightning address or LNURL-pay</b> link (for example <code>you@wallet.example</code>) and click <b>Save destination</b>. Every sweep reuses it. A bolt11 invoice is refused because it can only be paid once.</p>
+      
+    </li>
+    <li>
+      <h3>Sweep seat sales</h3>
+      <p>The <b>Seat sales</b> table lists each payment federation your fleet has been paid through, with its balance. Click <b>Sweep</b> on a row. A small residue can stay behind when notes cannot cover the fees; that is expected and it is swept with the next sale.</p>
+    </li>
+    <li>
+      <h3>Collect, then send guardian fees</h3>
+      <p>Guardian fees take two clicks per seat, because the money first has to be released from the federation's fee pool into ordinary ecash: <b>1. Collect out of the pool</b>, then <b>2. Send to destination</b>. Part of a collection can stay locked until the federation's next cycle; the dashboard shows it as awaiting the cycle and you collect it next time.</p>
+      <p class="fine">Collecting works without a destination, since it moves money inside the fleet. Sending does not.</p>
+    </li>
+    <li>
+      <h3>Keep the operation id</h3>
+      <p>Each sweep shows an operation id with a copy button. It is the reference support will ask for if a payment needs tracing. The <b>Wallet</b> page stays read only: balances per payment federation, nothing to configure.</p>
+    </li>
+  </ol>
+  <div class="shot rv"><img src="media/guardian-guide/payouts.png" alt="Payouts page: payout destination, seat sales sweep, guardian fee collect and send" width="1000" height="1193" loading="lazy"></div>
+  <p class="shot-cap"><b>Payouts with revenue on both sides.</b> Destination at the top, then per federation seat sales, then per seat guardian fees with their two step buttons.</p>
+</section>
+
+<!-- 07 MAINTAIN -->
+<section class="blk" id="maintain">
+  <div class="band rv"><div class="glow"></div>
+    <div class="kicker">09 &#183; Keep it running</div>
+    <h2>A guardian's only job is to stay up</h2>
+    <p class="sec-sub">Every running seat is one of the guardians a real federation depends on. Nothing needs daily attention, but these six things are yours to own.</p>
+    <div class="grid">
+      <div class="g"><span class="num">01</span><h3>Updates are manual, and due the day the network asks</h3><p><span class="os-umbrel">Umbrel shows an Update button on the app once the store has a new version.</span><span class="os-startos">Download the new .s9pk from the releases page and sideload it again.</span> When the network names a newer release than yours, the dashboard takes the screen over with a notice; out of date fleets show up in the app as "not enough guardians" or "unauthorized request". Data survives updates, not uninstall.</p></div>
+      <div class="g"><span class="num">02</span><h3>Keep the node synced</h3><p>The guardian is only as current as its Bitcoin node. The Bitcoin Node app updates like any other app, and after an outage it catches up by itself. If a federation reports trouble, check the block height against mempool.space before anything else.</p></div>
+      <div class="g"><span class="num">03</span><h3>The 12 words are the whole backup</h3><p>Every key is derived from them and your seat records are published, encrypted, to the relay. The Backup page shows your fleet name, keys, and a Reveal recovery phrase link. Nothing else to export.</p></div>
+      <div class="g"><span class="num">04</span><h3>One phrase, one host</h3><p>Recovery is only possible while setting up a fresh host ("Recover from your phrase"). Never run two boxes from the same words: two guardians with one identity would contradict each other and break the federation.</p></div>
+      <div class="g"><span class="num">05</span><h3>Change price and capacity any time</h3><p>Overview &#8250; Change price. A blank price stops selling; 0 gives seats away and keeps you advertised. Seat capacity is on the same page and can never go below the seats already active.</p></div>
+      <div class="g"><span class="num">06</span><h3>Decommission is a last resort</h3><p>Founders pay once for open ended hosting. You can decommission a seat, but there is no refund mechanism and the federation loses a guardian. Price the disk and uptime you are promising into the seat price instead.</p></div>
+    </div>
+  </div>
+  <div class="shots2 rv">
+    <div><div class="shot" style="margin-top:0;"><img src="media/guardian-guide/backup.png" alt="Backup page: fleet name, keys, reveal recovery phrase" width="1000" height="820" loading="lazy"></div><p class="shot-cap"><b>Backup.</b> Name, service key, service Nostr key, and the phrase behind a deliberate extra click.</p></div>
+    <div><div class="shot" style="margin-top:0;"><img src="media/guardian-guide/offer.png" alt="Your offer page: seat capacity and price per seat" width="1000" height="820" loading="lazy"></div><p class="shot-cap"><b>Your offer.</b> Seat capacity and price are saved separately; each change re-issues the offer to founders.</p></div>
+  </div>
+</section>
+
+<!-- 08 TROUBLESHOOT -->
+<section class="blk" id="trouble">
+  <div class="sec-head">
+    <div class="kicker">10 &#183; Troubleshooting</div>
+    <h2>When something looks wrong</h2>
+    <p class="sec-sub">Most of these are waits, not failures.</p>
+  </div>
+  <div class="trouble rv">
+    <div class="r h"><span>What you see</span><span>Why</span><span>What to do</span></div>
+    <div class="r"><b>"Loading…" for minutes right after setup</b><span>First join of the setup payment federation scans its whole history.</span><span>Wait. About two minutes, once only.</span></div>
+    <div class="r"><b>Price set, but no "Advertised and healthy"</b><span>The advertisement loop skipped a cycle while the wallet was still opening, and nothing wakes it.</span><span>Check Wallet lists a federation, then restart the app once. <span class="os-umbrel">Umbrel: app &#8943; &#8250; Restart.</span><span class="os-startos">StartOS: Stop, then Start.</span></span></div>
+    <div class="r"><b>Authorization never observed</b><span>The badge was issued to a different key, or the relay read has not been repeated.</span><span>Compare the full key on the Authorization page with what your verifier scanned or received. Click Check now; setup never polls by itself.</span></div>
+    <div class="r"><b>A dash instead of a number on the Overview</b><span>The fleet could not read that account yet (a seat still forming has no fee account).</span><span>Nothing. A dash is "unknown", not zero. It fills in once the seat is running.</span></div>
+    <div class="r"><b>Sweep button greyed out</b><span>No payout destination saved, or that wallet holds nothing.</span><span>Save a Lightning address in the card at the top of Payouts, then retry.</span></div>
+    <div class="r"><b>"Send to destination" greyed out on a seat</b><span>Fees are still in the pool; only collected ecash can be sent.</span><span>Click 1. Collect out of the pool first. Locked deposits release at the next cycle.</span></div>
+    <div class="r"><b>App crash loops after an update with a migration error</b><span>The new build's database schema is incompatible with the data on disk (release notes flag these).</span><span>Uninstall, reinstall, and choose Recover from your phrase on the first setup screen; the fleet and its seats come back from the 12 words.</span></div>
+    <div class="r"><b>Founders see "not enough guardians" or "unauthorized request"</b><span>Version skew between fleets, the app and the network.</span><span>Update the fleet to the current release (see Keep it running).</span></div>
+    <div class="r os-umbrel"><b><code>[object Object]</code> error before the wizard</b><span>Frontend rendering bug on the pre setup screen.</span><span>Ignore or reload. The wizard still works.</span></div>
+    <div class="r os-startos"><b>Sideload page: "alerts is undefined"</b><span>StartOS 0.4.0 beta.</span><span>System &#8250; Software Update to 0.4.0 stable or later.</span></div>
+    <div class="r os-startos"><b>Open button leads to a dead 127.0.0.1 link</b><span>You are browsing StartOS from the server itself.</span><span>Use the interface's Local address entry instead.</span></div>
+    <div class="r os-minipc"><b>"Secure Boot Violation", or the stick will not boot</b><span>Secure Boot is still on.</span><span>Back into the BIOS: Security &#8250; Secure Boot &#8250; Disabled. Keep UEFI mode.</span></div>
+    <div class="r os-minipc"><b>The installer lists the wrong disk, or none</b><span>An external drive is plugged in, or the internal disk is in a RAID/Optane mode.</span><span>Unplug external drives and pick the internal SSD by size. If it is missing, set the SATA mode to AHCI in the BIOS.</span></div>
+    <div class="r os-minipc"><b>umbrel.local does not open</b><span>First boot takes a few minutes, Windows does not always resolve .local names, or the ethernet is not plugged in.</span><span>Wait five minutes. Try <code>http://umbrel</code>, or the box's IP from your router's device list. Check the cable.</span></div>
+    <div class="r os-minipc"><b>The box stayed off after a power cut</b><span>The BIOS default is to stay off when power returns.</span><span>BIOS &#8250; Power &#8250; After Power Loss &#8250; Power on. Then it comes back on its own.</span></div>
+    <div class="r"><b>Bitcoin node at under 1 percent for a day</b><span>The percentage is weighted by transactions; early blocks have almost none.</span><span>Normal. Watch the block height climb instead, and compare it with mempool.space.</span></div>
+    <div class="r"><b>Bitcoin node stopped, disk full</b><span>Pruning off plus a disk under 1 TB, or the chain outgrew the disk.</span><span>There is no shortcut: fit a 2 TB SSD as the system disk and reinstall. Do not turn pruning on to make room; a guardian cannot use a pruned node.</span></div>
+    <div class="r"><b>Bitcoin sync still running after two weeks</b><span>A spinning USB disk, Wi‑Fi, or a box that was powered off overnight.</span><span>Move the chain to an internal SSD, use ethernet, and set After Power Loss to Power on in the BIOS.</span></div>
+    <div class="r"><b>RPC password lost</b><span class="os-umbrel">Umbrel's Bitcoin Node app always shows it under Connect; only a reinstall changes it.</span><span class="os-startos">StartOS shows it under Properties; a lost user can be removed with Delete RPC Users and recreated.</span><span>Copy it again from the app and update your password manager.</span></div>
+    <div class="r"><b>Seats beyond the eighth connect slowly</b><span>Only UDP 31000 to 31031 are published; later seats fall back to relays.</span><span>Still works. A later package update extends the range.</span></div>
+  </div>
+</section>
+
+<!-- 10 FAQ -->
+<section class="blk" id="faq">
+  <div class="sec-head">
+    <div class="kicker">11 &#183; FAQ</div>
+    <h2>Questions people ask before they start</h2>
+  </div>
+  <div class="faq rv">
+    <details><summary>Do I need a public IP address, a domain, or a certificate?</summary><div class="a">No, and by design you never will. Founders reach your fleet over hole punched connections with public relays as fallback, your advertisement goes out over Nostr, and the dashboard is either behind Umbrel's login or protected by StartOS's generated password. Forwarding UDP 31000 to 31031 is optional and only improves direct connections.</div></details>
+    <details><summary>Do I need to run Bitcoin Core or Lightning?</summary><div class="a">Bitcoin Core yes, Lightning no. A mainnet guardian validates against your own unpruned Bitcoin Core on the same box; <a href="#bitcoin">Bitcoin node</a> covers it, and its sync is the longest step of the setup. A Lightning node is never required; payouts go to any Lightning address you already have.</div></details>
+    <details><summary>Can I choose which federations I host?</summary><div class="a">No. You set a price and a seat count; founders choose you. Every offered seat accepts automatically once a valid payment lands. If you want to stop being chosen, clear the price on the Overview.</div></details>
+    <details><summary>How much will I earn?</summary><div class="a">Two things: the seat price you set, paid once per seat sold, and one share of the federation's transaction fees for as long as it runs. The dashboard suggests a seat price around the equivalent of $2 to $3. Fee income depends entirely on how much the federation's members transact, so no number is promised here.</div></details>
+    <details><summary>What if I lose the 12 words?</summary><div class="a">While the box runs, nothing changes and you can reveal the phrase again from Backup. If the box dies and you do not have the words, the fleet and its seats cannot be recovered. Write them down before continuing past screen 2.</div></details>
+    <details><summary>Can I move my fleet to a new box?</summary><div class="a">Yes: set the new box up, choose "Recover from your phrase" on screen 1, and the seats rebuild from the encrypted records the fleet published to the relay. Turn the old box off first. Two hosts with one identity would contradict each other.</div></details>
+    <details><summary>Can I run more than one fleet, or raise the seat count later?</summary><div class="a">One fleet per box and per phrase. The seat limit is adjustable at any time on the Your offer page (or with <code>fman-cli capacity set N</code>); it just cannot drop below the seats already active.</div></details>
+    <details><summary>Where do I get help?</summary><div class="a">For the Umbrel app, the package's issue tracker at <a href="https://github.com/fedibtc/manifold-umbrel-store/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-store/issues</a>. For the StartOS package, <a href="https://github.com/fedibtc/manifold-fman-startos/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-fman-startos/issues</a>. For everything else, including finding a verifier, <a href="https://fedi.xyz" target="_blank" rel="noopener">fedi.xyz</a>.</div></details>
+  </div>
+</section>
+
+<!-- 11 SOURCES -->
+<section class="blk" id="sources">
+  <div class="sec-head">
+    <div class="kicker">12 &#183; Sources</div>
+    <h2>Where every statement on this page comes from</h2>
+    <p class="sec-sub">Checked against these on Sep 11, 2026.</p>
+  </div>
+  <div class="rowlist rv">
+    <div class="r"><b>Umbrel store and steps</b><a href="https://github.com/fedibtc/manifold-umbrel-store" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-store</a></div>
+    <div class="r"><b>StartOS package and in-app instructions</b><a href="https://github.com/fedibtc/manifold-fman-startos/blob/master/instructions.md" target="_blank" rel="noopener">github.com/fedibtc/manifold-fman-startos › instructions.md</a></div>
+    <div class="r"><b>The guardian software architecture</b><a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/ARCH-fleet-manager.md" target="_blank" rel="noopener">crates/fman/specs/ARCH-fleet-manager.md</a></div>
+    <div class="r"><b>Packaging contract, RAM sizing, no public IP</b><a href="https://github.com/fedibtc/manifold/tree/master/packages/fleet-manager" target="_blank" rel="noopener">packages/fleet-manager/README.md</a>, <a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/REQ-seat-capacity-default.md" target="_blank" rel="noopener">REQ-seat-capacity-default.md</a>, <a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/REQ-no-public-ip.md" target="_blank" rel="noopener">REQ-no-public-ip.md</a></div>
+    <div class="r"><b>Setup wizard, payouts, dashboard verbs</b><a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/SPEC-admin-socket.md" target="_blank" rel="noopener">SPEC-admin-socket.md</a>, <a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/SPEC-operator-http.md" target="_blank" rel="noopener">SPEC-operator-http.md</a>, <a href="https://github.com/fedibtc/manifold/tree/master/operator-ui/apps/fleet-manager" target="_blank" rel="noopener">operator-ui/apps/fleet-manager</a></div>
+    <div class="r"><b>Fee split and guardian fees</b><a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/SPEC-guardian-fee-policy.md" target="_blank" rel="noopener">SPEC-guardian-fee-policy.md</a></div>
+    <div class="r"><b>Backup and recovery</b><a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/SPEC-nostr-backup-restore.md" target="_blank" rel="noopener">SPEC-nostr-backup-restore.md</a></div>
+    <div class="r"><b>Badge requirement</b><a href="https://github.com/fedibtc/manifold/blob/master/specs/REQ-fman-trusted-peer-badge.md" target="_blank" rel="noopener">specs/REQ-fman-trusted-peer-badge.md</a></div>
+    <div class="r"><b>What v1 ships without</b><a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/ARCH-fleet-manager-product-boundary.md" target="_blank" rel="noopener">ARCH-fleet-manager-product-boundary.md</a></div>
+    <div class="r"><b>Published image</b><a href="https://github.com/fedibtc/manifold/pkgs/container/manifold-fman" target="_blank" rel="noopener">ghcr.io/fedibtc/manifold-fman</a></div>
+    <div class="r"><b>umbrelOS downloads and requirements</b><a href="https://umbrel.com/downloads" target="_blank" rel="noopener">umbrel.com/downloads</a>, <a href="https://github.com/getumbrel/umbrel/wiki/Install-umbrelOS-on-x86-systems" target="_blank" rel="noopener">github.com/getumbrel/umbrel/wiki › Install umbrelOS on x86 systems</a>, <a href="https://download.umbrel.com/release/1.7.4/SHA256SUMS" target="_blank" rel="noopener">SHA256SUMS for 1.7.4</a></div>
+    <div class="r"><b>StartOS flashing</b><a href="https://docs.start9.com/latest/flashing-guides/os-x86.html" target="_blank" rel="noopener">docs.start9.com › flashing guides › x86</a></div>
+    <div class="r"><b>Umbrel Bitcoin Node app</b><a href="https://apps.umbrel.com/app/bitcoin" target="_blank" rel="noopener">apps.umbrel.com/app/bitcoin</a> (v1.4.0-patch.1, Bitcoin Core v31.1), <a href="https://github.com/getumbrel/umbrel-bitcoin" target="_blank" rel="noopener">github.com/getumbrel/umbrel-bitcoin</a> (setting names read from the source)</div>
+    <div class="r"><b>Start9 Bitcoin Core</b><a href="https://github.com/Start9Labs/bitcoin-core-startos" target="_blank" rel="noopener">github.com/Start9Labs/bitcoin-core-startos</a> (v31.1_16, Sep 6, 2026; in-app instructions on pruning, Properties and sync time), <a href="https://docs.start9.com/latest/service-guides/bitcoin/index.html" target="_blank" rel="noopener">docs.start9.com › service guides › Bitcoin</a></div>
+    <div class="r"><b>Fedimint reference bitcoind config</b><a href="https://github.com/fedimint/fedimint/blob/master/devimint/src/cfg/bitcoin.conf" target="_blank" rel="noopener">fedimint/devimint/src/cfg/bitcoin.conf</a></div>
+          </div>
+</section>
+
+</main>
+</div>
+
+<!-- shared:footer:start -->
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="https://fedi.xyz" aria-label="Fedi">
+      <img class="logo" src="fedi-logo.svg" alt="Fedi" style="height:18px;">
+      <span class="sep">/</span><span class="prod">Manifold</span>
+    </a>
+    <div class="foot-links">
+      <a href="https://fedi.xyz" target="_blank" rel="noopener">fedi.xyz</a>
+      <a href="https://github.com/fedibtc/manifold" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://fedimint.org" target="_blank" rel="noopener">Fedimint</a>
+      <a href="/#roles">How it works</a>
+    </div>
+    <div class="foot-links">
+      <a href="https://fedi.xyz/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+      <a href="https://fedi.xyz/terms-of-use" target="_blank" rel="noopener">Terms of Use</a>
+    </div>
+    <p class="foot-note">Copyright 2026 Fedi Inc, All rights reserved.</p>
+  </div>
+</footer>
+<!-- shared:footer:end -->
+
+<script>
+(() => {
+  // platform switch: ?os=umbrel|startos, then localStorage, default umbrel
+  const root = document.documentElement;
+  const btns = [...document.querySelectorAll('.seg button[data-os]')];
+  // section numbers follow what is visible for the chosen path
+  const secs = [...document.querySelectorAll('main section.blk[id]')];
+  secs.forEach(sec => { const k = sec.querySelector('.kicker'); if (k && !k.dataset.title) k.dataset.title = k.textContent.replace(/^\d+\s*\u00b7\s*/, '').trim(); });
+  const renumber = () => {
+    let n = 0;
+    secs.forEach(sec => {
+      if (getComputedStyle(sec).display === 'none') return;
+      const num = String(n).padStart(2, '0');
+      const k = sec.querySelector('.kicker'); if (k) k.textContent = num + ' \u00b7 ' + k.dataset.title;
+      const a = document.querySelector('.toc a[href="#' + sec.id + '"] .num'); if (a) a.textContent = num;
+      n++;
+    });
+  };
+  const apply = (os, persist) => {
+    if (os !== 'umbrel' && os !== 'startos' && os !== 'minipc') os = 'minipc';
+    root.setAttribute('data-os', os);
+    btns.forEach(b => { const on = b.dataset.os === os; b.classList.toggle('on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    if (persist) { try { localStorage.setItem('guardian-guide.os', os); } catch (e) {} }
+    renumber();
+  };
+  const q = new URLSearchParams(location.search).get('os');
+  let saved = null; try { saved = localStorage.getItem('guardian-guide.os'); } catch (e) {}
+  apply(q || saved || 'minipc', false);
+  btns.forEach(b => b.addEventListener('click', () => {
+    apply(b.dataset.os, true);
+    const u = new URL(location.href); u.searchParams.set('os', b.dataset.os); history.replaceState(null, '', u);
+  }));
+  // links that need a specific path visible first
+  document.querySelectorAll('a[data-switch]').forEach(a => a.addEventListener('click', () => apply(a.dataset.switch, true)));
+
+  // reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // scrollspy for the table of contents
+  const links = [...document.querySelectorAll('.toc a')];
+  const byId = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const spy = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.classList.remove('on')); byId[e.target.id]?.classList.add('on'); } });
+  }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+  document.querySelectorAll('section.blk[id]').forEach(s => spy.observe(s));
+})();
+</script>
+<script>
+/* shared:navjs:start */
+/* header dropdowns */
+(function () {
+  const items = [...document.querySelectorAll('.nav-item')];
+  const closeAll = (except) => items.forEach(it => {
+    if (it === except) return;
+    it.classList.remove('open');
+    const t = it.querySelector('.nav-trigger');
+    if (t) t.setAttribute('aria-expanded', 'false');
+  });
+  items.forEach(item => {
+    const trigger = item.querySelector('.nav-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = !item.classList.contains('open');
+      closeAll(item);
+      item.classList.toggle('open', open);
+      trigger.setAttribute('aria-expanded', String(open));
+    });
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('.nav-item')) closeAll(); });
+
+  /* mobile: hamburger opens the same nav, dropdowns become accordions */
+  const bar = document.querySelector('nav');
+  const burger = document.getElementById('nav-burger');
+  const closePanel = () => {
+    if (!bar) return;
+    bar.classList.remove('open');
+    if (burger) burger.setAttribute('aria-expanded', 'false');
+    closeAll();
+  };
+  if (burger && bar) {
+    burger.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = !bar.classList.contains('open');
+      bar.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      if (!open) closeAll();
+    });
+  }
+  document.addEventListener('click', e => { if (!e.target.closest('nav')) closePanel(); });
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', closePanel));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); closePanel(); } });
+  window.addEventListener('resize', () => { if (window.innerWidth > 860) closePanel(); });
+})();
+/* shared:navjs:end */
+</script>
+</body>
+</html>

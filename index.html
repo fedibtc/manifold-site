@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Manifold — An open protocol for Bitcoin community custody | Fedi</title>
-<meta name="description" content="Create a federation and deliver community custody in an afternoon. Choose verified, independent guardians, pay in bitcoin, and let Manifold handle the setup.">
+<meta name="description" content="Create a federation and deliver community custody in an afternoon. A set of verified, independent guardians, pay in bitcoin, and let Manifold handle the setup.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,501,700,701,900&display=swap" rel="stylesheet">
@@ -36,6 +36,7 @@ img,svg{max-width:100%;display:block;}
 a{color:inherit;}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
 
+/* shared:css:start */
 /* ── Nav ──────────────────────────────────────── */
 nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,16,19,.06);}
 .nav-in{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px;}
@@ -63,6 +64,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-f
 .nav-burger span::before,.nav-burger span::after{content:"";position:absolute;left:0;width:17px;height:1.8px;border-radius:2px;background:var(--ink);transition:transform .2s;}
 .nav-burger span::before{top:-5.5px;}
 .nav-burger span::after{top:5.5px;}
+.nav-burger:hover{transform:none;box-shadow:none;}
 nav.open .nav-burger span{background:transparent;}
 nav.open .nav-burger span::before{transform:translateY(5.5px) rotate(45deg);}
 nav.open .nav-burger span::after{transform:translateY(-5.5px) rotate(-45deg);}
@@ -81,15 +83,24 @@ nav.open .nav-burger span::after{transform:translateY(-5.5px) rotate(-45deg);}
   .nav-in .nav-cta-mobile{display:inline-flex;margin-top:18px;width:100%;}
 }
 
+/* ── Footer ───────────────────────────────────── */
+footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between;font-size:13.5px;color:#7d8287;}
+.foot-in .brand{font-size:15px;}
+.foot-links{display:flex;flex-wrap:wrap;gap:20px;}
+.foot-links a{text-decoration:none;color:#565b60;font-weight:500;}
+.foot-links a:hover{color:var(--ink);}
+.foot-note{flex-basis:100%;font-size:12.5px;color:#9a9ea3;margin-top:6px;}
+/* shared:css:end */
+
 /* ── Buttons ──────────────────────────────────── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-size:15px;font-weight:500;letter-spacing:.1px;text-decoration:none;border-radius:100px;padding:15px 28px;cursor:pointer;border:1px solid transparent;transition:transform .16s ease,box-shadow .16s ease,background .16s;}
-.btn:active{transform:scale(.98);}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(11,16,19,.28);}
+.btn:active{transform:translateY(0) scale(.985);box-shadow:none;}
 .btn-ink{background:var(--ink);color:#fff;}
-.btn-ink:hover{box-shadow:0 8px 22px rgba(11,16,19,.24);transform:translateY(-1px);}
 .btn-ghost{background:#fff;color:var(--ink);border-color:#d8d9dc;}
 .btn-ghost:hover{border-color:var(--ink);}
 .btn-white{background:#fff;color:var(--ink);}
-.btn-white:hover{box-shadow:0 8px 22px rgba(0,0,0,.28);transform:translateY(-1px);}
 .btn-sm{padding:10px 20px;font-size:13.5px;}
 
 /* ── Hero ─────────────────────────────────────── */
@@ -154,6 +165,22 @@ h2{font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.04em;line-h
 .steps li:last-child::after{display:none;}
 .steps h3{font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:5px;}
 .steps p{font-size:15px;color:var(--body);max-width:460px;}
+.steps.lean li{padding:0 0 18px 62px;}
+.steps.lean h3{font-size:19px;margin-bottom:0;}
+.steps.lean li::after{top:42px;bottom:2px;}
+.dep-top{display:flex;align-items:center;gap:13px;margin-bottom:12px;}
+.dep-logo{width:40px;height:40px;border-radius:11px;overflow:hidden;flex:none;display:flex;align-items:center;justify-content:center;background:#fff;}
+.dep-logo img{width:100%;height:100%;object-fit:contain;display:block;}
+.dep-logo.s9{background:#1a1f23;border:1px solid rgba(255,255,255,.14);padding:6px;}
+.dep-card h4{margin-bottom:0;}
+.dep-ico{width:40px;height:40px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;}
+.dep-ico svg{width:30px;height:30px;}
+.btn.is-soon{background:#eceef0;color:#8a8f94;cursor:default;box-shadow:none;display:inline-flex;align-items:center;gap:10px;}
+.btn.is-soon:hover{transform:none;box-shadow:none;background:#eceef0;}
+.btn.is-soon:active{transform:none;}
+.btn.is-soon i{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#fff;color:#6b7075;border-radius:100px;padding:4px 9px;}
+.whatis{max-width:880px;margin:0 auto;text-align:center;font-size:clamp(20px,2.4vw,28px);line-height:1.45;font-weight:500;letter-spacing:-.02em;color:var(--body);}
+.whatis b{font-weight:700;color:var(--ink);}
 .steps .fine{font-size:12.5px;color:#8b9095;margin-top:5px;}
 @media(max-width:960px){.how-grid{grid-template-columns:1fr;gap:44px;}.how-phone{margin:0 auto;}}
 
@@ -244,22 +271,31 @@ h2{font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.04em;line-h
 .faq .a{padding:0 4px 26px;font-size:15.5px;color:var(--body);max-width:640px;}
 
 /* cta band */
-.cta-band{position:relative;border-radius:var(--r-band);overflow:hidden;background:#fdf3fa;}
-.cta-band .aurora i{opacity:.85;}
-.cta-band .aurora::after{background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.35));}
+.cta-band{position:relative;border-radius:var(--r-band);overflow:hidden;
+  background:
+    radial-gradient(120% 90% at 12% 6%, #f2edff 0%, rgba(242,237,255,0) 60%),
+    radial-gradient(110% 80% at 88% 96%, #fdf1f8 0%, rgba(253,241,248,0) 60%),
+    linear-gradient(160deg,#fafaff 0%,#fdfcff 45%,#fffdfb 100%);}
+.orbs{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.orbs i{position:absolute;border-radius:50%;display:block;}
+.orbs i::after{content:'';position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 34% 26%, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 42%);}
+.orbs .o1{width:46%;padding-bottom:46%;left:-11%;bottom:-22%;
+  background:radial-gradient(circle at 30% 24%, #d9dcff 0%, #e2d4fb 34%, #ffd4e8 62%, #ffe6cf 86%, #ffeedd 100%);
+  box-shadow:0 30px 90px -40px rgba(140,120,200,.45);}
+.orbs .o2{width:41%;padding-bottom:41%;right:-6%;top:-26%;
+  background:radial-gradient(circle at 36% 30%, #dcd3ff 0%, #cfd6ff 28%, #ffd2e6 60%, #ffe3cd 88%, #fff1e4 100%);
+  box-shadow:0 30px 90px -40px rgba(150,125,205,.42);}
+.orbs .o3{width:19%;padding-bottom:19%;right:14%;bottom:-8%;
+  background:radial-gradient(circle at 32% 26%, #d6e2ff 0%, #e4d8ff 38%, #ffd9ea 70%, #fff0e2 100%);
+  box-shadow:0 18px 50px -26px rgba(150,125,205,.4);}
+@media(max-width:760px){.orbs .o1{width:66%;padding-bottom:66%;}.orbs .o2{width:60%;padding-bottom:60%;}.orbs .o3{display:none;}}
 .cta-in{position:relative;z-index:1;text-align:center;padding:92px 32px;}
 .cta-in h2{max-width:640px;margin:0 auto 16px;}
 .cta-in p{max-width:520px;margin:0 auto 34px;color:#4f545a;font-weight:500;}
 .cta-in .hero-ctas{margin-bottom:0;justify-content:center;}
 
 /* footer */
-footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
-.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between;font-size:13.5px;color:#7d8287;}
-.foot-in .brand{font-size:15px;}
-.foot-links{display:flex;flex-wrap:wrap;gap:20px;}
-.foot-links a{text-decoration:none;color:#565b60;font-weight:500;}
-.foot-links a:hover{color:var(--ink);}
-.foot-note{flex-basis:100%;font-size:12.5px;color:#9a9ea3;margin-top:6px;}
 
 /* reveal */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
@@ -356,6 +392,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2.5px solid v
 .fedirow p{font-size:16px;line-height:1.65;color:var(--body);max-width:460px;}
 .fr-copy{padding:0 8px;}
 .illo{border-radius:22px;}
+.illo.tall img{aspect-ratio:4/5;}
+@media(max-width:900px){.illo.tall img{aspect-ratio:1/1;}}
 .illo img,.illo video{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:22px;background:#f6f4f1;}
 .fr-phone{justify-self:center;max-width:300px;}
 .sec-foot{display:flex;justify-content:center;margin-top:56px;}
@@ -370,14 +408,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2.5px solid v
 .deploy-head{margin-top:64px;text-align:center;}
 .deploy-head h3{font-size:clamp(21px,2.4vw,26px);font-weight:700;letter-spacing:-.025em;color:#fff;}
 .deploy-head p{margin-top:10px;font-size:15px;color:#a9aeb4;}
-.deploy-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px;}
+.deploy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px;}
 .dep-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.13);border-radius:22px;padding:28px 26px;box-shadow:0 0 60px -20px rgba(127,216,155,.28);}
 .dep-card h4{font-size:18px;font-weight:700;letter-spacing:-.015em;color:#fff;margin-bottom:9px;}
 .dep-card p{font-size:14.5px;line-height:1.55;color:#a9aeb4;}
 .dep-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
 .btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.32);}
-.btn-outline:hover{border-color:#fff;}
-@media(max-width:860px){.deploy-grid{grid-template-columns:1fr;}}
+.btn-outline:hover{border-color:#fff;box-shadow:0 10px 24px -8px rgba(0,0,0,.45);}
+@media(max-width:1040px){.deploy-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:760px){.deploy-grid{grid-template-columns:1fr;}}
 
 /* trust: icon led trio (replaces the plain boxes) */
 .tri-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px;}
@@ -419,6 +458,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2.5px solid v
 .fb-ic svg{width:27px;height:27px;}
 
 .rel-cap a{font-weight:700;}
+.relmap .gtip{opacity:0;transition:opacity .16s ease;pointer-events:none;}
+.relmap .gsh:hover .gtip{opacity:1;}
 .softband{background:#faf5ec;border-radius:var(--r-band);padding:78px 72px;}
 .softband .fedirow p{color:#5a544a;}
 @media(max-width:760px){.softband{padding:48px 26px;border-radius:28px;}}
@@ -524,10 +565,12 @@ html.gate-locked #gate{display:flex;}
 
 
 
+<!-- shared:header:start -->
 <nav>
   <div class="nav-in">
-    <a class="brand" href="https://fedi.xyz" aria-label="Fedi">
+    <a class="brand" href="/" aria-label="Fedi / Manifold">
       <img class="logo" src="fedi-logo.svg" alt="Fedi">
+      <span class="sep">/</span><span class="prod">Manifold</span>
     </a>
     <div class="nav-links" id="nav-links">
       <div class="nav-item">
@@ -571,6 +614,7 @@ html.gate-locked #gate{display:flex;}
     <a class="btn btn-ink btn-sm nav-cta" href="https://fedi.xyz/get-the-app" target="_blank" rel="noopener">Download Fedi</a>
   </div>
 </nav>
+<!-- shared:header:end -->
 
 <main id="segments">
 
@@ -578,12 +622,12 @@ html.gate-locked #gate{display:flex;}
   <div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i><i class="a4"></i></div>
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="eyebrow"><span class="dot"></span>Introducing Manifold</span>
+      <span class="eyebrow">Introducing Manifold</span>
       <h1>Create a federation and provide community custody</h1>
-      <p class="hero-sub">Start a federation in a few simple steps. Choose your Guardian set of trusted and verified people to secure your community&#8217;s funds, pay in bitcoin, and let Manifold handle the setup.</p>
+      <p class="hero-sub">Manifold is an open protocol for setting up a federation without running the servers yourself. Trusted, verified Guardians secure your community&#8217;s funds, you pay in bitcoin, and Manifold handles the setup.</p>
       <div class="hero-ctas">
-        <a class="btn btn-ink" href="#founders">Create a federation</a>
-        <a class="btn btn-ghost" href="#guardians">Be a federation guardian</a>
+        <span class="btn btn-ink is-soon" role="button" aria-disabled="true" title="Federation creation is not open yet">Create a federation<i>Soon</i></span>
+        <a class="btn btn-ghost" href="#gbenefit">Become a guardian</a>
       </div>
       <div class="proofline">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>100% open source</span>
@@ -603,8 +647,8 @@ html.gate-locked #gate{display:flex;}
         <source src="media/hero-guardians.mp4" type="video/mp4">
       </video>
       <div class="fchip" style="top:18px;right:26px;"><span class="live"></span>Live &#183; 10/10 guardians online</div>
-      <div class="fchip d2" style="bottom:23%;left:-30px;"><span class="ic" style="background:var(--mint);"><svg viewBox="0 0 24 24" fill="none" stroke="#1e6b38" stroke-width="2.4" stroke-linecap="round"><path d="M12 3v18M5 10l7-7 7 7"/></svg></span><span>Transaction fee 0.5%<span class="sub">your cut of every member payment</span></span></div>
-      <div class="fchip d3" style="bottom:26px;right:-22px;"><span class="ic" style="background:var(--butter);"><svg viewBox="0 0 24 24" fill="none" stroke="#9a7016" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>Received 2,100 sats<span class="sub">settled instantly, in ecash</span></span></div>
+      <div class="fchip d2" style="bottom:23%;left:-30px;"><span class="ic" style="background:var(--mint);"><svg viewBox="0 0 24 24" fill="none" stroke="#1e6b38" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7.5-3.6 7.5-9V5.4L12 2.7 4.5 5.4V12c0 5.4 7.5 9 7.5 9z"/></svg></span><span>No single key holder<span class="sub">the guardians hold it together</span></span></div>
+      <div class="fchip d3" style="bottom:26px;right:-22px;"><span class="ic" style="background:var(--butter);"><svg viewBox="0 0 24 24" fill="none" stroke="#9a7016" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span><span>Members pay each other<span class="sub">instantly, in ecash</span></span></div>
     </div>
   </div>
 </header>
@@ -614,134 +658,45 @@ html.gate-locked #gate{display:flex;}
     <div class="sec-head center rv">
       <div class="kicker">How it works</div>
       <h2>Community custody, ready to deploy</h2>
-      <p class="sec-sub">The Founder starts the federation. Guardians secure it. Liquidity Providers connect it to Lightning.</p>
+      <p class="sec-sub">The Founder starts the federation. Guardians secure it. Members transact inside it, in ecash.</p>
     </div>
-    <div class="relmap rv" aria-label="Diagram: the federation founder sets up the federation and pays once in ecash. Seven verified, independent guardians protect it. Inside the federation, members send ecash to each other. Liquidity providers can connect it to Lightning.">
-      <svg viewBox="0 0 1000 726" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="relmap rv" aria-label="Diagram: the federation founder starts the federation and sets the fee. Inside it, members pay each other in ecash. Seven verified guardians surround and protect it.">
+      <svg viewBox="0 0 1000 650" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="rsoft" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0b1013" flood-opacity="0.09"/></filter>
           <filter id="rhalo" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="34"/></filter>
           <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#9aa0a6"/></marker>
         </defs>
 
-        <g filter="url(#rhalo)" opacity=".55"><circle cx="420" cy="360" r="120" fill="#ddd0ff"/><circle cx="600" cy="430" r="110" fill="#cff2dd"/><circle cx="500" cy="300" r="90" fill="#ffd9ec"/></g>
+        <g filter="url(#rhalo)" opacity=".5"><circle cx="410" cy="290" r="120" fill="#ddd0ff"/><circle cx="610" cy="355" r="110" fill="#cff2dd"/><circle cx="500" cy="240" r="90" fill="#ffd9ec"/></g>
 
-        <!-- the security ring the guardians sit on -->
-        <ellipse cx="500" cy="380" rx="440" ry="260" stroke="#d8d9dc" stroke-width="1.6" stroke-dasharray="3 8" stroke-linecap="round"/>
+        <ellipse cx="500" cy="305" rx="432" ry="252" stroke="#d8d9dc" stroke-width="1.6" stroke-dasharray="3 9" stroke-linecap="round"/>
 
-        <!-- you, top center -->
         <g filter="url(#rsoft)">
-          <rect x="378" y="8" width="244" height="76" rx="22" fill="#fff" stroke="#e5e5e8"/>
-          <circle cx="414" cy="46" r="15" fill="#f0f0f2"/>
-          <path d="M414 42a4.6 4.6 0 1 1 0 .01M405 55c1.4-4 4.8-6 9-6s7.6 2 9 6" stroke="#0b1013" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <text x="440" y="42" font-family="Satoshi,sans-serif" font-size="14.5" font-weight="700" fill="#0b1013">Federation founder</text>
-          <text x="440" y="61" font-family="Satoshi,sans-serif" font-size="11.5" font-weight="500" fill="#858585">start it, shape it, earn from it</text>
+          <rect x="374" y="10" width="252" height="62" rx="21" fill="#fff" stroke="#e5e5e8"/>
+          <clipPath id="fdr"><circle cx="410" cy="41" r="17"/></clipPath><image href="media/avatars/founder.jpg" x="393" y="24" width="34" height="34" clip-path="url(#fdr)" preserveAspectRatio="xMidYMid slice"/><circle cx="410" cy="41" r="17" stroke="#fff" stroke-width="2.5" fill="none"/>
+          <text x="436" y="47" font-family="Satoshi,sans-serif" font-size="15" font-weight="700" fill="#0b1013">Federation founder</text>
         </g>
+        <path d="M500 84 V 128" stroke="#b9bdc2" stroke-width="1.8" marker-end="url(#arr)"/>
 
-        <!-- you -> service -->
-        <path d="M500 86 V 200" stroke="#b9bdc2" stroke-width="1.8" marker-end="url(#arr)"/>
         <g filter="url(#rsoft)">
-          <rect x="366" y="118" width="268" height="30" rx="15" fill="#fff" stroke="#e8e8ea"/>
-          <text x="500" y="137.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12.5" font-weight="700" fill="#565b60">sets it up &#183; pays once, in ecash</text>
+          <rect x="250" y="140" width="500" height="330" rx="34" fill="#fdfdff" stroke="#e4e2ee"/>
+          <text x="500" y="182" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="19" font-weight="700" fill="#0b1013">Your federation</text>
+          <text x="500" y="205" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12.5" font-weight="500" fill="#858585">members pay each other, in ecash</text>
+          <g stroke="rgba(11,16,19,.10)" stroke-width="1.4" fill="none"><path id="mp0" d="M362 300 Q 431 265 500 266"/><path id="mp1" d="M500 266 Q 572 265 645 300"/><path id="mp2" d="M645 300 Q 612 331 578 398"/><path id="mp3" d="M578 398 Q 502 424 426 398"/><path id="mp4" d="M426 398 Q 394 331 362 300"/></g>
+          <g><circle r="5" fill="#f7b500"><animateMotion dur="4.2s" begin="0s" repeatCount="indefinite"><mpath href="#mp0"/></animateMotion></circle><circle r="5" fill="#f7b500"><animateMotion dur="5.0s" begin="-1.6s" repeatCount="indefinite"><mpath href="#mp1"/></animateMotion></circle><circle r="5" fill="#f7b500"><animateMotion dur="4.6s" begin="-3.1s" repeatCount="indefinite"><mpath href="#mp2"/></animateMotion></circle><circle r="5" fill="#f7b500"><animateMotion dur="3.9s" begin="-0.8s" repeatCount="indefinite"><mpath href="#mp3"/></animateMotion></circle><circle r="5" fill="#f7b500"><animateMotion dur="5.4s" begin="-2.4s" repeatCount="indefinite"><mpath href="#mp4"/></animateMotion></circle></g>
+          <g><clipPath id="mc0"><circle cx="362" cy="300" r="34"/></clipPath><image href="media/avatars/m1.jpg" x="328" y="266" width="68" height="68" clip-path="url(#mc0)" preserveAspectRatio="xMidYMid slice"/><circle cx="362" cy="300" r="34" stroke="#fff" stroke-width="3.5" fill="none"/></g><g><clipPath id="mc1"><circle cx="500" cy="266" r="36"/></clipPath><image href="media/avatars/m2.jpg" x="464" y="230" width="72" height="72" clip-path="url(#mc1)" preserveAspectRatio="xMidYMid slice"/><circle cx="500" cy="266" r="36" stroke="#fff" stroke-width="3.5" fill="none"/></g><g><clipPath id="mc2"><circle cx="645" cy="300" r="34"/></clipPath><image href="media/avatars/m3.jpg" x="611" y="266" width="68" height="68" clip-path="url(#mc2)" preserveAspectRatio="xMidYMid slice"/><circle cx="645" cy="300" r="34" stroke="#fff" stroke-width="3.5" fill="none"/></g><g><clipPath id="mc3"><circle cx="426" cy="398" r="33"/></clipPath><image href="media/avatars/m4.jpg" x="393" y="365" width="66" height="66" clip-path="url(#mc3)" preserveAspectRatio="xMidYMid slice"/><circle cx="426" cy="398" r="33" stroke="#fff" stroke-width="3.5" fill="none"/></g><g><clipPath id="mc4"><circle cx="578" cy="398" r="33"/></clipPath><image href="media/avatars/m5.jpg" x="545" y="365" width="66" height="66" clip-path="url(#mc4)" preserveAspectRatio="xMidYMid slice"/><circle cx="578" cy="398" r="33" stroke="#fff" stroke-width="3.5" fill="none"/></g>
         </g>
-        <circle r="4.5" fill="#f7b500"><animateMotion dur="3.6s" repeatCount="indefinite" path="M500 90 V 196"/></circle>
-
-        <!-- the wallet service, members inside -->
-        <g filter="url(#rsoft)">
-          <rect x="240" y="206" width="520" height="348" rx="34" fill="#fdfdff" stroke="#e4e2ee"/>
-          <text x="500" y="246" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="18" font-weight="700" fill="#0b1013">Your federation</text>
-          <text x="500" y="267" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="11.5" font-weight="500" fill="#858585">inside, members transact freely &#183; <tspan font-weight="700" fill="#565b60">in ecash</tspan></text>
-
-          <!-- ecash moving member to member (middle member included) -->
-          <g stroke="rgba(11,16,19,.10)" stroke-width="1.4" fill="none">
-            <path id="p1" d="M360 356 C 420 320 450 320 500 332"/>
-            <path id="p2" d="M500 332 C 560 338 612 346 646 362"/>
-            <path id="p3" d="M646 362 C 622 420 570 444 500 406"/>
-            <path id="p4" d="M500 406 C 460 430 422 452 392 464"/>
-            <path id="p5" d="M392 464 C 470 496 540 490 608 460"/>
-            <path id="p6" d="M608 460 C 572 432 540 418 500 406"/>
-          </g>
-          <g>
-            <circle r="4.5" fill="#f7b500"><animateMotion dur="4.2s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
-            <circle r="4" fill="#f7b500" opacity=".9"><animateMotion dur="5s" begin="-2.4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#p2"/></animateMotion></circle>
-            <circle r="4.5" fill="#f7b500"><animateMotion dur="4.6s" begin="-1.2s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion></circle>
-            <circle r="4" fill="#f7b500" opacity=".9"><animateMotion dur="3.8s" begin="-.6s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion></circle>
-            <circle r="4.5" fill="#f7b500"><animateMotion dur="5.6s" begin="-3s" repeatCount="indefinite"><mpath href="#p5"/></animateMotion></circle>
-            <circle r="4" fill="#f7b500" opacity=".9"><animateMotion dur="4.4s" begin="-2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#p6"/></animateMotion></circle>
-          </g>
-
-          <!-- members -->
-          <g><clipPath id="avA"><circle cx="360" cy="356" r="22"/></clipPath>
-            <circle cx="360" cy="356" r="22" fill="#ffe3f0"/>
-            <g clip-path="url(#avA)"><circle cx="360" cy="349.8" r="7.5" fill="#c76ba0"/><ellipse cx="360" cy="371.8" rx="13.6" ry="11.0" fill="#c76ba0"/></g>
-            <circle cx="360" cy="356" r="22" stroke="#fff" stroke-width="2.5" fill="none"/></g>
-          <g><clipPath id="avB"><circle cx="500" cy="332" r="19"/></clipPath>
-            <circle cx="500" cy="332" r="19" fill="#ddeeff"/>
-            <g clip-path="url(#avB)"><circle cx="500" cy="326.7" r="6.5" fill="#5f93c4"/><ellipse cx="500" cy="345.7" rx="11.8" ry="9.5" fill="#5f93c4"/></g>
-            <circle cx="500" cy="332" r="19" stroke="#fff" stroke-width="2.5" fill="none"/></g>
-          <g><clipPath id="avC"><circle cx="646" cy="362" r="21"/></clipPath>
-            <circle cx="646" cy="362" r="21" fill="#d9f3e3"/>
-            <g clip-path="url(#avC)"><circle cx="646" cy="356.1" r="7.1" fill="#57a06f"/><ellipse cx="646" cy="377.1" rx="13.0" ry="10.5" fill="#57a06f"/></g>
-            <circle cx="646" cy="362" r="21" stroke="#fff" stroke-width="2.5" fill="none"/></g>
-          <g><clipPath id="avD"><circle cx="392" cy="464" r="19"/></clipPath>
-            <circle cx="392" cy="464" r="19" fill="#ffefd1"/>
-            <g clip-path="url(#avD)"><circle cx="392" cy="458.7" r="6.5" fill="#c99a4b"/><ellipse cx="392" cy="477.7" rx="11.8" ry="9.5" fill="#c99a4b"/></g>
-            <circle cx="392" cy="464" r="19" stroke="#fff" stroke-width="2.5" fill="none"/></g>
-          <g><clipPath id="avE"><circle cx="608" cy="460" r="21"/></clipPath>
-            <circle cx="608" cy="460" r="21" fill="#e6ddff"/>
-            <g clip-path="url(#avE)"><circle cx="608" cy="454.1" r="7.1" fill="#8a6fc9"/><ellipse cx="608" cy="475.1" rx="13.0" ry="10.5" fill="#8a6fc9"/></g>
-            <circle cx="608" cy="460" r="21" stroke="#fff" stroke-width="2.5" fill="none"/></g>
-          <g><clipPath id="avF"><circle cx="500" cy="406" r="18"/></clipPath>
-            <circle cx="500" cy="406" r="18" fill="#eceff2"/>
-            <g clip-path="url(#avF)"><circle cx="500" cy="401.0" r="6.1" fill="#7d8792"/><ellipse cx="500" cy="419.0" rx="11.2" ry="9.0" fill="#7d8792"/></g>
-            <circle cx="500" cy="406" r="18" stroke="#fff" stroke-width="2.5" fill="none"/></g>
-
-          <text x="500" y="530" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="11.5" font-weight="500" letter-spacing=".4" fill="#858585">member &#8596; member, in ecash</text>
-        </g>
-
-        <!-- guardians label -->
-        <path d="M228 124 C 240 130 246 136 252 144" stroke="#c9cbce" stroke-width="1.6" stroke-dasharray="2 5" stroke-linecap="round" fill="none"/>
-        <g filter="url(#rsoft)">
-          <rect x="34" y="88" width="194" height="66" rx="20" fill="#fff" stroke="#e5e5e8"/>
-          <circle cx="66" cy="121" r="12" fill="#0088ff"/>
-          <path d="M60.5 121l3.6 3.6 6.4-7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <text x="88" y="117" font-family="Satoshi,sans-serif" font-size="14.5" font-weight="700" fill="#0b1013">Guardians</text>
-          <text x="88" y="135" font-family="Satoshi,sans-serif" font-size="11.5" font-weight="500" fill="#858585">independent and verified</text>
-        </g>
-
-        <!-- liquidity providers (several) -->
-        <path d="M800 616 C 778 592 758 574 736 556" stroke="#b9bdc2" stroke-width="1.8" marker-end="url(#arr)" fill="none"/>
-        <g filter="url(#rsoft)">
-          <rect x="608" y="586" width="150" height="30" rx="15" fill="#fff" stroke="#e8e8ea"/>
-          <text x="683" y="605.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12.5" font-weight="700" fill="#565b60">Lightning in &#9889;</text>
-        </g>
-        <g filter="url(#rsoft)">
-          <g><rect x="786" y="606" width="182" height="64" rx="20" fill="#fff" stroke="#e8e8ea" opacity=".55"/>
-          <rect x="774" y="614" width="190" height="64" rx="20" fill="#fff" stroke="#e8e8ea" opacity=".75"/></g>
-          <rect x="762" y="622" width="206" height="66" rx="20" fill="#fff" stroke="#e5e5e8"/>
-          <circle cx="794" cy="655" r="13" fill="#f0f0f2"/>
-          <path d="M796 647l-6 9.5h5l-2 7.5 7-10.5h-5l1-6.5z" fill="#f7b500"/>
-          <text x="816" y="651" font-family="Satoshi,sans-serif" font-size="13.5" font-weight="700" fill="#0b1013">Liquidity providers</text>
-          <text x="816" y="669" font-family="Satoshi,sans-serif" font-size="11.5" font-weight="500" fill="#858585">optional &#183; open to anyone</text>
-        </g>
-
-        <!-- 7 guardians securing the ring -->
-        <g transform="translate(239,132)" filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="7.5" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.6 9.1l2.3 2.3 3.9-4.3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-        <text x="267" y="204" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="10.5" font-weight="700" letter-spacing=".6" fill="#858585">GUARDIAN 1</text>
-        <g transform="translate(705,132)" filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="7.5" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.6 9.1l2.3 2.3 3.9-4.3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-        <text x="733" y="204" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="10.5" font-weight="700" letter-spacing=".6" fill="#858585">GUARDIAN 2</text>
-        <g transform="translate(34,329)" filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="7.5" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.6 9.1l2.3 2.3 3.9-4.3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-        <text x="62" y="401" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="10.5" font-weight="700" letter-spacing=".6" fill="#858585">GUARDIAN 3</text>
-        <g transform="translate(910,329)" filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="7.5" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.6 9.1l2.3 2.3 3.9-4.3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-        <text x="938" y="401" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="10.5" font-weight="700" letter-spacing=".6" fill="#858585">GUARDIAN 4</text>
-        <g transform="translate(125,512)" filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="7.5" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.6 9.1l2.3 2.3 3.9-4.3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-        <text x="153" y="584" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="10.5" font-weight="700" letter-spacing=".6" fill="#858585">GUARDIAN 5</text>
-        <g transform="translate(472,612)" filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="7.5" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.6 9.1l2.3 2.3 3.9-4.3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-        <text x="500" y="684" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="10.5" font-weight="700" letter-spacing=".6" fill="#858585">GUARDIAN 6</text>
-        <g transform="translate(819,512)" filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="7.5" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.6 9.1l2.3 2.3 3.9-4.3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
-        <text x="847" y="584" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="10.5" font-weight="700" letter-spacing=".6" fill="#858585">GUARDIAN 7</text>
+      
+        <g class="gsh" transform="translate(659,50)"><title>PeerBadge verified</title><g filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round" fill="none"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="8" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.4 9.1l2.4 2.4 4.1-4.5" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="gtip" transform="translate(28,68)"><rect x="-84" y="0" width="168" height="30" rx="15" fill="#0b1013"/><text x="0" y="19.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12" font-weight="700" fill="#fff">PeerBadge verified</text></g></g>
+        <g class="gsh" transform="translate(893,221)"><title>PeerBadge verified</title><g filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round" fill="none"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="8" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.4 9.1l2.4 2.4 4.1-4.5" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="gtip" transform="translate(17,68)"><rect x="-84" y="0" width="168" height="30" rx="15" fill="#0b1013"/><text x="0" y="19.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12" font-weight="700" fill="#fff">PeerBadge verified</text></g></g>
+        <g class="gsh" transform="translate(810,434)"><title>PeerBadge verified</title><g filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round" fill="none"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="8" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.4 9.1l2.4 2.4 4.1-4.5" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="gtip" transform="translate(28,68)"><rect x="-84" y="0" width="168" height="30" rx="15" fill="#0b1013"/><text x="0" y="19.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12" font-weight="700" fill="#fff">PeerBadge verified</text></g></g>
+        <g class="gsh" transform="translate(472,529)"><title>PeerBadge verified</title><g filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round" fill="none"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="8" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.4 9.1l2.4 2.4 4.1-4.5" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="gtip" transform="translate(28,68)"><rect x="-84" y="0" width="168" height="30" rx="15" fill="#0b1013"/><text x="0" y="19.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12" font-weight="700" fill="#fff">PeerBadge verified</text></g></g>
+        <g class="gsh" transform="translate(134,434)"><title>PeerBadge verified</title><g filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round" fill="none"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="8" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.4 9.1l2.4 2.4 4.1-4.5" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="gtip" transform="translate(28,68)"><rect x="-84" y="0" width="168" height="30" rx="15" fill="#0b1013"/><text x="0" y="19.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12" font-weight="700" fill="#fff">PeerBadge verified</text></g></g>
+        <g class="gsh" transform="translate(51,221)"><title>PeerBadge verified</title><g filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round" fill="none"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="8" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.4 9.1l2.4 2.4 4.1-4.5" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="gtip" transform="translate(39,68)"><rect x="-84" y="0" width="168" height="30" rx="15" fill="#0b1013"/><text x="0" y="19.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12" font-weight="700" fill="#fff">PeerBadge verified</text></g></g>
+        <g class="gsh" transform="translate(285,50)"><title>PeerBadge verified</title><g filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round" fill="none"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="8" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.4 9.1l2.4 2.4 4.1-4.5" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="gtip" transform="translate(28,68)"><rect x="-84" y="0" width="168" height="30" rx="15" fill="#0b1013"/><text x="0" y="19.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12" font-weight="700" fill="#fff">PeerBadge verified</text></g></g>
       </svg>
-      <p class="rel-cap"><b>7 guardians</b> secure the federation. Each guardian is <b>verified</b> and hosted by a different independent operator on their own hardware.</p>
+      <p class="rel-cap"><b>7 guardians</b> protect the federation. Each one is verified and runs on a different independent operator&#8217;s hardware.</p>
     </div>
   </div>
 </section>
@@ -751,13 +706,13 @@ html.gate-locked #gate{display:flex;}
     <div class="sec-head center rv">
       <div class="kicker">For Federation Founders</div>
       <h2>Provide community custody</h2>
-      <p class="sec-sub">Give your community a safer way to hold money together without holding the keys yourself.</p>
+      <p class="sec-sub">A safer way for any group to hold money together, without one person holding the keys.</p>
     </div>
 
     <div class="fedirow rv">
       <div class="fr-copy">
-        <h3>Pick who secures it</h3>
-        <p>Verified operators advertise open guardian seats with their credentials and their price.</p>
+        <h3>Your guardian set, assembled for you</h3>
+        <p>You decide how many guardians secure your federation. Manifold fills the seats from independent, verified operators, so there is nobody for you to find, vet or negotiate with.</p>
       </div>
       <div class="illo"><video autoplay muted loop playsinline preload="metadata" poster="media/anim-pick-poster.jpg" width="720" height="960" aria-label="Animation: a circle of glass cubes, each briefly glowing as if being considered">
         <source src="media/anim-pick.webm" type="video/webm">
@@ -770,23 +725,10 @@ html.gate-locked #gate{display:flex;}
         <h3>Earn when your members transact</h3>
         <p>Set a fee for every transaction made by the members, and your share lands in your wallet balance as it happens.</p>
       </div>
-      <div class="fr-calc">
-        <div class="feecalc">
-          <div class="lbl">Service fee &#183; per 100,000 sats members transact</div>
-          <div class="rate"><b id="fc-rate">0.5%</b><span>on member transactions</span></div>
-          <input type="range" id="fc-slider" min="15" max="2100" step="5" value="50" aria-label="Service fee percentage">
-          <div class="ends"><span>0.15%</span><span>21%</span></div>
-          <div class="split">
-            <div class="srow you"><span>Your share</span><b id="fc-you">137 sats</b></div>
-            <div class="srow"><span>Each of 10 guardians</span><b id="fc-each">33 sats</b></div>
-            <div class="srow"><span>Fedi</span><b id="fc-pb">33 sats</b></div>
-          </div>
-          <p class="basis">With 10 guardians. The fee splits into 4 shares for you, 1 for each guardian&#8217;s operator and 1 for Fedi.</p>
-        </div>
-      </div>
+      <div class="illo tall rv"><img loading="lazy" src="media/v2/glass-lp-open.jpg" alt="A gold bitcoin coin floating in the open centre of a frosted glass ring" width="1792" height="2400"></div>
     </div>
 
-    <div class="sec-foot rv"><a class="btn btn-ink" href="https://fedi.xyz" target="_blank" rel="noopener">Create a federation</a></div>
+    <div class="sec-foot rv"><span class="btn btn-ink is-soon" role="button" aria-disabled="true" title="Federation creation is not open yet">Create a federation<i>Soon</i></span></div>
   </div>
 </section>
 
@@ -799,11 +741,13 @@ html.gate-locked #gate{display:flex;}
             <div class="kicker">Federations, faster</div>
             <h2>Deliver Community Custody in a few steps.</h2>
           </div>
-          <ol class="steps">
-            <li class="rv"><h3>Choose your guardian set</h3><p>You choose how many guardians secure your federation&#8217;s funds, from 7 to 19.</p></li>
-            <li class="rv"><h3>Pay the Guardians</h3><p>Pay verified guardians for helping you set up and secure your federation.</p></li>
-            <li class="rv"><h3>Set your fees</h3><p>Earn fees when members of your federation make transactions.</p></li>
-            <li class="rv"><h3>Your federation is ready!</h3><p>The key ceremony runs across the operators&#8217; hardware, and your federation goes live.</p></li>
+          <ol class="steps lean">
+            <li class="rv"><h3>Open the Wallet tab</h3></li>
+            <li class="rv"><h3>Create</h3></li>
+            <li class="rv"><h3>Choose how many guardians</h3></li>
+            <li class="rv"><h3>Pay once for the whole set</h3></li>
+            <li class="rv"><h3>Set your fee</h3></li>
+            <li class="rv"><h3>Your federation is ready</h3></li>
           </ol>
         </div>
         <div class="how-phone rv">
@@ -827,27 +771,24 @@ html.gate-locked #gate{display:flex;}
     <div class="softband">
     <div class="sec-head center rv">
       <div class="kicker">For Guardians</div>
-      <h2>Protect money that matters</h2>
-      <p class="sec-sub">Play a trusted role in securing your community&#8217;s funds without taking sole custody.</p>
+      <h2>Protect money that matters, and earn for it</h2>
+      <p class="sec-sub">Hold a trusted role in a group&#8217;s money without taking sole custody of it, and take a share of the fees for every federation you help secure.</p>
     </div>
 
     <div class="fedirow rv">
       <div class="fr-copy">
         <span class="fb-ic mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.6a3.4 3.4 0 0 0-3.4-3.4H6.4A3.4 3.4 0 0 0 3 18.4V20"/><circle cx="9.5" cy="7.6" r="3.4"/><path d="M21 20v-1.6a3.4 3.4 0 0 0-2.6-3.3"/><path d="M15.6 4.3a3.4 3.4 0 0 1 0 6.6"/></svg></span>
-        <h3>Share the responsibility</h3>
-        <p>Secure funds alongside other Guardians, so no single Guardian carries control or responsibility alone.</p>
+        <h3>Show that you care</h3>
+        <p>Put your reputation behind money a real group depends on, alongside other guardians rather than alone. Nobody holds it all, and nobody has to carry it by themselves.</p>
       </div>
-      <div class="illo"><video autoplay muted loop playsinline preload="metadata" poster="media/anim-share-poster.jpg" width="720" height="960" aria-label="Animation: glass columns glowing together in one shared rhythm">
-        <source src="media/anim-share.webm" type="video/webm">
-        <source src="media/anim-share.mp4" type="video/mp4">
-      </video></div>
+      <div class="illo"><img loading="lazy" src="media/v2/hands-many.jpg" alt="Five hands each resting a fingertip on one of five frosted glass blocks holding gold coins" width="2400" height="1792"></div>
     </div>
 
     <div class="fedirow rev rv">
       <div class="fr-copy">
         <span class="fb-ic lav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.8 12 5.8c1.4 0 2.7.35 3.8.93M21.5 12s-3.5 6.2-9.5 6.2c-1.5 0-2.8-.38-4-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M3.5 3.5l17 17"/></svg></span>
-        <h3>Respect the members&#8217; privacy</h3>
-        <p>Help ensure community funds are safe without seeing how much individual members hold.</p>
+        <h3>You never see who holds what</h3>
+        <p>Guardians secure the federation&#8217;s funds with no view of any individual balance. It is not a rule you are asked to follow, it is simply not something a guardian can see.</p>
       </div>
       <div class="illo"><video autoplay muted loop playsinline preload="metadata" poster="media/anim-privacy-poster.jpg" width="720" height="960" aria-label="Animation: a frosted glass cube whose contents stay a soft blurred glow">
         <source src="media/anim-privacy.webm" type="video/webm">
@@ -865,109 +806,59 @@ html.gate-locked #gate{display:flex;}
       <div class="ops-in">
         <div class="sec-head center rv" style="margin-bottom:0;">
           <div class="kicker">Guardian Setup</div>
-          <h2>Manifold makes it easy for guardians to support multiple federations</h2>
-          <p class="sec-sub">Every federation needs guardians. If you already run a node, you can hold multiple guardian seats for communities that want community custody.</p>
+          <h2>Earn sats by supporting federations</h2>
+          <p class="sec-sub">Every federation needs guardians. If you already run an Umbrel or Start9, you can hold multiple guardian seats for communities that want community custody.</p>
         </div>
         <div class="ops-grid">
           <div class="ops-card rv">
             <span class="num">01</span>
-            <h3>Install on your node</h3>
-            <p>Runs on UmbrelOS and StartOS, with an x86 Linux path too.</p>
+            <h3>Install on your node platform</h3>
+            <p>One click on UmbrelOS or StartOS. An x86 Linux path too.</p>
           </div>
           <div class="ops-card rv">
             <span class="num">02</span>
             <h3>Open your guardian seats</h3>
-            <p>Advertise your capacity on Nostr and set your own terms. Communities looking for guardians find you.</p>
+            <p>Set your capacity and price once. Founders are matched to you automatically.</p>
           </div>
           <div class="ops-card rv">
             <span class="num">03</span>
-            <h3>Keep the network secure</h3>
-            <p>A federation is only as independent as the people running it. As an operator, you give communities access to community custody.</p>
+            <h3>Help keep federations running</h3>
+            <p>Stay online, keep your keys safe. The fees keep arriving.</p>
           </div>
         </div>
 
         <div class="deploy-head rv">
           <h3>Run it on the hardware you already have</h3>
-          <p>Fedimint ships as a one click app on both node platforms.</p>
         </div>
         <div class="deploy-grid">
           <div class="dep-card rv">
-            <h4>Start9 Deployment</h4>
-            <p>Deploy your own Fedimint Federation in minutes with Start9&#8217;s plug and play solution.</p>
+            <div class="dep-top"><span class="dep-logo s9"><img src="media/logos/start9.svg" alt="Start9" width="40" height="40"></span><h4>Start9</h4></div>
+            <p>Plug and play. A federation in minutes on StartOS.</p>
             <div class="dep-btns">
               <a class="btn btn-white btn-sm" href="https://marketplace.start9.com/fedimintd?api=community-registry.start9.com&amp;name=Community%20Registry" target="_blank" rel="noopener">Go to Marketplace</a>
               <a class="btn btn-outline btn-sm" href="https://youtu.be/tdY1zao0gfE" target="_blank" rel="noopener">See Demo</a>
             </div>
           </div>
           <div class="dep-card rv">
-            <h4>Umbrel Deployment</h4>
-            <p>Use Umbrel to run a single Guardian Federation or a group Federation with multiple Guardians running the Federation together.</p>
+            <div class="dep-top"><span class="dep-logo"><img src="media/logos/umbrel.png" alt="Umbrel" width="40" height="40"></span><h4>Umbrel</h4></div>
+            <p>Run a seat on your own Umbrel, solo or alongside other guardians.</p>
             <div class="dep-btns">
               <a class="btn btn-white btn-sm" href="https://apps.umbrel.com/app/fedimintd" target="_blank" rel="noopener">Visit Umbrel</a>
             </div>
           </div>
-        </div>
-
-        <div class="grant rv">
-          <span class="gic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="2.5"/><rect x="3" y="13" width="18" height="7" rx="2.5"/><path d="M7 7.5h.01M7 16.5h.01M17 7.5h-4M17 16.5h-4"/></svg></span>
-          <div>
-            <h4>Hardware grant program</h4>
-            <p>Around 20 nodes for early operators, together with Umbrel and Start9.</p>
+          <div class="dep-card rv">
+            <div class="dep-top"><span class="dep-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 8.5h3M7 12h6"/></svg></span><h4>Mini PC</h4></div>
+            <p>Any x86 mini PC on Linux. Run the guardian software straight from the container.</p>
+            <div class="dep-btns">
+              <a class="btn btn-white btn-sm" href="https://github.com/fedibtc/manifold/pkgs/container/manifold-fman" target="_blank" rel="noopener">Get the container</a>
+            </div>
           </div>
         </div>
+
         <div class="ops-foot rv" style="justify-content:center;">
-          <a class="btn btn-white" href="https://fedi.xyz" target="_blank" rel="noopener">Be a Guardian</a>
+          <a class="btn btn-white" href="/guardian-guide">See the step by step guide</a>
+          <a class="btn btn-outline" href="https://fedi.xyz" target="_blank" rel="noopener">Earn sats as a guardian</a>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="seg" id="liquidity" data-seg="liquidity" data-name="For liquidity providers" data-note="Optional role: supplying Lightning liquidity to federations." data-tag="plain">
-  <div class="wrap">
-    <div class="sec-head center rv">
-      <div class="kicker">For Liquidity Providers</div>
-      <h2>Supply the Lightning liquidity federations use</h2>
-      <p class="sec-sub">A federation runs on its own. When its members want to send and receive over Lightning, liquidity providers can supply that liquidity, and are paid for what they supply.</p>
-    </div>
-
-    <div class="fedirow rv">
-      <div class="fr-copy">
-        <h3>A financial role, not an operational one</h3>
-        <p>You supply the liquidity and earn from what flows through it. Guardians and operators run the federation.</p>
-      </div>
-      <div class="illo"><img loading="lazy" src="media/v2/glass-lp-flow.jpg" alt="A stream of gold coins arcing between two frosted glass blocks" width="1792" height="2400"></div>
-    </div>
-
-    <div class="fedirow rev rv">
-      <div class="fr-copy">
-        <h3>An open role</h3>
-        <p>Anyone can take it. Fedi can supply liquidity to early federations, and independent providers can take the role as the network grows.</p>
-      </div>
-      <div class="illo"><img loading="lazy" src="media/v2/glass-lp-open.jpg" alt="A gold coin passing through the open centre of a frosted glass ring" width="1792" height="2400"></div>
-    </div>
-  </div>
-</section>
-
-<section class="seg" id="trust" data-seg="trust" data-name="Trust" data-note="Trust the guardians, not a company." data-tag="plain">
-  <div class="wrap">
-    <div class="sec-head center rv">
-      <div class="kicker">Built on trust</div>
-      <h2>Trust the guardians, not a company</h2>
-      <p class="sec-sub">No Guardian controls the federation. Funds are protected by the number of guardians, so multiple independent guardians would need to fail or collude for funds to be at risk.</p>
-    </div>
-    <div class="tri-grid">
-      <div class="tri rv">
-        <span class="tri-ic mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>
-        <p>Give your community its own place to hold and move money.</p>
-      </div>
-      <div class="tri rv">
-        <span class="tri-ic lav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7.5-3.6 7.5-9V5.4L12 2.7 4.5 5.4V12c0 5.4 7.5 9 7.5 9z"/><polyline points="9 11.8 11.4 14.2 15.4 9.6"/></svg></span>
-        <p>Secure funds with verified Guardians instead of one person holding the keys.</p>
-      </div>
-      <div class="tri rv">
-        <span class="tri-ic sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
-        <p>Verify how Manifold works with open source code anyone can inspect and trust.</p>
       </div>
     </div>
   </div>
@@ -986,11 +877,23 @@ html.gate-locked #gate{display:flex;}
       </details>
       <details>
         <summary>Who runs my federation day-to-day?</summary>
-        <div class="a">Guardians run it day-to-day. They are the key holders for your federation.</div>
+        <div class="a">Guardians do. They hold the keys and run the servers, so there is nothing for you to operate day to day. Your federation keeps running on their hardware while your share of the fees lands in your balance.</div>
       </details>
       <details>
         <summary>How do I know if the Guardians are trustworthy?</summary>
         <div class="a">Every operator hosting a guardian seat is verified before they can take it. A real person has vouched for them, the credential can be checked by anyone, and it can be revoked if it no longer holds.</div>
+      </details>
+      <details>
+        <summary>How is this different from setting up a federation the usual way?</summary>
+        <div class="a">Today you find your own guardians, every one of them installs and runs a server, and you coordinate the setup between them. Manifold does that part for you: it finds verified operators who are already running, fills your seats, takes one payment, and runs the key ceremony. You end up with the same thing, a federation held by independent guardians, without having to assemble it yourself.</div>
+      </details>
+      <details>
+        <summary>Can I bring my own guardians?</summary>
+        <div class="a">Not yet. Manifold fills every seat from the pool of verified operators, and it spreads your seats across different operators on purpose, so no single operator holds too many of them. If people in your community want to take part, they can run the guardian software and open seats of their own, but Manifold cannot pin those seats to your federation today.</div>
+      </details>
+      <details>
+        <summary>Who is Manifold for?</summary>
+        <div class="a">Communities that want a federation of their own without running the infrastructure behind it: nobody to recruit, no servers to keep online, and no one person holding the keys. If you already run a federation with guardians you chose yourself, nothing about it changes.</div>
       </details>
       <details>
         <summary>How do I pay for the setup?</summary>
@@ -1007,13 +910,13 @@ html.gate-locked #gate{display:flex;}
 <section class="seg tight flush-b" id="cta" data-seg="cta" data-name="Closing" data-note="Bring community custody to your community." data-tag="band">
   <div class="wrap">
     <div class="cta-band">
-      <div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+      <div class="orbs" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
       <div class="cta-in">
         <h2 class="rv">Bring community custody to your community with Manifold</h2>
         <p class="rv">Create a federation or become a Guardian and help bring community custody to more people.</p>
         <div class="hero-ctas rv">
-          <a class="btn btn-ink" href="https://fedi.xyz" target="_blank" rel="noopener">Create a federation</a>
-          <a class="btn btn-ghost" href="#guardians">Be a Guardian</a>
+          <span class="btn btn-ink is-soon" role="button" aria-disabled="true" title="Federation creation is not open yet">Create a federation<i>Soon</i></span>
+          <a class="btn btn-ghost" href="#gbenefit">Become a guardian</a>
         </div>
       </div>
     </div>
@@ -1022,6 +925,7 @@ html.gate-locked #gate{display:flex;}
 
 </main>
 
+<!-- shared:footer:start -->
 <footer>
   <div class="wrap foot-in">
     <a class="brand" href="https://fedi.xyz" aria-label="Fedi">
@@ -1032,7 +936,7 @@ html.gate-locked #gate{display:flex;}
       <a href="https://fedi.xyz" target="_blank" rel="noopener">fedi.xyz</a>
       <a href="https://github.com/fedibtc/manifold" target="_blank" rel="noopener">GitHub</a>
       <a href="https://fedimint.org" target="_blank" rel="noopener">Fedimint</a>
-      <a href="#roles">How it works</a>
+      <a href="/#roles">How it works</a>
     </div>
     <div class="foot-links">
       <a href="https://fedi.xyz/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
@@ -1041,6 +945,7 @@ html.gate-locked #gate{display:flex;}
     <p class="foot-note">Copyright 2026 Fedi Inc, All rights reserved.</p>
   </div>
 </footer>
+<!-- shared:footer:end -->
 
 <div class="order-badge" id="order-badge"><b>Custom section order</b><a href="#" id="order-reset">reset</a></div>
 
@@ -1172,6 +1077,7 @@ document.querySelectorAll('.phone iframe').forEach(f => {
 })();
 </script>
 <script>
+/* shared:navjs:start */
 /* header dropdowns */
 (function () {
   const items = [...document.querySelectorAll('.nav-item')];
@@ -1217,6 +1123,7 @@ document.querySelectorAll('.phone iframe').forEach(f => {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); closePanel(); } });
   window.addEventListener('resize', () => { if (window.innerWidth > 860) closePanel(); });
 })();
+/* shared:navjs:end */
 </script>
 </body>
 </html>
