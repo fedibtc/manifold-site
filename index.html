@@ -36,7 +36,6 @@ img,svg{max-width:100%;display:block;}
 a{color:inherit;}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
 
-/* shared:css:start */
 /* ── Nav ──────────────────────────────────────── */
 nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,16,19,.06);}
 .nav-in{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px;}
@@ -44,54 +43,11 @@ nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-f
 .brand .logo{height:21px;width:auto;flex:none;display:block;}
 .brand .sep{color:#c9cbce;font-weight:500;}
 .brand .prod{font-weight:700;}
-.nav-links{display:flex;align-items:center;gap:22px;margin-left:auto;}
-.nav-links>a{display:inline-flex;align-items:center;line-height:1.6;}
+.nav-links{display:flex;gap:22px;margin-left:auto;}
 .nav-links a{font-size:14px;font-weight:500;color:#565b60;text-decoration:none;transition:color .15s;}
 .nav-links a:hover{color:var(--ink);}
 .nav-cta{margin-left:6px;}
-.nav-item{position:relative;display:flex;align-items:center;line-height:1.6;}
-.nav-trigger{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:14px;font-weight:500;color:#565b60;background:none;border:0;cursor:pointer;padding:0;line-height:1.6;transition:color .15s;}
-.nav-trigger:hover,.nav-item.open .nav-trigger{color:var(--ink);}
-.nav-trigger .caret{width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-1px);transition:transform .18s;}
-.nav-item.open .nav-trigger .caret{transform:rotate(225deg) translateY(-2px);}
-.nav-menu{position:absolute;top:calc(100% + 14px);left:-14px;min-width:212px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 14px 40px rgba(11,16,19,.12);padding:8px;display:none;flex-direction:column;gap:2px;}
-.nav-item.open .nav-menu{display:flex;}
-.nav-menu a{font-size:14px;font-weight:500;color:#565b60;text-decoration:none;padding:8px 12px;border-radius:10px;white-space:nowrap;transition:.15s;}
-.nav-menu a:hover{color:var(--ink);background:var(--wash);}
-/* hamburger + mobile panel */
-.nav-burger{display:none;margin-left:auto;width:40px;height:40px;flex:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:0;}
-.nav-burger span{display:block;position:relative;width:17px;height:1.8px;border-radius:2px;background:var(--ink);transition:transform .2s,opacity .15s;}
-.nav-burger span::before,.nav-burger span::after{content:"";position:absolute;left:0;width:17px;height:1.8px;border-radius:2px;background:var(--ink);transition:transform .2s;}
-.nav-burger span::before{top:-5.5px;}
-.nav-burger span::after{top:5.5px;}
-.nav-burger:hover{transform:none;box-shadow:none;}
-nav.open .nav-burger span{background:transparent;}
-nav.open .nav-burger span::before{transform:translateY(5.5px) rotate(45deg);}
-nav.open .nav-burger span::after{transform:translateY(-5.5px) rotate(-45deg);}
-.nav-in .nav-cta-mobile{display:none;}
-@media(max-width:860px){
-  .nav-burger{display:inline-flex;}
-  .nav-in .nav-cta{display:none;}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;margin-left:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 22px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 18px 40px rgba(11,16,19,.1);max-height:calc(100vh - 64px);overflow-y:auto;}
-  nav.open .nav-links{display:flex;}
-  .nav-item{display:block;border-bottom:1px solid var(--line);}
-  .nav-trigger{width:100%;justify-content:space-between;padding:14px 2px;font-size:15px;}
-  .nav-menu{position:static;display:none;min-width:0;border:0;border-radius:0;box-shadow:none;padding:0 0 10px 2px;}
-  .nav-item.open .nav-menu{display:flex;}
-  .nav-menu a{font-size:14.5px;padding:9px 10px;white-space:normal;}
-  .nav-links>a{padding:14px 2px;font-size:15px;border-bottom:1px solid var(--line);}
-  .nav-in .nav-cta-mobile{display:inline-flex;margin-top:18px;width:100%;}
-}
-
-/* ── Footer ───────────────────────────────────── */
-footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
-.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between;font-size:13.5px;color:#7d8287;}
-.foot-in .brand{font-size:15px;}
-.foot-links{display:flex;flex-wrap:wrap;gap:20px;}
-.foot-links a{text-decoration:none;color:#565b60;font-weight:500;}
-.foot-links a:hover{color:var(--ink);}
-.foot-note{flex-basis:100%;font-size:12.5px;color:#9a9ea3;margin-top:6px;}
-/* shared:css:end */
+@media(max-width:860px){.nav-links{display:none;}.nav-cta{margin-left:auto;}}
 
 /* ── Buttons ──────────────────────────────────── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-size:15px;font-weight:500;letter-spacing:.1px;text-decoration:none;border-radius:100px;padding:15px 28px;cursor:pointer;border:1px solid transparent;transition:transform .16s ease,box-shadow .16s ease,background .16s;}
@@ -296,6 +252,13 @@ h2{font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.04em;line-h
 .cta-in .hero-ctas{margin-bottom:0;justify-content:center;}
 
 /* footer */
+footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between;font-size:13.5px;color:#7d8287;}
+.foot-in .brand{font-size:15px;}
+.foot-links{display:flex;flex-wrap:wrap;gap:20px;}
+.foot-links a{text-decoration:none;color:#565b60;font-weight:500;}
+.foot-links a:hover{color:var(--ink);}
+.foot-note{flex-basis:100%;font-size:12.5px;color:#9a9ea3;margin-top:6px;}
 
 /* reveal */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
@@ -475,6 +438,62 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2.5px solid v
 .master .mchips a{font-size:13px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:100px;padding:9px 16px;text-decoration:none;transition:.2s;}
 .master .mchips a:hover{border-color:rgba(11,16,19,.35);transform:translateY(-1px);}
 
+/* shared:css:start */
+/* ── Nav ──────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,16,19,.06);}
+.nav-in{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px;}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#212121;}
+.brand .logo{height:21px;width:auto;flex:none;display:block;}
+.brand .sep{color:#c9cbce;font-weight:500;}
+.brand .prod{font-weight:700;}
+.nav-links{display:flex;align-items:center;gap:22px;margin-left:auto;}
+.nav-links>a{display:inline-flex;align-items:center;line-height:1.6;}
+.nav-links a{font-size:14px;font-weight:500;color:#565b60;text-decoration:none;transition:color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-cta{margin-left:6px;}
+.nav-item{position:relative;display:flex;align-items:center;line-height:1.6;}
+.nav-trigger{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:14px;font-weight:500;color:#565b60;background:none;border:0;cursor:pointer;padding:0;line-height:1.6;transition:color .15s;}
+.nav-trigger:hover,.nav-item.open .nav-trigger{color:var(--ink);}
+.nav-trigger .caret{width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-1px);transition:transform .18s;}
+.nav-item.open .nav-trigger .caret{transform:rotate(225deg) translateY(-2px);}
+.nav-menu{position:absolute;top:calc(100% + 14px);left:-14px;min-width:212px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 14px 40px rgba(11,16,19,.12);padding:8px;display:none;flex-direction:column;gap:2px;}
+.nav-item.open .nav-menu{display:flex;}
+.nav-menu a{font-size:14px;font-weight:500;color:#565b60;text-decoration:none;padding:8px 12px;border-radius:10px;white-space:nowrap;transition:.15s;}
+.nav-menu a:hover{color:var(--ink);background:var(--wash);}
+/* hamburger + mobile panel */
+.nav-burger{display:none;margin-left:auto;width:40px;height:40px;flex:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:0;}
+.nav-burger span{display:block;position:relative;width:17px;height:1.8px;border-radius:2px;background:var(--ink);transition:transform .2s,opacity .15s;}
+.nav-burger span::before,.nav-burger span::after{content:"";position:absolute;left:0;width:17px;height:1.8px;border-radius:2px;background:var(--ink);transition:transform .2s;}
+.nav-burger span::before{top:-5.5px;}
+.nav-burger span::after{top:5.5px;}
+.nav-burger:hover{transform:none;box-shadow:none;}
+nav.open .nav-burger span{background:transparent;}
+nav.open .nav-burger span::before{transform:translateY(5.5px) rotate(45deg);}
+nav.open .nav-burger span::after{transform:translateY(-5.5px) rotate(-45deg);}
+.nav-in .nav-cta-mobile{display:none;}
+@media(max-width:860px){
+  .nav-burger{display:inline-flex;}
+  .nav-in .nav-cta{display:none;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;margin-left:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 22px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 18px 40px rgba(11,16,19,.1);max-height:calc(100vh - 64px);overflow-y:auto;}
+  nav.open .nav-links{display:flex;}
+  .nav-item{display:block;border-bottom:1px solid var(--line);}
+  .nav-trigger{width:100%;justify-content:space-between;padding:14px 2px;font-size:15px;}
+  .nav-menu{position:static;display:none;min-width:0;border:0;border-radius:0;box-shadow:none;padding:0 0 10px 2px;}
+  .nav-item.open .nav-menu{display:flex;}
+  .nav-menu a{font-size:14.5px;padding:9px 10px;white-space:normal;}
+  .nav-links>a{padding:14px 2px;font-size:15px;border-bottom:1px solid var(--line);}
+  .nav-in .nav-cta-mobile{display:inline-flex;margin-top:18px;width:100%;}
+}
+
+/* ── Footer ───────────────────────────────────── */
+footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between;font-size:13.5px;color:#7d8287;}
+.foot-in .brand{font-size:15px;}
+.foot-links{display:flex;flex-wrap:wrap;gap:20px;}
+.foot-links a{text-decoration:none;color:#565b60;font-weight:500;}
+.foot-links a:hover{color:var(--ink);}
+.foot-note{flex-basis:100%;font-size:12.5px;color:#9a9ea3;margin-top:6px;}
+/* shared:css:end */
 /* ── Passphrase gate ──────────────────────────── */
 html.gate-locked,html.gate-locked body{overflow:hidden!important;height:100%;}
 html.gate-locked #gate{display:flex;}
@@ -496,7 +515,6 @@ html.gate-locked #gate{display:flex;}
 </style>
 </head>
 <body>
-
 <div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
   <div class="gate-card" id="gate-card">
     <img class="logo" src="fedi-logo.svg" alt="Fedi">
@@ -565,6 +583,7 @@ html.gate-locked #gate{display:flex;}
 
 
 
+
 <!-- shared:header:start -->
 <nav>
   <div class="nav-in">
@@ -627,7 +646,7 @@ html.gate-locked #gate{display:flex;}
       <p class="hero-sub">Manifold is an open protocol for setting up a federation without running the servers yourself. Trusted, verified Guardians secure your community&#8217;s funds, you pay in bitcoin, and Manifold handles the setup.</p>
       <div class="hero-ctas">
         <span class="btn btn-ink is-soon" role="button" aria-disabled="true" title="Federation creation is not open yet">Create a federation<i>Soon</i></span>
-        <a class="btn btn-ghost" href="#gbenefit">Become a guardian</a>
+        <a class="btn btn-ghost" href="guardian-guide">Become a guardian</a>
       </div>
       <div class="proofline">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>100% open source</span>
@@ -696,7 +715,7 @@ html.gate-locked #gate{display:flex;}
         <g class="gsh" transform="translate(51,221)"><title>PeerBadge verified</title><g filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round" fill="none"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="8" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.4 9.1l2.4 2.4 4.1-4.5" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="gtip" transform="translate(39,68)"><rect x="-84" y="0" width="168" height="30" rx="15" fill="#0b1013"/><text x="0" y="19.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12" font-weight="700" fill="#fff">PeerBadge verified</text></g></g>
         <g class="gsh" transform="translate(285,50)"><title>PeerBadge verified</title><g filter="url(#rsoft)"><rect width="56" height="56" rx="17" fill="#fff" stroke="#e0e0e3"/><path d="M28 13.5c4.2 2.3 7.9 3.4 11.5 3.8v9.4c0 7.8-5.9 12.7-11.5 14.5-5.6-1.8-11.5-6.7-11.5-14.5v-9.4c3.6-.4 7.3-1.5 11.5-3.8z" stroke="#0b1013" stroke-width="2.4" stroke-linejoin="round" fill="none"/><circle cx="28" cy="26" r="2.6" fill="#0b1013"/><path d="M28 29v4.6" stroke="#0b1013" stroke-width="2.4" stroke-linecap="round"/><circle cx="47" cy="9" r="8" fill="#0088ff" stroke="#fff" stroke-width="2"/><path d="M43.4 9.1l2.4 2.4 4.1-4.5" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g><g class="gtip" transform="translate(28,68)"><rect x="-84" y="0" width="168" height="30" rx="15" fill="#0b1013"/><text x="0" y="19.5" text-anchor="middle" font-family="Satoshi,sans-serif" font-size="12" font-weight="700" fill="#fff">PeerBadge verified</text></g></g>
       </svg>
-      <p class="rel-cap"><b>7 guardians</b> protect the federation. Each one is verified and runs on a different independent operator&#8217;s hardware.</p>
+      <p class="rel-cap">In this example, <b>7 guardians</b> protect the federation. Each one is verified and runs on a different independent operator&#8217;s hardware.</p>
     </div>
   </div>
 </section>
@@ -712,7 +731,7 @@ html.gate-locked #gate{display:flex;}
     <div class="fedirow rv">
       <div class="fr-copy">
         <h3>Your guardian set, assembled for you</h3>
-        <p>You decide how many guardians secure your federation. Manifold fills the seats from independent, verified operators, so there is nobody for you to find, vet or negotiate with.</p>
+        <p>You decide how many guardians secure your federation. Manifold fills each seat with an independent, verified operator. No searching, vetting, or negotiating required.</p>
       </div>
       <div class="illo"><video autoplay muted loop playsinline preload="metadata" poster="media/anim-pick-poster.jpg" width="720" height="960" aria-label="Animation: a circle of glass cubes, each briefly glowing as if being considered">
         <source src="media/anim-pick.webm" type="video/webm">
@@ -772,14 +791,14 @@ html.gate-locked #gate{display:flex;}
     <div class="sec-head center rv">
       <div class="kicker">For Guardians</div>
       <h2>Protect money that matters, and earn for it</h2>
-      <p class="sec-sub">Hold a trusted role in a group&#8217;s money without taking sole custody of it, and take a share of the fees for every federation you help secure.</p>
+      <p class="sec-sub">Hold a trusted role in a group&#8217;s money without taking sole custody of it, and earn a share of the fees for every federation you help secure.</p>
     </div>
 
     <div class="fedirow rv">
       <div class="fr-copy">
         <span class="fb-ic mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.6a3.4 3.4 0 0 0-3.4-3.4H6.4A3.4 3.4 0 0 0 3 18.4V20"/><circle cx="9.5" cy="7.6" r="3.4"/><path d="M21 20v-1.6a3.4 3.4 0 0 0-2.6-3.3"/><path d="M15.6 4.3a3.4 3.4 0 0 1 0 6.6"/></svg></span>
-        <h3>Show that you care</h3>
-        <p>Put your reputation behind money a real group depends on, alongside other guardians rather than alone. Nobody holds it all, and nobody has to carry it by themselves.</p>
+        <h3>Help secure a group&#8217;s funds</h3>
+        <p>Serve as one of several guardians for funds that groups rely on. Each guardian is accountable for their role, and none has sole control.</p>
       </div>
       <div class="illo"><img loading="lazy" src="media/v2/hands-many.jpg" alt="Five hands each resting a fingertip on one of five frosted glass blocks holding gold coins" width="2400" height="1792"></div>
     </div>
@@ -795,6 +814,8 @@ html.gate-locked #gate{display:flex;}
         <source src="media/anim-privacy.mp4" type="video/mp4">
       </video></div>
     </div>
+
+    <div class="sec-foot rv"><a class="btn btn-ink" href="#guardians">How to become a guardian</a></div>
     </div>
   </div>
 </section>
@@ -834,24 +855,14 @@ html.gate-locked #gate{display:flex;}
           <div class="dep-card rv">
             <div class="dep-top"><span class="dep-logo s9"><img src="media/logos/start9.svg" alt="Start9" width="40" height="40"></span><h4>Start9</h4></div>
             <p>Plug and play. A federation in minutes on StartOS.</p>
-            <div class="dep-btns">
-              <a class="btn btn-white btn-sm" href="https://marketplace.start9.com/fedimintd?api=community-registry.start9.com&amp;name=Community%20Registry" target="_blank" rel="noopener">Go to Marketplace</a>
-              <a class="btn btn-outline btn-sm" href="https://youtu.be/tdY1zao0gfE" target="_blank" rel="noopener">See Demo</a>
-            </div>
           </div>
           <div class="dep-card rv">
             <div class="dep-top"><span class="dep-logo"><img src="media/logos/umbrel.png" alt="Umbrel" width="40" height="40"></span><h4>Umbrel</h4></div>
             <p>Run a seat on your own Umbrel, solo or alongside other guardians.</p>
-            <div class="dep-btns">
-              <a class="btn btn-white btn-sm" href="https://apps.umbrel.com/app/fedimintd" target="_blank" rel="noopener">Visit Umbrel</a>
-            </div>
           </div>
           <div class="dep-card rv">
             <div class="dep-top"><span class="dep-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 8.5h3M7 12h6"/></svg></span><h4>Mini PC</h4></div>
             <p>Any x86 mini PC on Linux. Run the guardian software straight from the container.</p>
-            <div class="dep-btns">
-              <a class="btn btn-white btn-sm" href="https://github.com/fedibtc/manifold/pkgs/container/manifold-fman" target="_blank" rel="noopener">Get the container</a>
-            </div>
           </div>
         </div>
 
@@ -872,7 +883,7 @@ html.gate-locked #gate{display:flex;}
     <div class="faq rv">
       <details>
         <summary>What is Manifold?</summary>
-        <div class="a">Manifold is an open protocol that helps you set up a federation for your community without running the servers yourself.</div>
+        <div class="a">Manifold is an open protocol that helps you quickly set up a federation for your community, choose guardians to help secure it, and earn fees.</div>
       </details>
       <details>
         <summary>Who runs my federation day-to-day?</summary>
@@ -884,7 +895,7 @@ html.gate-locked #gate{display:flex;}
       </details>
       <details>
         <summary>How is this different from setting up a federation the usual way?</summary>
-        <div class="a">Today you find your own guardians, every one of them installs and runs a server, and you coordinate the setup between them. Manifold does that part for you: it finds verified operators who are already running, fills your seats, takes one payment, and runs the key ceremony. You end up with the same thing, a federation held by independent guardians, without having to assemble it yourself.</div>
+        <div class="a">In the DIY method, you find your own guardians, every one of them installs and runs a server, and you coordinate the setup between them. In the chat-based G-Bot method, you paid a monthly fee and selected from vetted guardians. With Manifold, it is a simple process and a one-time payment. From there, Manifold finds verified independent guardians, fills the guardian seats, and runs the key ceremony. You get to a running federation faster, without having to assemble it yourself.</div>
       </details>
       <details>
         <summary>Can I bring my own guardians?</summary>
@@ -915,7 +926,7 @@ html.gate-locked #gate{display:flex;}
         <p class="rv">Create a federation or become a Guardian and help bring community custody to more people.</p>
         <div class="hero-ctas rv">
           <span class="btn btn-ink is-soon" role="button" aria-disabled="true" title="Federation creation is not open yet">Create a federation<i>Soon</i></span>
-          <a class="btn btn-ghost" href="#gbenefit">Become a guardian</a>
+          <a class="btn btn-ghost" href="guardian-guide">Become a guardian</a>
         </div>
       </div>
     </div>

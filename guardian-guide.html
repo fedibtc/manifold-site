@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-os="minipc">
+<html lang="en" data-os="minipc" class="gate-locked">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -78,6 +78,7 @@ nav.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdr
 html[data-os="startos"] .os-umbrel{display:none!important;}
 html[data-os="umbrel"] .os-startos,html[data-os="minipc"] .os-startos{display:none!important;}
 html:not([data-os="minipc"]) .os-minipc{display:none!important;}
+html:not([data-os="umbrel"]) .os-umbrel-only{display:none!important;}
 
 /* walkthrough video */
 .videoband{padding:8px 0 40px;}
@@ -278,9 +279,93 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
 .foot-links a:hover{color:var(--ink);}
 .foot-note{flex-basis:100%;font-size:12.5px;color:#9a9ea3;margin-top:6px;}
 /* shared:css:end */
+/* ── Passphrase gate ──────────────────────────── */
+html.gate-locked,html.gate-locked body{overflow:hidden!important;height:100%;}
+html.gate-locked #gate{display:flex;}
+#gate{display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;padding:24px;background:#fff;background-image:radial-gradient(1000px 520px at 18% 8%,rgba(255,214,224,.5),transparent 60%),radial-gradient(900px 520px at 84% 22%,rgba(206,224,255,.55),transparent 62%),radial-gradient(760px 480px at 50% 96%,rgba(255,240,201,.5),transparent 60%);}
+.gate-card{width:100%;max-width:392px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 26px 70px rgba(11,16,19,.14);padding:34px 30px 30px;text-align:center;}
+.gate-card .logo{height:22px;width:auto;display:block;margin:0 auto 22px;}
+.gate-card h1{font-family:var(--sans);font-size:20px;font-weight:700;letter-spacing:-.02em;margin:0 0 8px;color:var(--ink);}
+.gate-card p{font-size:14.5px;color:var(--muted);margin:0 0 22px;line-height:1.55;}
+.gate-row{display:flex;flex-direction:column;gap:10px;}
+#gate-input{font-family:var(--sans);font-size:15px;color:var(--ink);background:var(--wash);border:1px solid var(--line);border-radius:12px;padding:13px 15px;width:100%;outline:none;transition:border-color .15s,box-shadow .15s;}
+#gate-input:focus{border-color:rgba(11,16,19,.35);box-shadow:0 0 0 4px rgba(11,16,19,.05);background:#fff;}
+#gate-input::placeholder{color:#a6abaf;}
+#gate-btn{width:100%;justify-content:center;cursor:pointer;border:0;font-family:var(--sans);}
+.gate-err{min-height:18px;margin:12px 0 0;font-size:13px;font-weight:500;color:#b4322f;opacity:0;transition:opacity .15s;}
+.gate-card.err .gate-err{opacity:1;}
+.gate-card.err{animation:gate-shake .34s;}
+@keyframes gate-shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(3px);}}
+.gate-note{margin:18px 0 0;font-size:12px;color:#a6abaf;}
 </style>
 </head>
 <body>
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="gate-card" id="gate-card">
+    <img class="logo" src="fedi-logo.svg" alt="Fedi">
+    <h1 id="gate-title">This page is private</h1>
+    <p>Enter the passphrase to view the Manifold preview.</p>
+    <div class="gate-row">
+      <input id="gate-input" type="password" placeholder="Passphrase" autocomplete="current-password" spellcheck="false" aria-describedby="gate-err">
+      <button type="button" class="btn btn-ink" id="gate-btn">Unlock</button>
+    </div>
+    <p class="gate-err" id="gate-err" role="alert">That passphrase doesn&rsquo;t match. Try again.</p>
+    <p class="gate-note">Internal preview &middot; please don&rsquo;t share this link.</p>
+  </div>
+</div>
+<script>
+/* Passphrase gate. Client-side only: this deters casual visitors, it is not
+   real access control. For that, put auth in front of the page at the host. */
+(function () {
+  var HASH = '0697657c8df78d1327b3fc930af06cde8ad553ff20c55dda76d7656be60c2067';
+  var KEY = 'manifold-gate';
+  var root = document.documentElement;
+
+  function unlock() {
+    root.classList.remove('gate-locked');
+    try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+  }
+
+  /* already unlocked this session: drop the gate before first paint */
+  try { if (sessionStorage.getItem(KEY) === '1') root.classList.remove('gate-locked'); } catch (e) {}
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var card = document.getElementById('gate-card');
+    var input = document.getElementById('gate-input');
+    var btn = document.getElementById('gate-btn');
+    if (!card || !input || !btn) return;
+
+    if (root.classList.contains('gate-locked')) input.focus();
+
+    function fail() {
+      card.classList.remove('err');
+      void card.offsetWidth;
+      card.classList.add('err');
+      input.select();
+    }
+
+    async function sha256(text) {
+      var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+      return [...new Uint8Array(buf)].map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+    }
+
+    async function submit() {
+      var value = input.value;
+      if (!value) { fail(); return; }
+      try {
+        if ((await sha256(value)) === HASH) { unlock(); } else { fail(); }
+      } catch (e) {
+        fail();
+      }
+    }
+
+    btn.addEventListener('click', submit);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
+    input.addEventListener('input', function () { card.classList.remove('err'); });
+  });
+})();
+</script>
+
 <!-- shared:header:start -->
 <nav>
   <div class="nav-in">
@@ -392,12 +477,13 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="sec-head">
     <div class="kicker">00 &#183; How it works</div>
     <h2>Four things happen, in this order</h2>
-    <p class="sec-sub">Manifold Fedimint Guardian is the guardian software behind Manifold. It runs one Fedimint guardian process per seat you sell, validates against a Bitcoin Core node on the same box, and handles the selling for you. It is not a Lightning wallet, and it does not replace the Bitcoin node: it needs one.</p>
+    <p class="sec-sub">Manifold Fedimint Guardian is the guardian software behind Manifold. It runs one Fedimint guardian process per seat you sell, validates against a Bitcoin Core node on the same box (on StartOS, Bitcoin Knots works as well), and handles the selling for you. It is not a Lightning wallet, and it does not replace the Bitcoin node: it needs one.</p>
   </div>
+  <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Step zero: get your PeerBadge.</b> Founders only see fleets that a PeerBadge holder at Trusted level or higher has authorized, and that holder is you: during setup you sign the authorization with your own badge. Get the badge before you buy hardware or start the node; the <a href="#faq">FAQ</a> says where to ask.</div></div>
   <div class="flow rv">
-    <div class="f"><div class="n">1</div><h3>Prepare the box, start the node</h3><p>umbrelOS or StartOS on a mini PC with a 2 TB SSD, then Bitcoin Core. Its sync takes days, so it goes first and runs in the background.</p></div>
-    <div class="f"><div class="n">2</div><h3>Install and set up the guardian</h3><p>The guardian app installs from a store and holds a small fleet of guardian seats. Setup is a four screen wizard in your browser.</p></div>
-    <div class="f"><div class="n">3</div><h3>Get advertised, sell seats</h3><p>Once a verifier has authorized your fleet and you have set a price, your open seats are announced on Nostr. A founder in the Fedi app picks a set, pays once, and your box starts one guardian per seat sold.</p></div>
+    <div class="f"><div class="n">1</div><h3>Prepare the box, start the node</h3><p><span class="os-minipc">umbrelOS on a mini PC with a 2 TB SSD, then Bitcoin Core.</span><span class="os-umbrel-only">Your Umbrel, then its Bitcoin Node app.</span><span class="os-startos">Your Start9 server on the latest StartOS 0.4 stable, then Bitcoin Core.</span> Its sync takes days, so it goes first and runs in the background.</p></div>
+    <div class="f"><div class="n">2</div><h3>Install and set up the guardian</h3><p>The guardian app installs from a store and holds a small fleet of guardian seats. Setup is a five screen wizard in your browser.</p></div>
+    <div class="f"><div class="n">3</div><h3>Get advertised, sell seats</h3><p>Once you have authorized your fleet with your PeerBadge and set a price, your open seats are announced on Nostr. A founder in the Fedi app picks a set, pays once, and your box starts one guardian per seat sold.</p></div>
     <div class="f"><div class="n">4</div><h3>Earn and withdraw</h3><p>You receive the seat price up front and a share of that federation's transaction fees for as long as it runs. Both leave to a Lightning address from the Payouts page.</p></div>
   </div>
   <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Words used on this page.</b> A <b>seat</b> is one guardian slot you offer. A <b>federation founder</b> is the person creating a federation in the Fedi app (the protocol calls them the initiator). The <b>dashboard</b> is the guardian software's own web page, served by your box. <b>The node</b> is the Bitcoin Core you run on the same box; the guardian validates against it.</div></div>
@@ -408,13 +494,15 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="sec-head">
     <div class="kicker">01 &#183; Requirements</div>
     <h2>What you need before you start</h2>
-    <p class="sec-sub">A guardian is a small, always on server: a mini PC, a Bitcoin node on it, and patience for one long sync. It still needs no public address, no domain and no certificate, because the whole protocol was designed to run from a home connection.</p>
+    <p class="sec-sub">A guardian is a small, always on server: a Start9 or Umbrel, or a mini PC you set up yourself, with a Bitcoin node on it, and patience for one long sync. It still needs no public address, no domain and no certificate, because the whole protocol was designed to run from a home connection.</p>
   </div>
   <div class="cards rv">
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-      <h3>A mini PC with a 2 TB SSD</h3>
-      <p>Any 64 bit Intel or AMD PC; a refurbished corporate mini is the sweet spot. Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>2 TB SSD as the system disk</b>, because the Bitcoin chain lives on it. New box? <a href="#box" data-switch="minipc">Prepare the mini PC</a> walks through the one time install. StartOS needs version <b>0.4.0 stable or later</b> and also runs on ARM servers; umbrelOS is x86 only.</p>
+      <h3><span class="os-minipc">A mini PC with a 2 TB SSD</span><span class="os-umbrel-only">An Umbrel with a 2 TB SSD</span><span class="os-startos">A Start9 server on the latest StartOS 0.4 stable</span></h3>
+      <p class="os-minipc">Any 64 bit Intel or AMD PC; a refurbished corporate mini is the sweet spot. Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>2 TB SSD as the system disk</b>, because the Bitcoin chain lives on it. New box? <a href="#box" data-switch="minipc">Prepare the mini PC</a> walks through the one time install; umbrelOS is x86 only.</p>
+      <p class="os-umbrel-only">An Umbrel Home comes with 16 GB of RAM and a 1, 2 or 4 TB SSD: a guardian needs the <b>2 TB or larger</b> model, because the Bitcoin chain lives on it and the 1 TB one fills up. Running umbrelOS on your own x86 box? Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>2 TB SSD as the system disk</b>; <a href="#box" data-switch="minipc">Prepare the mini PC</a> covers the install.</p>
+      <p class="os-startos">A Start9 server comes with StartOS installed and at least a 2 TB drive, so there is nothing to build. Before you start, update it to the <b>latest StartOS 0.4 stable</b> release (System &#8250; Software Update): the package sideload fails on 0.4 beta builds. Running StartOS on your own x86 or ARM box? Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>2 TB SSD as the system disk</b>, because the Bitcoin chain lives on it.</p>
       <ul><li>Wired ethernet to your router. Wi‑Fi will not get you through setup or the sync.</li><li>A laptop or phone on the same network with a browser.</li></ul>
     </div>
     <div class="card">
@@ -432,7 +520,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
       <h3>A Bitcoin Core node on the same box, no public IP</h3>
-      <p>The guardian validates against your own <b>unpruned</b> Bitcoin Core. <a href="#bitcoin">Bitcoin node</a> installs it; its sync takes days, which is why it comes before the guardian in this guide. Everything on the network side is outbound or hole punched: nothing to forward, no certificate to buy.</p>
+      <p>The guardian validates against your own <b>unpruned</b> Bitcoin Core<span class="os-startos"> (Bitcoin Knots works as well)</span>. <a href="#bitcoin">Bitcoin node</a> installs it; its sync takes days, which is why it comes before the guardian in this guide. Everything on the network side is outbound or hole punched: nothing to forward, no certificate to buy.</p>
       <ul><li>Optional: forwarding <b>UDP 31000 to 31031</b> on your router improves direct connections between guardians. Without it, traffic falls back to public relays and still works.</li></ul>
     </div>
     <div class="card">
@@ -443,8 +531,8 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     </div>
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
-      <h3>Someone to authorize your fleet</h3>
-      <p>Founders only see fleets that a verifier has vouched for. The dashboard gives you a public key; a holder signs an authorization over it. A verifier scans that key's QR code with the credential app and publishes the authorization. <b>Arrange your verifier before you start</b>; the FAQ lists where to ask.</p>
+      <h3>A PeerBadge, before anything else</h3>
+      <p>Founders only see fleets whose key carries an authorization from a PeerBadge holder at Trusted level or higher, and that holder is you. The dashboard shows your fleet's public key as a QR code; you scan it with the credential app that holds your badge, and the app publishes the authorization. <b>Get your badge before you start</b>, ahead of hardware and the node; the <a href="#faq">FAQ</a> lists where to ask.</p>
     </div>
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16M6 16V8m6 8V4m6 12v-6"/></svg></div>
@@ -548,17 +636,17 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <div class="card butter">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v10H4zM8 7v10M16 7v10"/></svg></div>
       <h3>Disk: 2 TB, and it must be the system disk</h3>
-      <p>The unpruned chain is about 760 GB today and grows 60 to 80 GB a year. A guardian cannot run pruned. <span class="os-umbrel">On umbrelOS 1.x apps keep their data on the disk umbrelOS was installed to, so the 2 TB SSD has to be the one you installed onto. If umbrelOS is already on a small drive, fit the SSD and reinstall; a guardian comes back from its 12 words.</span><span class="os-startos">StartOS keeps services on its data drive too, so install StartOS onto the 2 TB SSD.</span></p>
+      <p>The unpruned chain is about 760 GB today and grows 60 to 80 GB a year. A guardian cannot run pruned. <span class="os-umbrel-only">An Umbrel Home with the 2 TB or 4 TB SSD passes this as it is; the 1 TB model does not. </span><span class="os-umbrel">On umbrelOS 1.x apps keep their data on the disk umbrelOS was installed to, so the 2 TB SSD has to be the one you installed onto. If umbrelOS is already on a small drive, fit the SSD and reinstall; a guardian comes back from its 12 words.</span><span class="os-startos">A Start9 server ships with a 2 TB or larger drive, so there is nothing to change. StartOS on your own box: services live on the data drive, so install StartOS onto the 2 TB SSD.</span></p>
     </div>
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
       <h3>Time: leave it on and wired</h3>
-      <p>Expect one to three days on an internal SSD with a decent connection, one to two weeks on a spinning USB disk, longer on Wi‑Fi or a metered line. The box must stay on the whole time; the After Power Loss BIOS setting from the mini PC section is what makes that survivable.</p>
+      <p>Expect one to three days on an internal SSD with a decent connection, one to two weeks on a spinning USB disk, longer on Wi‑Fi or a metered line. The box must stay on the whole time.<span class="os-minipc"> The After Power Loss BIOS setting from the mini PC section is what makes that survivable.</span></p>
     </div>
     <div class="card mint">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
       <h3>What to keep at the end</h3>
-      <p>Three values the mainnet package will ask for: the node's <b>RPC address</b>, <b>RPC username</b> and <b>RPC password</b>. Put them in your password manager the day you set the node up.</p>
+      <p>Three values the guardian may ask for: the node's <b>RPC address</b>, <b>RPC username</b> and <b>RPC password</b>. On both platforms the guardian normally reads them from the node it depends on, so you may never type them, but put them in your password manager the day you set the node up.</p>
     </div>
   </div>
 
@@ -571,7 +659,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <li>
       <h3>Install the Bitcoin Node app</h3>
       <div class="path"><span>App Store</span><i>&#8250;</i><span>Bitcoin</span><i>&#8250;</i><span>Bitcoin Node</span><i>&#8250;</i><span>Install</span></div>
-      <p>This is Umbrel's official app, powered by Bitcoin Core, in the main App Store rather than the Fedi Dev one. Version 1.4.0 (Sep 2026) ships Bitcoin Core v31.1. It starts syncing the moment it is installed.</p>
+      <p>This is Umbrel's official app, powered by Bitcoin Core, in the main App Store rather than the Fedi Dev one. Version 1.4.0 (Sep 2026) ships Bitcoin Core v31.1. It starts syncing the moment it is installed. Prefer Knots? Umbrel's <b>Bitcoin Knots</b> app implements the same dependency, so the guardian app accepts it in place of Bitcoin Node and should work as well; the settings below are Bitcoin Node's.</p>
       <p><a class="btn btn-ghost btn-sm" href="https://apps.umbrel.com/app/bitcoin" target="_blank" rel="noopener">Bitcoin Node on apps.umbrel.com &#8594;</a> &nbsp; <a class="btn btn-ghost btn-sm" href="https://github.com/getumbrel/umbrel-bitcoin" target="_blank" rel="noopener">Source on GitHub &#8594;</a></p>
     </li>
     <li>
@@ -595,9 +683,9 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
       <p class="shot-cap"><b>What a synced node looks like.</b> Umbrel's Bitcoin Node app once it has caught up: Synchronized 100%, peer connections, latest blocks. Image from the app's store listing.</p>
     </li>
     <li>
-      <h3>Copy the RPC details</h3>
+      <h3>Know where the RPC details live</h3>
       <div class="path"><span>Bitcoin Node</span><i>&#8250;</i><span>Connect</span><i>&#8250;</i><span>Bitcoin Core RPC</span></div>
-      <p>The Connect panel shows <b>Host</b>, <b>Port</b> (8332), <b>Username</b> and <b>Password</b>. These are the credentials the mainnet guardian package will ask for. Store them now. The password is generated by the app and always visible here, so it cannot be lost, but a reinstall of the app generates a new one.</p>
+      <p>The guardian app declares Bitcoin Node as a dependency and reads the RPC connection from it, so you should not need to type anything. If the wizard ever asks, the Connect panel shows <b>Host</b>, <b>Port</b> (8332), <b>Username</b> and <b>Password</b>. The password is generated by the app and always visible here, so it cannot be lost, but a reinstall of the app generates a new one.</p>
       <div class="shot"><img src="media/guardian-guide/bitcoin-node-gallery-2.jpg" alt="The Connect panel of Umbrel's Bitcoin Node app showing RPC username, password, host and port" width="2160" height="1350" loading="lazy"></div>
       <p class="shot-cap"><b>The Connect panel.</b> RPC Details is the tab with the username, password, host and port. Image from the app's store listing.</p>
     </li>
@@ -606,7 +694,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
       <ul class="check" style="margin-top:6px;">
         <li>Block height matches the explorer and the app no longer says Synchronizing.</li>
         <li>Prune Old Blocks is off and the disk still shows at least 10 percent free.</li>
-        <li>Host, port, username and password are in your password manager.</li>
+        <li>You know where the RPC details are (Bitcoin Node &#8250; Connect), in case the app ever asks.</li>
         <li>The box has been left on since; a node that is switched off falls behind and has to catch up before a guardian can use it.</li>
       </ul>
     </li>
@@ -616,22 +704,22 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <li>
       <h3>Install Bitcoin Core from the Start9 registry</h3>
       <div class="path"><span>StartOS</span><i>&#8250;</i><span>Marketplace</span><i>&#8250;</i><span>Bitcoin Core</span><i>&#8250;</i><span>Install</span></div>
-      <p>Start9's own package, Bitcoin Core v31.1 (release v31.1_16, Sep 6, 2026). It installs onto the StartOS data drive, so that drive has to be the 2 TB one.</p>
+      <p>Start9's own package, Bitcoin Core v31.1 (release v31.1_16, Sep 6, 2026). Bitcoin Knots from the same registry works as well; this guide follows Bitcoin Core. It installs onto the StartOS data drive, which on a Start9 server is already 2 TB or more.</p>
       <p><a class="btn btn-ghost btn-sm" href="https://github.com/Start9Labs/bitcoin-core-startos" target="_blank" rel="noopener">Package on GitHub &#8594;</a> &nbsp; <a class="btn btn-ghost btn-sm" href="https://docs.start9.com/latest/service-guides/bitcoin/index.html" target="_blank" rel="noopener">Start9 Bitcoin guide &#8594;</a></p>
     </li>
     <li>
-      <h3>Turn pruning off before the sync gets far</h3>
-      <div class="path"><span>Bitcoin Core</span><i>&#8250;</i><span>Actions</span><i>&#8250;</i><span>Config</span></div>
-      <p>Start9's package <b>prunes automatically by default</b>, sized to the free space. A guardian needs an archival node, so open the config, find the pruning option under the advanced settings and turn it off. Enable the transaction index in the same place if it is offered. Changing pruning after the fact triggers a full re-index, so do this first.</p>
+      <h3>Check that pruning is off before the sync gets far</h3>
+      <div class="path"><span>Bitcoin Core</span><i>&#8250;</i><span>Actions</span></div>
+      <p>Start9's package sizes itself to the disk: on a drive under about 900 GB it installs <b>pruned</b>, on anything larger it defaults to a <b>full archival node</b>. A Start9 server with its 2 TB drive should therefore come up unpruned, but check before the sync gets far: a guardian cannot use a pruned node, and changing it later triggers a full re-index. Find the pruning setting under Actions and make sure it is off, and enable the transaction index in the same place if it is offered.</p>
     </li>
     <li>
       <h3>Watch the sync</h3>
       <p>The service page shows the block height and sync state. Start9 quotes "under a day to several days" depending on hardware and bandwidth; a spinning USB disk stretches that to weeks. Compare the block height with <a href="https://mempool.space" target="_blank" rel="noopener">mempool.space</a>; matching numbers mean done.</p>
     </li>
     <li>
-      <h3>Copy the RPC credentials from Properties</h3>
+      <h3>Know where the RPC credentials live</h3>
       <div class="path"><span>Bitcoin Core</span><i>&#8250;</i><span>Properties</span></div>
-      <p>Properties shows the <b>RPC username</b> and <b>password</b> (and a QuickConnect code for wallets). Store them; the mainnet guardian package will ask for them. If a password is ever lost, the <b>Delete RPC Users</b> action removes the old user so a new one can be created.</p>
+      <p>On StartOS the guardian package reads the node's RPC address and credentials from the Bitcoin Core service it depends on, so you should not need to copy anything. If the wizard ever asks, <b>Properties</b> shows the <b>RPC username</b> and <b>password</b> (and a QuickConnect code for wallets). If a password is ever lost, the <b>Delete RPC Users</b> action removes the old user so a new one can be created.</p>
     </li>
   </ol>
 
@@ -650,8 +738,8 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
 
   <ol class="steps os-umbrel rv">
     <li>
-      <h3>Have umbrelOS running and open its dashboard</h3>
-      <p>Install umbrelOS on the box if you have not (<a href="https://umbrel.com/umbrelos" target="_blank" rel="noopener">umbrel.com/umbrelos</a>: flash a USB stick, boot the box from it, follow the on screen setup). Then open the Umbrel dashboard from a browser on the same network and sign in.</p>
+      <h3>Have umbrelOS running, up to date, and open its dashboard</h3>
+      <p>Install umbrelOS on the box if you have not (<a href="https://umbrel.com/umbrelos" target="_blank" rel="noopener">umbrel.com/umbrelos</a>: flash a USB stick, boot the box from it, follow the on screen setup). Then open the Umbrel dashboard from a browser on the same network, sign in, and take any pending umbrelOS update from Settings before you add the store, so the app meets a current OS.</p>
     </li>
     <li>
       <h3>Add the Fedi Dev community app store</h3>
@@ -661,8 +749,8 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
       <p class="fine">The store is public. Nothing to log into and no token to paste.</p>
     </li>
     <li>
-      <h3>Install Manifold Fedimint Guardian</h3>
-      <p>Open the new <b>Fedi Dev</b> store and install <b>Manifold Fedimint Guardian</b>. The store tile shows its technical name, Fleet Manager; it is the same app. Umbrel pulls the image from GitHub's registry; the first pull takes a minute or two.</p>
+      <h3>Install Manifold Fedimint Guardian, the mainnet one</h3>
+      <p>Open the new <b>Fedi Dev</b> store. It lists two guardian apps side by side: install the one called just <b>Fleet Manager</b> (tagline "Run Fedimint guardians on Bitcoin mainnet"); that is Manifold Fedimint Guardian under its technical name. <b>Fleet Manager (staging)</b> next to it is a test network build: skip it. Umbrel lists <b>Bitcoin Node</b> as the app's dependency and offers to install it if it is missing, or lets you pick Bitcoin Knots in its place if that is the node you run. The image pulls from GitHub's registry; the first pull takes a minute or two.</p>
       
     </li>
     <li>
@@ -681,7 +769,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     </li>
     <li>
       <h3>Download the package file</h3>
-      <p>From the latest release of the packaging repo, download <code>fedi-dev-fleet-manager_x86_64.s9pk</code> (about 53 MB). ARM servers take the <code>_aarch64.s9pk</code> file instead.</p>
+      <p>From the latest production release of the packaging repo, download <code>fleet-manager_x86_64.s9pk</code> (about 53 MB). ARM servers take <code>fleet-manager_aarch64.s9pk</code> instead. Skip any file with a <code>fedi-dev-</code> prefix: that is the staging build.</p>
       <p><a class="btn btn-ghost btn-sm" href="https://github.com/fedibtc/manifold-fman-startos/releases/latest" target="_blank" rel="noopener">Latest release on GitHub &#8594;</a></p>
     </li>
     <li>
@@ -710,8 +798,8 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
 <section class="blk" id="setup">
   <div class="sec-head">
     <div class="kicker">05 &#183; Set up the fleet</div>
-    <h2>The four screen setup wizard</h2>
-    <p class="sec-sub">Setup happens once, in the dashboard. Every step is saved as you go, so a closed tab or a restarted box resumes where you left off. The same four screens on Umbrel and Start9. The dashboard still uses the technical name in a few of its own labels; read them as Manifold Fedimint Guardian.</p>
+    <h2>The five screen setup wizard</h2>
+    <p class="sec-sub">Setup happens once, in the dashboard. Every step is saved as you go, so a closed tab or a restarted box resumes where you left off. The same five screens on Umbrel and Start9. The dashboard still uses the technical name in a few of its own labels; read them as Manifold Fedimint Guardian.</p>
   </div>
 
   <ol class="steps rv">
@@ -732,13 +820,18 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <li>
       <span class="stepnum">SCREEN 3</span>
       <h3>"Get this fleet authorized"</h3>
-      <p>The screen shows a QR code and your fleet's <b>service Nostr public key</b> (a 64 character string). A holder signs an authorization over this key; until one exists, founders have no way to evaluate you, so this step cannot be skipped.</p>
-      <p>Show the QR code to your verifier, who scans it with the credential app, or click <b>Copy the authorization request</b> and send them the copied request to paste in. Once they have signed and published it, click <b>Check now</b>. The wizard does not poll in the background, so nothing happens until you click.</p>
-      <p class="fine">When the relay carries your authorization the status changes to "Authorization observed" and the wizard moves on to the price step by itself after two seconds.</p>
+      <p>The screen shows a QR code and your fleet's <b>service Nostr public key</b> (a 64 character string). Founders only see fleets whose key carries a PeerBadge authorization, so this step cannot be skipped.</p>
+      <p>Authorize it with your own PeerBadge: open the credential app that holds your badge, scan the QR code (or click <b>Copy the authorization request</b> and paste it into the app) and sign. Back in the wizard, click <b>Check now</b>. It does not poll in the background, so nothing happens until you click.</p>
+      <p class="fine">When the relay carries your authorization the status changes to "Authorization observed" and the wizard moves on to the terms by itself after two seconds.</p>
       <div class="shot"><img src="media/guardian-guide/setup-authorization.png" alt="Setup screen 3: QR code and service Nostr public key, waiting for a holder authorization" width="1000" height="820" loading="lazy"></div>
     </li>
     <li>
       <span class="stepnum">SCREEN 4</span>
+      <h3>The terms</h3>
+      <p>The wizard shows the terms for running a Manifold guardian. Read them and accept to continue; the price step does not open until you have.</p>
+    </li>
+    <li>
+      <span class="stepnum">SCREEN 5</span>
       <h3>"Set your price"</h3>
       <p><b>Maximum active seats</b> is prefilled with the RAM based recommendation; lower it if the box does other work. <b>Price per seat (sats)</b> is the whole offer: the gross amount a founder pays for one seat, before mint and Lightning fees. The dashboard suggests the equivalent of $2 to $3; a lower price fills seats sooner.</p>
       <p>Click <b>Finish setup</b>. Leaving the price blank finishes setup without selling anything; you can set a price any time from the Overview.</p>
@@ -755,17 +848,16 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
 <section class="blk" id="discover">
   <div class="sec-head">
     <div class="kicker">06 &#183; Get discovered</div>
-    <h2>Three conditions, then one restart</h2>
+    <h2>Three conditions</h2>
     <p class="sec-sub">A fleet is invisible to founders until it has an authorization, a price, and a wallet that can receive payment. The dashboard shows all three. Then the software publishes your advertisement and keeps it fresh on its own.</p>
   </div>
   <ul class="check rv">
     <li><b>Authorization observed.</b> Open <b>Authorization</b> in the left menu. It should list at least one holder under "Observed holders". This is the badge from screen 3.</li>
     <li><b>A price is set.</b> The Overview's "Your offer" card shows a price per seat rather than "Not selling seats". Change it any time with <b>Change price</b>.</li>
     <li><b>The wallet can receive.</b> Open <b>Wallet</b>. At least one payment federation should be listed. You did not add it and cannot remove it: membership follows the network's published setup payment policy, and the fleet joins automatically.</li>
-    <li><b>Restart the app once.</b> <span class="os-umbrel">Umbrel: open the app tile's <b>&#8943;</b> menu and choose <b>Restart</b>.</span><span class="os-startos">StartOS: <b>Stop</b> the service, then <b>Start</b> it again.</span> The advertisement loop stays quiet while the wallet is still joining and nothing wakes it when the join lands. A restart publishes immediately.</li>
     <li><b>Confirm.</b> The Overview banner reads <b>Advertised and healthy</b>. That is the whole check. Anyone can additionally see your advertisement (a kind 37701 Nostr event) published from your service Nostr key on the Manifold relay.</li>
   </ul>
-  <div class="call warn rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><div><b>Still not advertised after a few minutes?</b> The loop runs every 30 minutes, and a cycle that fires while the wallet is still opening (about three minutes after a start) is skipped silently. Wait until the Wallet page shows the federation, then restart once more.</div></div>
+  <div class="call warn rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><div><b>Still not advertised after a few minutes?</b> The loop runs every 30 minutes, and a cycle that fires while the wallet is still opening (about three minutes after a start) is skipped silently. Wait until the Wallet page shows the federation, then restart the app once (<span class="os-umbrel">Umbrel: the app tile's <b>&#8943;</b> menu &#8250; <b>Restart</b></span><span class="os-startos">StartOS: <b>Stop</b> the service, then <b>Start</b> it again</span>); a restart publishes immediately.</div></div>
 </section>
 
 <!-- 05 EARN -->
@@ -792,7 +884,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     </li>
     <li>
       <h3>Fees accrue for as long as the federation runs</h3>
-      <p>Every transaction members make inside the federation pays a small fee, split by a fixed rule: the founder holds <b>4 shares</b>, <b>each guardian 1 share</b>, and Fedi <b>1 share</b>, so a federation with 10 guardians has 15 shares and you hold one of them. The rate starts at 0.5% (5,000 ppm) and the founder can change it within the network's bounds. Your share is remitted into a per seat fee account that you collect from Payouts.</p>
+      <p>Every transaction members make inside the federation pays a small fee, split by a fixed rule: the founder holds <b>4 shares</b>, <b>each guardian 1 share</b>, and <b>1 share</b> is the guardian verification fee, so a federation with 10 guardians has 15 shares and you hold one of them. The rate starts at 0.5% (5,000 ppm) and the founder can change it within the network's bounds. Your share is remitted into a per seat fee account that you collect from Payouts.</p>
     </li>
   </ol>
   <div class="shot rv"><img src="media/guardian-guide/overview-earnings.png" alt="Overview with seat sales and guardian fees over several days" width="1000" height="993" loading="lazy"></div>
@@ -836,14 +928,13 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="band rv"><div class="glow"></div>
     <div class="kicker">09 &#183; Keep it running</div>
     <h2>A guardian's only job is to stay up</h2>
-    <p class="sec-sub">Every running seat is one of the guardians a real federation depends on. Nothing needs daily attention, but these six things are yours to own.</p>
+    <p class="sec-sub">Every running seat is one of the guardians a real federation depends on. Nothing needs daily attention, but these five things are yours to own.</p>
     <div class="grid">
       <div class="g"><span class="num">01</span><h3>Updates are manual, and due the day the network asks</h3><p><span class="os-umbrel">Umbrel shows an Update button on the app once the store has a new version.</span><span class="os-startos">Download the new .s9pk from the releases page and sideload it again.</span> When the network names a newer release than yours, the dashboard takes the screen over with a notice; out of date fleets show up in the app as "not enough guardians" or "unauthorized request". Data survives updates, not uninstall.</p></div>
       <div class="g"><span class="num">02</span><h3>Keep the node synced</h3><p>The guardian is only as current as its Bitcoin node. The Bitcoin Node app updates like any other app, and after an outage it catches up by itself. If a federation reports trouble, check the block height against mempool.space before anything else.</p></div>
       <div class="g"><span class="num">03</span><h3>The 12 words are the whole backup</h3><p>Every key is derived from them and your seat records are published, encrypted, to the relay. The Backup page shows your fleet name, keys, and a Reveal recovery phrase link. Nothing else to export.</p></div>
       <div class="g"><span class="num">04</span><h3>One phrase, one host</h3><p>Recovery is only possible while setting up a fresh host ("Recover from your phrase"). Never run two boxes from the same words: two guardians with one identity would contradict each other and break the federation.</p></div>
       <div class="g"><span class="num">05</span><h3>Change price and capacity any time</h3><p>Overview &#8250; Change price. A blank price stops selling; 0 gives seats away and keeps you advertised. Seat capacity is on the same page and can never go below the seats already active.</p></div>
-      <div class="g"><span class="num">06</span><h3>Decommission is a last resort</h3><p>Founders pay once for open ended hosting. You can decommission a seat, but there is no refund mechanism and the federation loses a guardian. Price the disk and uptime you are promising into the seat price instead.</p></div>
     </div>
   </div>
   <div class="shots2 rv">
@@ -863,7 +954,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <div class="r h"><span>What you see</span><span>Why</span><span>What to do</span></div>
     <div class="r"><b>"Loading…" for minutes right after setup</b><span>First join of the setup payment federation scans its whole history.</span><span>Wait. About two minutes, once only.</span></div>
     <div class="r"><b>Price set, but no "Advertised and healthy"</b><span>The advertisement loop skipped a cycle while the wallet was still opening, and nothing wakes it.</span><span>Check Wallet lists a federation, then restart the app once. <span class="os-umbrel">Umbrel: app &#8943; &#8250; Restart.</span><span class="os-startos">StartOS: Stop, then Start.</span></span></div>
-    <div class="r"><b>Authorization never observed</b><span>The badge was issued to a different key, or the relay read has not been repeated.</span><span>Compare the full key on the Authorization page with what your verifier scanned or received. Click Check now; setup never polls by itself.</span></div>
+    <div class="r"><b>Authorization never observed</b><span>The authorization was signed over a different key, or the relay read has not been repeated.</span><span>Compare the full key on the Authorization page with the one your credential app scanned. Click Check now; setup never polls by itself.</span></div>
     <div class="r"><b>A dash instead of a number on the Overview</b><span>The fleet could not read that account yet (a seat still forming has no fee account).</span><span>Nothing. A dash is "unknown", not zero. It fills in once the seat is running.</span></div>
     <div class="r"><b>Sweep button greyed out</b><span>No payout destination saved, or that wallet holds nothing.</span><span>Save a Lightning address in the card at the top of Payouts, then retry.</span></div>
     <div class="r"><b>"Send to destination" greyed out on a seat</b><span>Fees are still in the pool; only collected ecash can be sent.</span><span>Click 1. Collect out of the pool first. Locked deposits release at the next cycle.</span></div>
@@ -892,13 +983,13 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   </div>
   <div class="faq rv">
     <details><summary>Do I need a public IP address, a domain, or a certificate?</summary><div class="a">No, and by design you never will. Founders reach your fleet over hole punched connections with public relays as fallback, your advertisement goes out over Nostr, and the dashboard is either behind Umbrel's login or protected by StartOS's generated password. Forwarding UDP 31000 to 31031 is optional and only improves direct connections.</div></details>
-    <details><summary>Do I need to run Bitcoin Core or Lightning?</summary><div class="a">Bitcoin Core yes, Lightning no. A mainnet guardian validates against your own unpruned Bitcoin Core on the same box; <a href="#bitcoin">Bitcoin node</a> covers it, and its sync is the longest step of the setup. A Lightning node is never required; payouts go to any Lightning address you already have.</div></details>
+    <details><summary>Do I need to run Bitcoin Core or Lightning?</summary><div class="a">Bitcoin Core yes (Bitcoin Knots works as well), Lightning no. A mainnet guardian validates against your own unpruned Bitcoin node on the same box; <a href="#bitcoin">Bitcoin node</a> covers it, and its sync is the longest step of the setup. A Lightning node is never required; payouts go to any Lightning address you already have.</div></details>
     <details><summary>Can I choose which federations I host?</summary><div class="a">No. You set a price and a seat count; founders choose you. Every offered seat accepts automatically once a valid payment lands. If you want to stop being chosen, clear the price on the Overview.</div></details>
     <details><summary>How much will I earn?</summary><div class="a">Two things: the seat price you set, paid once per seat sold, and one share of the federation's transaction fees for as long as it runs. The dashboard suggests a seat price around the equivalent of $2 to $3. Fee income depends entirely on how much the federation's members transact, so no number is promised here.</div></details>
     <details><summary>What if I lose the 12 words?</summary><div class="a">While the box runs, nothing changes and you can reveal the phrase again from Backup. If the box dies and you do not have the words, the fleet and its seats cannot be recovered. Write them down before continuing past screen 2.</div></details>
     <details><summary>Can I move my fleet to a new box?</summary><div class="a">Yes: set the new box up, choose "Recover from your phrase" on screen 1, and the seats rebuild from the encrypted records the fleet published to the relay. Turn the old box off first. Two hosts with one identity would contradict each other.</div></details>
     <details><summary>Can I run more than one fleet, or raise the seat count later?</summary><div class="a">One fleet per box and per phrase. The seat limit is adjustable at any time on the Your offer page (or with <code>fman-cli capacity set N</code>); it just cannot drop below the seats already active.</div></details>
-    <details><summary>Where do I get help?</summary><div class="a">For the Umbrel app, the package's issue tracker at <a href="https://github.com/fedibtc/manifold-umbrel-store/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-store/issues</a>. For the StartOS package, <a href="https://github.com/fedibtc/manifold-fman-startos/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-fman-startos/issues</a>. For everything else, including finding a verifier, <a href="https://fedi.xyz" target="_blank" rel="noopener">fedi.xyz</a>.</div></details>
+    <details><summary>Where do I get help?</summary><div class="a">For the Umbrel app, the package's issue tracker at <a href="https://github.com/fedibtc/manifold-umbrel-store/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-store/issues</a>. For the StartOS package, <a href="https://github.com/fedibtc/manifold-fman-startos/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-fman-startos/issues</a>. For everything else, including getting a PeerBadge, <a href="https://fedi.xyz" target="_blank" rel="noopener">fedi.xyz</a>.</div></details>
   </div>
 </section>
 
@@ -907,10 +998,11 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="sec-head">
     <div class="kicker">12 &#183; Sources</div>
     <h2>Where every statement on this page comes from</h2>
-    <p class="sec-sub">Checked against these on Sep 11, 2026.</p>
+    <p class="sec-sub">Checked against these on Sep 11, 2026; the StartOS release, the Umbrel manifests and Umbrel Home on Sep 18.</p>
   </div>
   <div class="rowlist rv">
     <div class="r"><b>Umbrel store and steps</b><a href="https://github.com/fedibtc/manifold-umbrel-store" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-store</a></div>
+    <div class="r"><b>Umbrel app manifests: mainnet vs staging tile, Bitcoin dependency, Knots</b><a href="https://github.com/fedibtc/manifold-umbrel-store/blob/master/fedi-dev-fleet-manager-production/umbrel-app.yml" target="_blank" rel="noopener">fedi-dev-fleet-manager-production/umbrel-app.yml</a> (v0.1.1, dependencies: bitcoin), <a href="https://github.com/getumbrel/umbrel-apps/blob/master/bitcoin-knots/umbrel-app.yml" target="_blank" rel="noopener">umbrel-apps &#8250; bitcoin-knots</a> (implements: bitcoin), <a href="https://umbrel.com/umbrel-home" target="_blank" rel="noopener">umbrel.com/umbrel-home</a> (16 GB RAM, 1, 2 or 4 TB SSD)</div>
     <div class="r"><b>StartOS package and in-app instructions</b><a href="https://github.com/fedibtc/manifold-fman-startos/blob/master/instructions.md" target="_blank" rel="noopener">github.com/fedibtc/manifold-fman-startos › instructions.md</a></div>
     <div class="r"><b>The guardian software architecture</b><a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/ARCH-fleet-manager.md" target="_blank" rel="noopener">crates/fman/specs/ARCH-fleet-manager.md</a></div>
     <div class="r"><b>Packaging contract, RAM sizing, no public IP</b><a href="https://github.com/fedibtc/manifold/tree/master/packages/fleet-manager" target="_blank" rel="noopener">packages/fleet-manager/README.md</a>, <a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/REQ-seat-capacity-default.md" target="_blank" rel="noopener">REQ-seat-capacity-default.md</a>, <a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/REQ-no-public-ip.md" target="_blank" rel="noopener">REQ-no-public-ip.md</a></div>
