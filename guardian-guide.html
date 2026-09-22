@@ -4,7 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#ffffff">
 <title>Manifold Fedimint Guardian setup guide</title>
 <meta name="description" content="Step by step: run a Manifold Fedimint Guardian on Umbrel or Start9, get authorized, sell guardian seats to Federation Ambassadors, and withdraw what you earn.">
 <link rel="preconnect" href="https://api.fontshare.com">
@@ -400,7 +405,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   </div>
   <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Step zero: get your PeerBadge.</b> Ambassadors only see fleets that a PeerBadge holder at Trusted level or higher has authorized, and that holder is you: during setup you sign the authorization with your own badge. Get the badge before you buy hardware or start the node; the <a href="#faq">FAQ</a> says where to ask.</div></div>
   <div class="flow rv">
-    <div class="f"><div class="n">1</div><h3>Prepare the box, start the node</h3><p><span class="os-minipc">umbrelOS on a mini PC with a 2 TB SSD, then Bitcoin Core.</span><span class="os-umbrel-only">Your Umbrel, then its Bitcoin Node app.</span><span class="os-startos">Your Start9 server on the latest StartOS 0.4 stable, then Bitcoin Core.</span> Its sync takes days, so it goes first and runs in the background.</p></div>
+    <div class="f"><div class="n">1</div><h3>Prepare the box, start the node</h3><p><span class="os-minipc">umbrelOS on a mini PC with a 500 GB SSD, then Bitcoin Core.</span><span class="os-umbrel-only">Your Umbrel, then its Bitcoin Node app.</span><span class="os-startos">Your Start9 server on the latest StartOS 0.4 stable, then Bitcoin Core.</span> Its sync takes days, so it goes first and runs in the background.</p></div>
     <div class="f"><div class="n">2</div><h3>Install and set up the guardian</h3><p>The guardian app installs from a store and holds a small fleet of guardian seats. Setup is a five screen wizard in your browser.</p></div>
     <div class="f"><div class="n">3</div><h3>Get advertised, sell seats</h3><p>Once you have authorized your fleet with your PeerBadge and set a price, your open seats are announced on Nostr. An Ambassador in the Fedi app picks a set, pays once, and your box starts one guardian per seat sold.</p></div>
     <div class="f"><div class="n">4</div><h3>Earn and withdraw</h3><p>You receive the seat price up front and a share of that federation's transaction fees for as long as it runs. Both leave to a Lightning address from the Payouts page.</p></div>
@@ -418,10 +423,10 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="cards rv">
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-      <h3><span class="os-minipc">A mini PC with a 2 TB SSD</span><span class="os-umbrel-only">An Umbrel with a 2 TB SSD</span><span class="os-startos">A Start9 server on the latest StartOS 0.4 stable</span></h3>
-      <p class="os-minipc">Any 64 bit Intel or AMD PC; a refurbished corporate mini is the sweet spot. Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>2 TB SSD as the system disk</b>, because the Bitcoin chain lives on it. New box? <a href="#box" data-switch="minipc">Prepare the mini PC</a> walks through the one time install; umbrelOS is x86 only.</p>
-      <p class="os-umbrel-only">An Umbrel Home comes with 16 GB of RAM and a 1, 2 or 4 TB SSD: a guardian needs the <b>2 TB or larger</b> model, because the Bitcoin chain lives on it and the 1 TB one fills up. Running umbrelOS on your own x86 box? Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>2 TB SSD as the system disk</b>; <a href="#box" data-switch="minipc">Prepare the mini PC</a> covers the install.</p>
-      <p class="os-startos">A Start9 server comes with StartOS installed and at least a 2 TB drive, so there is nothing to build. Before you start, update it to the <b>latest StartOS 0.4 stable</b> release (System &#8250; Software Update): the package sideload fails on 0.4 beta builds. Running StartOS on your own x86 or ARM box? Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>2 TB SSD as the system disk</b>, because the Bitcoin chain lives on it.</p>
+      <h3><span class="os-minipc">A mini PC with a 500 GB SSD</span><span class="os-umbrel-only">An Umbrel with a 500 GB SSD</span><span class="os-startos">A Start9 server on the latest StartOS 0.4 stable</span></h3>
+      <p class="os-minipc">Any 64 bit Intel or AMD PC; a refurbished corporate mini is the sweet spot. Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>500 GB SSD as the system disk</b>, because the chain and your seats live on it. New box? <a href="#box" data-switch="minipc">Prepare the mini PC</a> walks through the one time install; umbrelOS is x86 only.</p>
+      <p class="os-umbrel-only">An Umbrel Home comes with 16 GB of RAM and a 1, 2 or 4 TB SSD: with a pruned node any of them is enough, the 1 TB model included. Running umbrelOS on your own x86 box? Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>500 GB SSD as the system disk</b>; <a href="#box" data-switch="minipc">Prepare the mini PC</a> covers the install.</p>
+      <p class="os-startos">A Start9 server comes with StartOS installed and at least a 2 TB drive, so there is nothing to build. Before you start, update it to the <b>latest StartOS 0.4 stable</b> release (System &#8250; Software Update): the package sideload fails on 0.4 beta builds. Running StartOS on your own x86 or ARM box? Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>500 GB SSD as the system disk</b>, because the chain and your seats live on it.</p>
       <ul><li>Wired ethernet to your router. Wi‑Fi will not get you through setup or the sync.</li><li>A laptop or phone on the same network with a browser.</li></ul>
     </div>
     <div class="card">
@@ -439,7 +444,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
       <h3>A Bitcoin Core node on the same box, no public IP</h3>
-      <p>The guardian validates against your own <b>unpruned</b> Bitcoin Core<span class="os-startos"> (Bitcoin Knots works as well)</span>. <a href="#bitcoin">Bitcoin node</a> installs it; its sync takes days, which is why it comes before the guardian in this guide. Everything on the network side is outbound or hole punched: nothing to forward, no certificate to buy.</p>
+      <p>The guardian validates against your own Bitcoin Core, <b>pruned or full</b><span class="os-startos"> (Bitcoin Knots works as well)</span>. <a href="#bitcoin">Bitcoin node</a> installs it; its sync takes days, which is why it comes before the guardian in this guide. Everything on the network side is outbound or hole punched: nothing to forward, no certificate to buy.</p>
       <ul><li>Optional: forwarding <b>UDP 31000 to 31031</b> on your router improves direct connections between guardians. Without it, traffic falls back to public relays and still works.</li></ul>
     </div>
     <div class="card">
@@ -474,7 +479,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 12h.01M11 12h6"/></svg></div>
       <h3>The box</h3>
       <p>Any 64 bit Intel or AMD mini PC. Refurbished office minis are cheap and quiet: Lenovo ThinkCentre Tiny (M720q, M920q), HP EliteDesk 800 Mini, Dell OptiPlex Micro, Intel NUC. <b>16 GB of RAM</b> runs the node and the full 8 seats; 8 GB leaves room for 2 or 3.</p>
-      <p class="note" style="margin-top:8px;">Fit a <b>2 TB SSD</b> before you install and install umbrelOS onto it. On umbrelOS 1.x every app, the Bitcoin node included, keeps its data on the disk umbrelOS lives on, so the big disk has to be the system disk. Most office minis take a 2.5 inch SATA or M.2 drive; the Tiny takes both.</p>
+      <p class="note" style="margin-top:8px;">Fit a <b>500 GB SSD</b> or larger before you install, and install umbrelOS onto it. On umbrelOS 1.x every app, the Bitcoin node included, keeps its data on the disk umbrelOS lives on, so the big disk has to be the system disk. Most office minis take a 2.5 inch SATA or M.2 drive; the Tiny takes both.</p>
     </div>
     <div class="card mint">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
@@ -527,7 +532,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     </li>
     <li>
       <h3>Install onto the internal disk</h3>
-      <p>The installer lists the disks it found. Type the number of the <b>internal SSD</b>, recognised by its size (about 238 GB for a 256 GB drive, about 1.8 TB for a 2 TB one), never the stick. If you fitted a 2 TB SSD for the Bitcoin node, this is the moment it matters: pick that disk. It starts writing immediately, without a confirmation. When it reports that umbrelOS has been installed: power off, remove the stick, power on.</p>
+      <p>The installer lists the disks it found. Type the number of the <b>internal SSD</b>, recognised by its size (about 238 GB for a 256 GB drive, about 1.8 TB for a 2 TB one), never the stick. If you fitted an SSD for the Bitcoin node, this is the moment it matters: pick that disk. It starts writing immediately, without a confirmation. When it reports that umbrelOS has been installed: power off, remove the stick, power on.</p>
     </li>
     <li>
       <h3>First boot and account</h3>
@@ -548,14 +553,14 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="sec-head">
     <div class="kicker">03 &#183; Bitcoin node</div>
     <h2>Install the Bitcoin node first and let it sync while you do the rest</h2>
-    <p class="sec-sub">A mainnet guardian validates against a Bitcoin Core node <b>you</b> run on the same box, unpruned. The initial sync is the slowest step of the whole setup, one to three days on an SSD and one to two weeks on a spinning USB disk, so it comes first: start it now, then carry on with the guardian install and setup while it runs. Nothing later waits for it, except selling your first seat.</p>
+    <p class="sec-sub">A mainnet guardian validates against a Bitcoin Core node <b>you</b> run on the same box, pruned or full. The initial sync is the slowest step of the whole setup, one to three days on an SSD and one to two weeks on a spinning USB disk, so it comes first: start it now, then carry on with the guardian install and setup while it runs. Nothing later waits for it, except selling your first seat.</p>
   </div>
 
   <div class="cards rv">
     <div class="card butter">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v10H4zM8 7v10M16 7v10"/></svg></div>
-      <h3>Disk: 2 TB, and it must be the system disk</h3>
-      <p>The unpruned chain is about 760 GB today and grows 60 to 80 GB a year. A guardian cannot run pruned. <span class="os-umbrel-only">An Umbrel Home with the 2 TB or 4 TB SSD passes this as it is; the 1 TB model does not. </span><span class="os-umbrel">On umbrelOS 1.x apps keep their data on the disk umbrelOS was installed to, so the 2 TB SSD has to be the one you installed onto. If umbrelOS is already on a small drive, fit the SSD and reinstall; a guardian comes back from its 12 words.</span><span class="os-startos">A Start9 server ships with a 2 TB or larger drive, so there is nothing to change. StartOS on your own box: services live on the data drive, so install StartOS onto the 2 TB SSD.</span></p>
+      <h3>Disk: 500 GB, and it must be the system disk</h3>
+      <p>A pruned node keeps only recent blocks: with a 10 GB prune target it settles between 35 and 115 GB, which is what this guide assumes. The full chain is about 760 GB today and grows 60 to 80 GB a year, so run pruned unless you have the disk to spare. <span class="os-umbrel-only">Any Umbrel Home passes this, the 1 TB model included. </span><span class="os-umbrel">On umbrelOS 1.x apps keep their data on the disk umbrelOS was installed to, so the big disk has to be the one you installed onto. If umbrelOS is on a very small drive, fit a larger SSD and reinstall; a guardian comes back from its 12 words.</span><span class="os-startos">A Start9 server ships with far more room than a pruned node needs, so there is nothing to change. StartOS on your own box: services live on the data drive, so install StartOS onto the 500 GB SSD.</span></p>
     </div>
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
@@ -573,7 +578,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <li>
       <h3>Check the disk before anything else</h3>
       <div class="path"><span>umbrelOS</span><i>&#8250;</i><span>Settings</span><i>&#8250;</i><span>Storage</span></div>
-      <p>You need about 1 TB free today and 2 TB to be comfortable for years. Less than that means the node fills the disk mid sync and stops. If the number is too small, go back to <a href="#box" data-switch="minipc">Prepare the mini PC</a>, fit the SSD, and reinstall onto it.</p>
+      <p>You need about 100 GB free today; 500 GB is comfortable for years. Less than that means the node fills the disk mid sync and stops. If the number is too small, go back to <a href="#box" data-switch="minipc">Prepare the mini PC</a>, fit the SSD, and reinstall onto it.</p>
     </li>
     <li>
       <h3>Install the Bitcoin Node app</h3>
@@ -587,10 +592,10 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
       <p>The app has over twenty advanced settings. Only these matter for a guardian:</p>
       <div class="tblwrap"><table>
         <tr><th>Setting</th><th>Value</th><th>Why</th></tr>
-        <tr><td><b>Prune Old Blocks</b></td><td>Off</td><td>A guardian needs the full chain. Turning pruning on later throws blocks away that you would have to download again.</td></tr>
+        <tr><td><b>Prune Old Blocks</b></td><td>10 GB</td><td>Keeps the node between 35 and 115 GB. Tested across seven production guardians in September 2026; umbrelOS reclaims the space on its own once the node catches up.</td></tr>
         <tr><td><b>Bitcoin Network</b></td><td>Mainnet</td><td>The default; the guardian needs the main network.</td></tr>
         <tr><td><b>Bitcoin Core Version</b></td><td>Always use the latest version</td><td>Keeps the node current; v31.1 as of September 2026.</td></tr>
-        <tr><td><b>Enable Transaction Indexing</b></td><td>On</td><td>Fedimint's reference Bitcoin Core configuration exposes the transaction index as a switch, and guardians look transactions up by id. Turning it on after the sync forces a re-index that takes hours; during the sync it is free.</td></tr>
+        <tr><td><b>Enable Transaction Indexing</b></td><td>Off</td><td>umbrelOS turns it off for you when pruning is on. An index written before you enabled pruning stays on disk: it is dead weight rather than a problem, and clearing it is optional.</td></tr>
         <tr><td><b>Cache Size</b></td><td>2000 MB on a 16 GB box, 1000 MB on 8 GB</td><td>Speeds up the initial sync noticeably. You can lower it again afterwards.</td></tr>
       </table></div>
       <p class="fine">Leave <b>Max Upload Target</b> alone unless your line is metered, and leave the peer connection settings on their defaults. Changing settings restarts the node, which pauses the sync for a minute.</p>
@@ -612,7 +617,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
       <h3>Done when</h3>
       <ul class="check" style="margin-top:6px;">
         <li>Block height matches the explorer and the app no longer says Synchronizing.</li>
-        <li>Prune Old Blocks is off and the disk still shows at least 10 percent free.</li>
+        <li>Prune Old Blocks is set to 10 GB and the disk still shows at least 10 percent free.</li>
         <li>You know where the RPC details are (Bitcoin Node &#8250; Connect), in case the app ever asks.</li>
         <li>The box has been left on since; a node that is switched off falls behind and has to catch up before a guardian can use it.</li>
       </ul>
@@ -627,9 +632,9 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
       <p><a class="btn btn-ghost btn-sm" href="https://github.com/Start9Labs/bitcoin-core-startos" target="_blank" rel="noopener">Package on GitHub &#8594;</a> &nbsp; <a class="btn btn-ghost btn-sm" href="https://docs.start9.com/latest/service-guides/bitcoin/index.html" target="_blank" rel="noopener">Start9 Bitcoin guide &#8594;</a></p>
     </li>
     <li>
-      <h3>Check that pruning is off before the sync gets far</h3>
+      <h3>Set pruning before the sync gets far</h3>
       <div class="path"><span>Bitcoin Core</span><i>&#8250;</i><span>Actions</span></div>
-      <p>Start9's package sizes itself to the disk: on a drive under about 900 GB it installs <b>pruned</b>, on anything larger it defaults to a <b>full archival node</b>. A Start9 server with its 2 TB drive should therefore come up unpruned, but check before the sync gets far: a guardian cannot use a pruned node, and changing it later triggers a full re-index. Find the pruning setting under Actions and make sure it is off, and enable the transaction index in the same place if it is offered.</p>
+      <p>Start9's package sizes itself to the disk: on a drive under about 900 GB it installs <b>pruned</b>, on anything larger it defaults to a <b>full archival node</b>. A guardian is happy either way. To run pruned on a larger drive, open Actions &#8250; Other, enable pruning, set the target to <b>10000 MB</b>, turn the transaction index (txindex) off, and save. StartOS reclaims the space on its own once the node catches up.</p>
     </li>
     <li>
       <h3>Watch the sync</h3>
@@ -887,7 +892,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <div class="r os-minipc"><b>umbrel.local does not open</b><span>First boot takes a few minutes, Windows does not always resolve .local names, or the ethernet is not plugged in.</span><span>Wait five minutes. Try <code>http://umbrel</code>, or the box's IP from your router's device list. Check the cable.</span></div>
     <div class="r os-minipc"><b>The box stayed off after a power cut</b><span>The BIOS default is to stay off when power returns.</span><span>BIOS &#8250; Power &#8250; After Power Loss &#8250; Power on. Then it comes back on its own.</span></div>
     <div class="r"><b>Bitcoin node at under 1 percent for a day</b><span>The percentage is weighted by transactions; early blocks have almost none.</span><span>Normal. Watch the block height climb instead, and compare it with mempool.space.</span></div>
-    <div class="r"><b>Bitcoin node stopped, disk full</b><span>Pruning off plus a disk under 1 TB, or the chain outgrew the disk.</span><span>There is no shortcut: fit a 2 TB SSD as the system disk and reinstall. Do not turn pruning on to make room; a guardian cannot use a pruned node.</span></div>
+    <div class="r"><b>Bitcoin node stopped, disk full</b><span>A full node on a disk too small to hold the chain.</span><span>Turn pruning on with a 10 GB target: both platforms reclaim the blocks themselves once the node catches up. If the disk is already full and the node will not start, fit a larger SSD as the system disk and reinstall; a guardian comes back from its 12 words.</span></div>
     <div class="r"><b>Bitcoin sync still running after two weeks</b><span>A spinning USB disk, Wi‑Fi, or a box that was powered off overnight.</span><span>Move the chain to an internal SSD, use ethernet, and set After Power Loss to Power on in the BIOS.</span></div>
     <div class="r"><b>RPC password lost</b><span class="os-umbrel">Umbrel's Bitcoin Node app always shows it under Connect; only a reinstall changes it.</span><span class="os-startos">StartOS shows it under Properties; a lost user can be removed with Delete RPC Users and recreated.</span><span>Copy it again from the app and update your password manager.</span></div>
     <div class="r"><b>Seats beyond the eighth connect slowly</b><span>Only UDP 31000 to 31031 are published; later seats fall back to relays.</span><span>Still works. A later package update extends the range.</span></div>
@@ -902,7 +907,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   </div>
   <div class="faq rv">
     <details><summary>Do I need a public IP address, a domain, or a certificate?</summary><div class="a">No, and by design you never will. Ambassadors reach your fleet over hole punched connections with public relays as fallback, your advertisement goes out over Nostr, and the dashboard is either behind Umbrel's login or protected by StartOS's generated password. Forwarding UDP 31000 to 31031 is optional and only improves direct connections.</div></details>
-    <details><summary>Do I need to run Bitcoin Core or Lightning?</summary><div class="a">Bitcoin Core yes (Bitcoin Knots works as well), Lightning no. A mainnet guardian validates against your own unpruned Bitcoin node on the same box; <a href="#bitcoin">Bitcoin node</a> covers it, and its sync is the longest step of the setup. A Lightning node is never required; payouts go to any Lightning address you already have.</div></details>
+    <details><summary>Do I need to run Bitcoin Core or Lightning?</summary><div class="a">Bitcoin Core yes (Bitcoin Knots works as well), Lightning no. A mainnet guardian validates against your own Bitcoin node on the same box, pruned or full; <a href="#bitcoin">Bitcoin node</a> covers it, and its sync is the longest step of the setup. A Lightning node is never required; payouts go to any Lightning address you already have.</div></details>
     <details><summary>Can I choose which federations I host?</summary><div class="a">No. You set a price and a seat count; Ambassadors choose you. Every offered seat accepts automatically once a valid payment lands. If you want to stop being chosen, clear the price on the Overview.</div></details>
     <details><summary>How much will I earn?</summary><div class="a">Two things: the seat price you set, paid once per seat sold, and one share of the federation's transaction fees for as long as it runs. The dashboard suggests a seat price around the equivalent of $2 to $3. Fee income depends entirely on how much the federation's members transact, so no number is promised here.</div></details>
     <details><summary>What if I lose the 12 words?</summary><div class="a">While the box runs, nothing changes and you can reveal the phrase again from Backup. If the box dies and you do not have the words, the fleet and its seats cannot be recovered. Write them down before continuing past screen 2.</div></details>
