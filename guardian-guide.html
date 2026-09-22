@@ -4,9 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%230b1013%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%277%27 fill=%27none%27 stroke=%27%237fd89b%27 stroke-width=%273%27/%3E%3C/svg%3E">
 <title>Manifold Fedimint Guardian setup guide</title>
-<meta name="description" content="Step by step: run a Manifold Fedimint Guardian on Umbrel or Start9, get authorized, sell guardian seats to federation founders, and withdraw what you earn.">
+<meta name="description" content="Step by step: run a Manifold Fedimint Guardian on Umbrel or Start9, get authorized, sell guardian seats to Federation Ambassadors, and withdraw what you earn.">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,501,700,701,900&display=swap" rel="stylesheet">
 <style>
@@ -224,27 +223,29 @@ footer a{color:#6a6f74;}
 @media(prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important;transition:none;}}
 
 /* shared:css:start */
-/* ── Nav ──────────────────────────────────────── */
-nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,16,19,.06);}
-.nav-in{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px;}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#212121;}
-.brand .logo{height:21px;width:auto;flex:none;display:block;}
+/* ── Nav (matched to the fedi.xyz Framer header) ─── */
+/* the bar scrolls away like fedi.xyz, so anchors need only a small offset */
+html{scroll-padding-top:24px;}
+nav{position:relative;top:auto;z-index:50;background:#fff;border-bottom:0;backdrop-filter:none;-webkit-backdrop-filter:none;}
+.nav-in{max-width:1400px;margin:0 auto;min-height:88px;padding:0 40px;display:flex;align-items:center;gap:32px;}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:700;font-size:18px;line-height:1;letter-spacing:-.02em;color:#0b1013;}
+.brand .logo{height:24px;width:auto;flex:none;display:block;}
 .brand .sep{color:#c9cbce;font-weight:500;}
 .brand .prod{font-weight:700;}
-.nav-links{display:flex;align-items:center;gap:22px;margin-left:auto;}
-.nav-links>a{display:inline-flex;align-items:center;line-height:1.6;}
-.nav-links a{font-size:14px;font-weight:500;color:#565b60;text-decoration:none;transition:color .15s;}
-.nav-links a:hover{color:var(--ink);}
-.nav-cta{margin-left:6px;}
-.nav-item{position:relative;display:flex;align-items:center;line-height:1.6;}
-.nav-trigger{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:14px;font-weight:500;color:#565b60;background:none;border:0;cursor:pointer;padding:0;line-height:1.6;transition:color .15s;}
-.nav-trigger:hover,.nav-item.open .nav-trigger{color:var(--ink);}
-.nav-trigger .caret{width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-1px);transition:transform .18s;}
-.nav-item.open .nav-trigger .caret{transform:rotate(225deg) translateY(-2px);}
-.nav-menu{position:absolute;top:calc(100% + 14px);left:-14px;min-width:212px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 14px 40px rgba(11,16,19,.12);padding:8px;display:none;flex-direction:column;gap:2px;}
+.nav-links{display:flex;align-items:center;gap:32px;margin-left:auto;}
+.nav-links>a{display:inline-flex;align-items:center;line-height:1;}
+.nav-links a{font-size:18px;font-weight:700;color:#0b1013;text-decoration:none;transition:opacity .15s;}
+.nav-links a:hover{opacity:.62;}
+.nav-cta{margin-left:8px;}
+.nav-item{position:relative;display:flex;align-items:center;line-height:1;}
+.nav-trigger{display:inline-flex;align-items:center;gap:4px;font-family:var(--sans);font-size:18px;font-weight:700;line-height:1;color:#0b1013;background:none;border:0;cursor:pointer;padding:0;transition:opacity .15s;}
+.nav-trigger:hover,.nav-item.open .nav-trigger{opacity:.62;}
+.nav-trigger .caret{width:20px;height:20px;flex:none;fill:currentColor;transform:rotate(90deg);transition:transform .18s;}
+.nav-item.open .nav-trigger .caret{transform:rotate(-90deg);}
+.nav-menu{position:absolute;top:calc(100% + 18px);left:-16px;min-width:224px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 14px 40px rgba(11,16,19,.12);padding:10px;display:none;flex-direction:column;gap:2px;}
 .nav-item.open .nav-menu{display:flex;}
-.nav-menu a{font-size:14px;font-weight:500;color:#565b60;text-decoration:none;padding:8px 12px;border-radius:10px;white-space:nowrap;transition:.15s;}
-.nav-menu a:hover{color:var(--ink);background:var(--wash);}
+.nav-menu a{font-size:16px;font-weight:500;color:#565b60;text-decoration:none;padding:9px 12px;border-radius:10px;white-space:nowrap;transition:.15s;}
+.nav-menu a:hover{color:#0b1013;background:var(--wash);}
 /* hamburger + mobile panel */
 .nav-burger{display:none;margin-left:auto;width:40px;height:40px;flex:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:0;}
 .nav-burger span{display:block;position:relative;width:17px;height:1.8px;border-radius:2px;background:var(--ink);transition:transform .2s,opacity .15s;}
@@ -256,17 +257,17 @@ nav.open .nav-burger span{background:transparent;}
 nav.open .nav-burger span::before{transform:translateY(5.5px) rotate(45deg);}
 nav.open .nav-burger span::after{transform:translateY(-5.5px) rotate(-45deg);}
 .nav-in .nav-cta-mobile{display:none;}
-@media(max-width:860px){
+@media(max-width:1000px){
   .nav-burger{display:inline-flex;}
   .nav-in .nav-cta{display:none;}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;margin-left:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 22px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 18px 40px rgba(11,16,19,.1);max-height:calc(100vh - 64px);overflow-y:auto;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;margin-left:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 22px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 18px 40px rgba(11,16,19,.1);max-height:calc(100vh - 88px);overflow-y:auto;}
   nav.open .nav-links{display:flex;}
   .nav-item{display:block;border-bottom:1px solid var(--line);}
-  .nav-trigger{width:100%;justify-content:space-between;padding:14px 2px;font-size:15px;}
+  .nav-trigger{width:100%;justify-content:space-between;padding:16px 2px;font-size:18px;}
   .nav-menu{position:static;display:none;min-width:0;border:0;border-radius:0;box-shadow:none;padding:0 0 10px 2px;}
   .nav-item.open .nav-menu{display:flex;}
-  .nav-menu a{font-size:14.5px;padding:9px 10px;white-space:normal;}
-  .nav-links>a{padding:14px 2px;font-size:15px;border-bottom:1px solid var(--line);}
+  .nav-menu a{font-size:16px;padding:10px 10px;white-space:normal;}
+  .nav-links>a{padding:16px 2px;font-size:18px;border-bottom:1px solid var(--line);}
   .nav-in .nav-cta-mobile{display:inline-flex;margin-top:18px;width:100%;}
 }
 
@@ -291,7 +292,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     </a>
     <div class="nav-links" id="nav-links">
       <div class="nav-item">
-        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Fedi For<span class="caret" aria-hidden="true"></span></button>
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Fedi For<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 15.46l3.88-3.88L9.29 7.7a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg></button>
         <div class="nav-menu">
           <a href="https://fedi.xyz/fedi-for-u" target="_blank" rel="noopener">You</a>
           <a href="https://fedi.xyz/fedi-for-communities" target="_blank" rel="noopener">Communities</a>
@@ -300,7 +301,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
         </div>
       </div>
       <div class="nav-item">
-        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Get Involved<span class="caret" aria-hidden="true"></span></button>
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Get Involved<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 15.46l3.88-3.88L9.29 7.7a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg></button>
         <div class="nav-menu">
           <a href="https://fedi.xyz/get-the-app" target="_blank" rel="noopener">Get the App</a>
           <a href="https://fedi.xyz/create-a-community" target="_blank" rel="noopener">Create a Community</a>
@@ -309,13 +310,13 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
         </div>
       </div>
       <div class="nav-item">
-        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Learn<span class="caret" aria-hidden="true"></span></button>
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Learn<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 15.46l3.88-3.88L9.29 7.7a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg></button>
         <div class="nav-menu">
           <a href="https://fedi.xyz/blog" target="_blank" rel="noopener">Blog</a>
         </div>
       </div>
       <div class="nav-item">
-        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">About<span class="caret" aria-hidden="true"></span></button>
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">About<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 15.46l3.88-3.88L9.29 7.7a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg></button>
         <div class="nav-menu">
           <a href="https://fedi.xyz/company" target="_blank" rel="noopener">Company</a>
           <a href="https://fedi.xyz/ecosystem" target="_blank" rel="noopener">Ecosystem</a>
@@ -395,14 +396,14 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <h2>Four things happen, in this order</h2>
     <p class="sec-sub">Manifold Fedimint Guardian is the guardian software behind Manifold. It runs one Fedimint guardian process per seat you sell, validates against a Bitcoin Core node on the same box (on StartOS, Bitcoin Knots works as well), and handles the selling for you. It is not a Lightning wallet, and it does not replace the Bitcoin node: it needs one.</p>
   </div>
-  <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Step zero: get your PeerBadge.</b> Founders only see fleets that a PeerBadge holder at Trusted level or higher has authorized, and that holder is you: during setup you sign the authorization with your own badge. Get the badge before you buy hardware or start the node; the <a href="#faq">FAQ</a> says where to ask.</div></div>
+  <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Step zero: get your PeerBadge.</b> Ambassadors only see fleets that a PeerBadge holder at Trusted level or higher has authorized, and that holder is you: during setup you sign the authorization with your own badge. Get the badge before you buy hardware or start the node; the <a href="#faq">FAQ</a> says where to ask.</div></div>
   <div class="flow rv">
     <div class="f"><div class="n">1</div><h3>Prepare the box, start the node</h3><p><span class="os-minipc">umbrelOS on a mini PC with a 2 TB SSD, then Bitcoin Core.</span><span class="os-umbrel-only">Your Umbrel, then its Bitcoin Node app.</span><span class="os-startos">Your Start9 server on the latest StartOS 0.4 stable, then Bitcoin Core.</span> Its sync takes days, so it goes first and runs in the background.</p></div>
     <div class="f"><div class="n">2</div><h3>Install and set up the guardian</h3><p>The guardian app installs from a store and holds a small fleet of guardian seats. Setup is a five screen wizard in your browser.</p></div>
-    <div class="f"><div class="n">3</div><h3>Get advertised, sell seats</h3><p>Once you have authorized your fleet with your PeerBadge and set a price, your open seats are announced on Nostr. A founder in the Fedi app picks a set, pays once, and your box starts one guardian per seat sold.</p></div>
+    <div class="f"><div class="n">3</div><h3>Get advertised, sell seats</h3><p>Once you have authorized your fleet with your PeerBadge and set a price, your open seats are announced on Nostr. An Ambassador in the Fedi app picks a set, pays once, and your box starts one guardian per seat sold.</p></div>
     <div class="f"><div class="n">4</div><h3>Earn and withdraw</h3><p>You receive the seat price up front and a share of that federation's transaction fees for as long as it runs. Both leave to a Lightning address from the Payouts page.</p></div>
   </div>
-  <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Words used on this page.</b> A <b>seat</b> is one guardian slot you offer. A <b>federation founder</b> is the person creating a federation in the Fedi app (the protocol calls them the initiator). The <b>dashboard</b> is the guardian software's own web page, served by your box. <b>The node</b> is the Bitcoin Core you run on the same box; the guardian validates against it.</div></div>
+  <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Words used on this page.</b> A <b>seat</b> is one guardian slot you offer. A <b>Federation Ambassador</b> is the person creating a federation in the Fedi app (the code and the API still call them the initiator). The <b>dashboard</b> is the guardian software's own web page, served by your box. <b>The node</b> is the Bitcoin Core you run on the same box; the guardian validates against it.</div></div>
 </section>
 
 <!-- 01 REQUIREMENTS -->
@@ -448,7 +449,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
       <h3>A PeerBadge, before anything else</h3>
-      <p>Founders only see fleets whose key carries an authorization from a PeerBadge holder at Trusted level or higher, and that holder is you. The dashboard shows your fleet's public key as a QR code; you scan it with the credential app that holds your badge, and the app publishes the authorization. <b>Get your badge before you start</b>, ahead of hardware and the node; the <a href="#faq">FAQ</a> lists where to ask.</p>
+      <p>Ambassadors only see fleets whose key carries an authorization from a PeerBadge holder at Trusted level or higher, and that holder is you. The dashboard shows your fleet's public key as a QR code; you scan it with the credential app that holds your badge, and the app publishes the authorization. <b>Get your badge before you start</b>, ahead of hardware and the node; the <a href="#faq">FAQ</a> lists where to ask.</p>
     </div>
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16M6 16V8m6 8V4m6 12v-6"/></svg></div>
@@ -736,7 +737,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <li>
       <span class="stepnum">SCREEN 3</span>
       <h3>"Get this fleet authorized"</h3>
-      <p>The screen shows a QR code and your fleet's <b>service Nostr public key</b> (a 64 character string). Founders only see fleets whose key carries a PeerBadge authorization, so this step cannot be skipped.</p>
+      <p>The screen shows a QR code and your fleet's <b>service Nostr public key</b> (a 64 character string). Ambassadors only see fleets whose key carries a PeerBadge authorization, so this step cannot be skipped.</p>
       <p>Authorize it with your own PeerBadge: open the credential app that holds your badge, scan the QR code (or click <b>Copy the authorization request</b> and paste it into the app) and sign. Back in the wizard, click <b>Check now</b>. It does not poll in the background, so nothing happens until you click.</p>
       <p class="fine">When the relay carries your authorization the status changes to "Authorization observed" and the wizard moves on to the terms by itself after two seconds.</p>
       <div class="shot"><img src="media/guardian-guide/setup-authorization.png" alt="Setup screen 3: QR code and service Nostr public key, waiting for a holder authorization" width="1000" height="820" loading="lazy"></div>
@@ -749,13 +750,13 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <li>
       <span class="stepnum">SCREEN 5</span>
       <h3>"Set your price"</h3>
-      <p><b>Maximum active seats</b> is prefilled with the RAM based recommendation; lower it if the box does other work. <b>Price per seat (sats)</b> is the whole offer: the gross amount a founder pays for one seat, before mint and Lightning fees. The dashboard suggests the equivalent of $2 to $3; a lower price fills seats sooner.</p>
+      <p><b>Maximum active seats</b> is prefilled with the RAM based recommendation; lower it if the box does other work. <b>Price per seat (sats)</b> is the whole offer: the gross amount an Ambassador pays for one seat, before mint and Lightning fees. The dashboard suggests the equivalent of $2 to $3; a lower price fills seats sooner.</p>
       <p>Click <b>Finish setup</b>. Leaving the price blank finishes setup without selling anything; you can set a price any time from the Overview.</p>
-      <div class="call info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Expect "Loading…" for about two minutes after this step.</b> The fleet joins the network's shared setup payment federation, the one founders pay you through, and scans its history once. It only happens the first time.</div></div>
+      <div class="call info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Expect "Loading…" for about two minutes after this step.</b> The fleet joins the network's shared setup payment federation, the one Ambassadors pay you through, and scans its history once. It only happens the first time.</div></div>
       <div class="shot"><img src="media/guardian-guide/setup-price.png" alt="Setup screen 4: maximum active seats and price per seat" width="1000" height="820" loading="lazy"></div>
     </li>
   </ol>
-  <div class="call ok rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><div><b>You are set up.</b> The dashboard now opens on the Overview with six pages in the left menu: Overview, Authorization, Seats, Wallet, Payouts and Backup. Your fleet has a two word name (for example <i>cranked-bonobo</i>) that founders and support can recognise it by; it is shown top left and on the Backup page.</div></div>
+  <div class="call ok rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><div><b>You are set up.</b> The dashboard now opens on the Overview with six pages in the left menu: Overview, Authorization, Seats, Wallet, Payouts and Backup. Your fleet has a two word name (for example <i>cranked-bonobo</i>) that Ambassadors and support can recognise it by; it is shown top left and on the Backup page.</div></div>
   <div class="shot rv"><img src="media/guardian-guide/overview-fresh.png" alt="Overview right after setup: nothing sold yet" width="1000" height="820" loading="lazy"></div>
   <p class="shot-cap"><b>Overview right after setup.</b> Zero everywhere is normal. The next section is about getting from here to the first sale.</p>
 </section>
@@ -765,7 +766,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="sec-head">
     <div class="kicker">06 &#183; Get discovered</div>
     <h2>Three conditions</h2>
-    <p class="sec-sub">A fleet is invisible to founders until it has an authorization, a price, and a wallet that can receive payment. The dashboard shows all three. Then the software publishes your advertisement and keeps it fresh on its own.</p>
+    <p class="sec-sub">A fleet is invisible to Ambassadors until it has an authorization, a price, and a wallet that can receive payment. The dashboard shows all three. Then the software publishes your advertisement and keeps it fresh on its own.</p>
   </div>
   <ul class="check rv">
     <li><b>Authorization observed.</b> Open <b>Authorization</b> in the left menu. It should list at least one holder under "Observed holders". This is the badge from screen 3.</li>
@@ -781,16 +782,16 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="sec-head">
     <div class="kicker">07 &#183; Earn</div>
     <h2>What happens when someone buys your seat</h2>
-    <p class="sec-sub">You do nothing. Founders pick, pay and form the federation from the Fedi app; the fleet accepts, starts a guardian and reports. Here is what you will see, and where the money comes from.</p>
+    <p class="sec-sub">You do nothing. Ambassadors pick, pay and form the federation from the Fedi app; the fleet accepts, starts a guardian and reports. Here is what you will see, and where the money comes from.</p>
   </div>
   <ol class="steps rv">
     <li>
-      <h3>A founder assembles a guardian set</h3>
-      <p>In the Fedi app the founder opens Wallets, taps Create, and the app assembles a set of guardians from advertised fleets: cheapest first, then most free slots. One founder buys at most one seat from your fleet per federation.</p>
+      <h3>An Ambassador assembles a guardian set</h3>
+      <p>In the Fedi app the Ambassador opens Wallets, taps Create, and the app assembles a set of guardians from advertised fleets: cheapest first, then most free slots. One Ambassador buys at most one seat from your fleet per federation.</p>
     </li>
     <li>
       <h3>They pay once, for the whole set</h3>
-      <p>The founder pays the total in ecash through the shared setup payment federation. Your fleet receives your seat price, gross, before mint and Lightning fees. Every offered seat accepts automatically once a valid payment lands; there is no approval step and no "create seat" button on your side.</p>
+      <p>The Ambassador pays the total in ecash through the shared setup payment federation. Your fleet receives your seat price, gross, before mint and Lightning fees. Every offered seat accepts automatically once a valid payment lands; there is no approval step and no "create seat" button on your side.</p>
       <p class="fine">The Overview counts this as an accepted payment claim, which is not yet the same as a settled payment. The fleet reconciles the claim in the background and the Wallet balance follows.</p>
     </li>
     <li>
@@ -800,7 +801,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     </li>
     <li>
       <h3>Fees accrue for as long as the federation runs</h3>
-      <p>Every transaction members make inside the federation pays a small fee, split by a fixed rule: the founder holds <b>4 shares</b>, <b>each guardian 1 share</b>, and <b>1 share</b> is the guardian verification fee, so a federation with 10 guardians has 15 shares and you hold one of them. The rate starts at 0.5% (5,000 ppm) and the founder can change it within the network's bounds. Your share is remitted into a per seat fee account that you collect from Payouts.</p>
+      <p>Every transaction members make inside the federation pays a small fee, split by a fixed rule: the Ambassador holds <b>4 shares</b>, <b>each guardian 1 share</b>, and <b>1 share</b> is the guardian verification fee, so a federation with 10 guardians has 15 shares and you hold one of them. The rate starts at 0.5% (5,000 ppm) and the Ambassador can change it within the network's bounds. Your share is remitted into a per seat fee account that you collect from Payouts.</p>
     </li>
   </ol>
   <div class="shot rv"><img src="media/guardian-guide/overview-earnings.png" alt="Overview with seat sales and guardian fees over several days" width="1000" height="993" loading="lazy"></div>
@@ -855,7 +856,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   </div>
   <div class="shots2 rv">
     <div><div class="shot" style="margin-top:0;"><img src="media/guardian-guide/backup.png" alt="Backup page: fleet name, keys, reveal recovery phrase" width="1000" height="820" loading="lazy"></div><p class="shot-cap"><b>Backup.</b> Name, service key, service Nostr key, and the phrase behind a deliberate extra click.</p></div>
-    <div><div class="shot" style="margin-top:0;"><img src="media/guardian-guide/offer.png" alt="Your offer page: seat capacity and price per seat" width="1000" height="820" loading="lazy"></div><p class="shot-cap"><b>Your offer.</b> Seat capacity and price are saved separately; each change re-issues the offer to founders.</p></div>
+    <div><div class="shot" style="margin-top:0;"><img src="media/guardian-guide/offer.png" alt="Your offer page: seat capacity and price per seat" width="1000" height="820" loading="lazy"></div><p class="shot-cap"><b>Your offer.</b> Seat capacity and price are saved separately; each change re-issues the offer to Ambassadors.</p></div>
   </div>
 </section>
 
@@ -875,7 +876,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <div class="r"><b>Sweep button greyed out</b><span>No payout destination saved, or that wallet holds nothing.</span><span>Save a Lightning address in the card at the top of Payouts, then retry.</span></div>
     <div class="r"><b>"Send to destination" greyed out on a seat</b><span>Fees are still in the pool; only collected ecash can be sent.</span><span>Click 1. Collect out of the pool first. Locked deposits release at the next cycle.</span></div>
     <div class="r"><b>App crash loops after an update with a migration error</b><span>The new build's database schema is incompatible with the data on disk (release notes flag these).</span><span>Uninstall, reinstall, and choose Recover from your phrase on the first setup screen; the fleet and its seats come back from the 12 words.</span></div>
-    <div class="r"><b>Founders see "not enough guardians" or "unauthorized request"</b><span>Version skew between fleets, the app and the network.</span><span>Update the fleet to the current release (see Keep it running).</span></div>
+    <div class="r"><b>Ambassadors see "not enough guardians" or "unauthorized request"</b><span>Version skew between fleets, the app and the network.</span><span>Update the fleet to the current release (see Keep it running).</span></div>
     <div class="r os-umbrel"><b><code>[object Object]</code> error before the wizard</b><span>Frontend rendering bug on the pre setup screen.</span><span>Ignore or reload. The wizard still works.</span></div>
     <div class="r os-startos"><b>Sideload page: "alerts is undefined"</b><span>StartOS 0.4.0 beta.</span><span>System &#8250; Software Update to 0.4.0 stable or later.</span></div>
     <div class="r os-startos"><b>Open button leads to a dead 127.0.0.1 link</b><span>You are browsing StartOS from the server itself.</span><span>Use the interface's Local address entry instead.</span></div>
@@ -898,9 +899,9 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <h2>Questions people ask before they start</h2>
   </div>
   <div class="faq rv">
-    <details><summary>Do I need a public IP address, a domain, or a certificate?</summary><div class="a">No, and by design you never will. Founders reach your fleet over hole punched connections with public relays as fallback, your advertisement goes out over Nostr, and the dashboard is either behind Umbrel's login or protected by StartOS's generated password. Forwarding UDP 31000 to 31031 is optional and only improves direct connections.</div></details>
+    <details><summary>Do I need a public IP address, a domain, or a certificate?</summary><div class="a">No, and by design you never will. Ambassadors reach your fleet over hole punched connections with public relays as fallback, your advertisement goes out over Nostr, and the dashboard is either behind Umbrel's login or protected by StartOS's generated password. Forwarding UDP 31000 to 31031 is optional and only improves direct connections.</div></details>
     <details><summary>Do I need to run Bitcoin Core or Lightning?</summary><div class="a">Bitcoin Core yes (Bitcoin Knots works as well), Lightning no. A mainnet guardian validates against your own unpruned Bitcoin node on the same box; <a href="#bitcoin">Bitcoin node</a> covers it, and its sync is the longest step of the setup. A Lightning node is never required; payouts go to any Lightning address you already have.</div></details>
-    <details><summary>Can I choose which federations I host?</summary><div class="a">No. You set a price and a seat count; founders choose you. Every offered seat accepts automatically once a valid payment lands. If you want to stop being chosen, clear the price on the Overview.</div></details>
+    <details><summary>Can I choose which federations I host?</summary><div class="a">No. You set a price and a seat count; Ambassadors choose you. Every offered seat accepts automatically once a valid payment lands. If you want to stop being chosen, clear the price on the Overview.</div></details>
     <details><summary>How much will I earn?</summary><div class="a">Two things: the seat price you set, paid once per seat sold, and one share of the federation's transaction fees for as long as it runs. The dashboard suggests a seat price around the equivalent of $2 to $3. Fee income depends entirely on how much the federation's members transact, so no number is promised here.</div></details>
     <details><summary>What if I lose the 12 words?</summary><div class="a">While the box runs, nothing changes and you can reveal the phrase again from Backup. If the box dies and you do not have the words, the fleet and its seats cannot be recovered. Write them down before continuing past screen 2.</div></details>
     <details><summary>Can I move my fleet to a new box?</summary><div class="a">Yes: set the new box up, choose "Recover from your phrase" on screen 1, and the seats rebuild from the encrypted records the fleet published to the relay. Turn the old box off first. Two hosts with one identity would contradict each other.</div></details>
@@ -1054,7 +1055,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   document.addEventListener('click', e => { if (!e.target.closest('nav')) closePanel(); });
   document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', closePanel));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); closePanel(); } });
-  window.addEventListener('resize', () => { if (window.innerWidth > 860) closePanel(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 1000) closePanel(); });
 })();
 /* shared:navjs:end */
 </script>

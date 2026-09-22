@@ -29,7 +29,7 @@
   --r-card:24px;
   --r-band:40px;
 }
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;scroll-padding-top:84px;}
 html,body{background:#fff;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
 body{font-size:17px;line-height:1.6;}
 img,svg{max-width:100%;display:block;}
@@ -131,7 +131,7 @@ h2{font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.04em;line-h
 .dep-card h4{margin-bottom:0;}
 .dep-ico{width:40px;height:40px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;}
 .dep-ico svg{width:30px;height:30px;}
-.btn.is-soon{background:#eceef0;color:#8a8f94;cursor:default;box-shadow:none;display:inline-flex;align-items:center;gap:10px;}
+.btn.is-soon{background:#eceef0;color:#8a8f94;cursor:pointer;text-decoration:none;box-shadow:none;display:inline-flex;align-items:center;gap:10px;}
 .btn.is-soon:hover{transform:none;box-shadow:none;background:#eceef0;}
 .btn.is-soon:active{transform:none;}
 .btn.is-soon i{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#fff;color:#6b7075;border-radius:100px;padding:4px 9px;}
@@ -439,27 +439,29 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2.5px solid v
 .master .mchips a:hover{border-color:rgba(11,16,19,.35);transform:translateY(-1px);}
 
 /* shared:css:start */
-/* ── Nav ──────────────────────────────────────── */
-nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,16,19,.06);}
-.nav-in{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px;}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#212121;}
-.brand .logo{height:21px;width:auto;flex:none;display:block;}
+/* ── Nav (matched to the fedi.xyz Framer header) ─── */
+/* the bar scrolls away like fedi.xyz, so anchors need only a small offset */
+html{scroll-padding-top:24px;}
+nav{position:relative;top:auto;z-index:50;background:#fff;border-bottom:0;backdrop-filter:none;-webkit-backdrop-filter:none;}
+.nav-in{max-width:1400px;margin:0 auto;min-height:88px;padding:0 40px;display:flex;align-items:center;gap:32px;}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:700;font-size:18px;line-height:1;letter-spacing:-.02em;color:#0b1013;}
+.brand .logo{height:24px;width:auto;flex:none;display:block;}
 .brand .sep{color:#c9cbce;font-weight:500;}
 .brand .prod{font-weight:700;}
-.nav-links{display:flex;align-items:center;gap:22px;margin-left:auto;}
-.nav-links>a{display:inline-flex;align-items:center;line-height:1.6;}
-.nav-links a{font-size:14px;font-weight:500;color:#565b60;text-decoration:none;transition:color .15s;}
-.nav-links a:hover{color:var(--ink);}
-.nav-cta{margin-left:6px;}
-.nav-item{position:relative;display:flex;align-items:center;line-height:1.6;}
-.nav-trigger{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:14px;font-weight:500;color:#565b60;background:none;border:0;cursor:pointer;padding:0;line-height:1.6;transition:color .15s;}
-.nav-trigger:hover,.nav-item.open .nav-trigger{color:var(--ink);}
-.nav-trigger .caret{width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-1px);transition:transform .18s;}
-.nav-item.open .nav-trigger .caret{transform:rotate(225deg) translateY(-2px);}
-.nav-menu{position:absolute;top:calc(100% + 14px);left:-14px;min-width:212px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 14px 40px rgba(11,16,19,.12);padding:8px;display:none;flex-direction:column;gap:2px;}
+.nav-links{display:flex;align-items:center;gap:32px;margin-left:auto;}
+.nav-links>a{display:inline-flex;align-items:center;line-height:1;}
+.nav-links a{font-size:18px;font-weight:700;color:#0b1013;text-decoration:none;transition:opacity .15s;}
+.nav-links a:hover{opacity:.62;}
+.nav-cta{margin-left:8px;}
+.nav-item{position:relative;display:flex;align-items:center;line-height:1;}
+.nav-trigger{display:inline-flex;align-items:center;gap:4px;font-family:var(--sans);font-size:18px;font-weight:700;line-height:1;color:#0b1013;background:none;border:0;cursor:pointer;padding:0;transition:opacity .15s;}
+.nav-trigger:hover,.nav-item.open .nav-trigger{opacity:.62;}
+.nav-trigger .caret{width:20px;height:20px;flex:none;fill:currentColor;transform:rotate(90deg);transition:transform .18s;}
+.nav-item.open .nav-trigger .caret{transform:rotate(-90deg);}
+.nav-menu{position:absolute;top:calc(100% + 18px);left:-16px;min-width:224px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 14px 40px rgba(11,16,19,.12);padding:10px;display:none;flex-direction:column;gap:2px;}
 .nav-item.open .nav-menu{display:flex;}
-.nav-menu a{font-size:14px;font-weight:500;color:#565b60;text-decoration:none;padding:8px 12px;border-radius:10px;white-space:nowrap;transition:.15s;}
-.nav-menu a:hover{color:var(--ink);background:var(--wash);}
+.nav-menu a{font-size:16px;font-weight:500;color:#565b60;text-decoration:none;padding:9px 12px;border-radius:10px;white-space:nowrap;transition:.15s;}
+.nav-menu a:hover{color:#0b1013;background:var(--wash);}
 /* hamburger + mobile panel */
 .nav-burger{display:none;margin-left:auto;width:40px;height:40px;flex:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:0;}
 .nav-burger span{display:block;position:relative;width:17px;height:1.8px;border-radius:2px;background:var(--ink);transition:transform .2s,opacity .15s;}
@@ -471,17 +473,17 @@ nav.open .nav-burger span{background:transparent;}
 nav.open .nav-burger span::before{transform:translateY(5.5px) rotate(45deg);}
 nav.open .nav-burger span::after{transform:translateY(-5.5px) rotate(-45deg);}
 .nav-in .nav-cta-mobile{display:none;}
-@media(max-width:860px){
+@media(max-width:1000px){
   .nav-burger{display:inline-flex;}
   .nav-in .nav-cta{display:none;}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;margin-left:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 22px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 18px 40px rgba(11,16,19,.1);max-height:calc(100vh - 64px);overflow-y:auto;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;margin-left:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 22px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 18px 40px rgba(11,16,19,.1);max-height:calc(100vh - 88px);overflow-y:auto;}
   nav.open .nav-links{display:flex;}
   .nav-item{display:block;border-bottom:1px solid var(--line);}
-  .nav-trigger{width:100%;justify-content:space-between;padding:14px 2px;font-size:15px;}
+  .nav-trigger{width:100%;justify-content:space-between;padding:16px 2px;font-size:18px;}
   .nav-menu{position:static;display:none;min-width:0;border:0;border-radius:0;box-shadow:none;padding:0 0 10px 2px;}
   .nav-item.open .nav-menu{display:flex;}
-  .nav-menu a{font-size:14.5px;padding:9px 10px;white-space:normal;}
-  .nav-links>a{padding:14px 2px;font-size:15px;border-bottom:1px solid var(--line);}
+  .nav-menu a{font-size:16px;padding:10px 10px;white-space:normal;}
+  .nav-links>a{padding:16px 2px;font-size:18px;border-bottom:1px solid var(--line);}
   .nav-in .nav-cta-mobile{display:inline-flex;margin-top:18px;width:100%;}
 }
 
@@ -509,7 +511,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     </a>
     <div class="nav-links" id="nav-links">
       <div class="nav-item">
-        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Fedi For<span class="caret" aria-hidden="true"></span></button>
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Fedi For<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 15.46l3.88-3.88L9.29 7.7a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg></button>
         <div class="nav-menu">
           <a href="https://fedi.xyz/fedi-for-u" target="_blank" rel="noopener">You</a>
           <a href="https://fedi.xyz/fedi-for-communities" target="_blank" rel="noopener">Communities</a>
@@ -518,7 +520,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
         </div>
       </div>
       <div class="nav-item">
-        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Get Involved<span class="caret" aria-hidden="true"></span></button>
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Get Involved<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 15.46l3.88-3.88L9.29 7.7a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg></button>
         <div class="nav-menu">
           <a href="https://fedi.xyz/get-the-app" target="_blank" rel="noopener">Get the App</a>
           <a href="https://fedi.xyz/create-a-community" target="_blank" rel="noopener">Create a Community</a>
@@ -527,13 +529,13 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
         </div>
       </div>
       <div class="nav-item">
-        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Learn<span class="caret" aria-hidden="true"></span></button>
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Learn<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 15.46l3.88-3.88L9.29 7.7a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg></button>
         <div class="nav-menu">
           <a href="https://fedi.xyz/blog" target="_blank" rel="noopener">Blog</a>
         </div>
       </div>
       <div class="nav-item">
-        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">About<span class="caret" aria-hidden="true"></span></button>
+        <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">About<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 15.46l3.88-3.88L9.29 7.7a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg></button>
         <div class="nav-menu">
           <a href="https://fedi.xyz/company" target="_blank" rel="noopener">Company</a>
           <a href="https://fedi.xyz/ecosystem" target="_blank" rel="noopener">Ecosystem</a>
@@ -559,10 +561,10 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <div class="hero-copy">
       <span class="eyebrow">Introducing Manifold</span>
       <h1>Create a federation and provide community custody</h1>
-      <p class="hero-sub">Manifold is an open protocol for setting up a federation without running the servers yourself. Trusted, verified Guardians secure your community&#8217;s funds, you pay in bitcoin, and Manifold handles the setup.</p>
+      <p class="hero-sub">Manifold is an open protocol used to help set up a federation without running the servers yourself. Trusted, verified Guardians secure your community&#8217;s funds, you pay in bitcoin, and Manifold handles the setup.</p>
       <div class="hero-ctas">
-        <span class="btn btn-ink is-soon" role="button" aria-disabled="true" title="Federation creation is not open yet">Create a federation<i>Soon</i></span>
-        <a class="btn btn-ghost" href="guardian-guide">Become a guardian</a>
+        <a class="btn btn-ink is-soon" href="#guardians" title="Federation creation is not open yet">Create a federation<i>Soon</i></a>
+        <a class="btn btn-ghost" href="#guardians">Become a guardian</a>
       </div>
       <div class="proofline">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>100% open source</span>
@@ -588,14 +590,14 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   </div>
 </header>
 
-<section class="seg" id="roles" data-seg="roles" data-name="How it works" data-note="Founder, guardians and liquidity providers around the federation diagram." data-tag="plain">
+<section class="seg" id="roles" data-seg="roles" data-name="How it works" data-note="Ambassador, guardians and liquidity providers around the federation diagram." data-tag="plain">
   <div class="wrap">
     <div class="sec-head center rv">
       <div class="kicker">How it works</div>
       <h2>Community custody, ready to deploy</h2>
-      <p class="sec-sub">The Founder starts the federation. Guardians secure it. Members transact inside it, in ecash.</p>
+      <p class="sec-sub">The Ambassador starts the federation. Guardians secure it. Members transact inside it, in ecash.</p>
     </div>
-    <div class="relmap rv" aria-label="Diagram: the federation founder starts the federation and sets the fee. Inside it, members pay each other in ecash. Seven verified guardians surround and protect it.">
+    <div class="relmap rv" aria-label="Diagram: the Federation Ambassador starts the federation and sets the fee. Inside it, members pay each other in ecash. Seven verified guardians surround and protect it.">
       <svg viewBox="0 0 1000 650" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="rsoft" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0b1013" flood-opacity="0.09"/></filter>
@@ -610,7 +612,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
         <g filter="url(#rsoft)">
           <rect x="374" y="10" width="252" height="62" rx="21" fill="#fff" stroke="#e5e5e8"/>
           <clipPath id="fdr"><circle cx="410" cy="41" r="17"/></clipPath><image href="media/avatars/founder.jpg" x="393" y="24" width="34" height="34" clip-path="url(#fdr)" preserveAspectRatio="xMidYMid slice"/><circle cx="410" cy="41" r="17" stroke="#fff" stroke-width="2.5" fill="none"/>
-          <text x="436" y="47" font-family="Satoshi,sans-serif" font-size="15" font-weight="700" fill="#0b1013">Federation founder</text>
+          <text x="436" y="47" font-family="Satoshi,sans-serif" font-size="15" font-weight="700" fill="#0b1013">Federation Ambassador</text>
         </g>
         <path d="M500 84 V 128" stroke="#b9bdc2" stroke-width="1.8" marker-end="url(#arr)"/>
 
@@ -636,10 +638,10 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   </div>
 </section>
 
-<section class="seg" id="founders" data-seg="founders" data-name="For federation founders" data-note="Provide community custody: alternating feature rows, fedi.xyz style." data-tag="plain">
+<section class="seg" id="founders" data-seg="founders" data-name="For Federation Ambassadors" data-note="Provide community custody: alternating feature rows, fedi.xyz style." data-tag="plain">
   <div class="wrap">
     <div class="sec-head center rv">
-      <div class="kicker">For Federation Founders</div>
+      <div class="kicker">For Federation Ambassadors</div>
       <h2>Provide community custody</h2>
       <p class="sec-sub">A safer way for any group to hold money together, without one person holding the keys.</p>
     </div>
@@ -755,7 +757,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
           <div class="ops-card rv">
             <span class="num">02</span>
             <h3>Open your guardian seats</h3>
-            <p>Set your capacity and price once. Founders are matched to you automatically.</p>
+            <p>Set your capacity and price once. Federation Ambassadors are matched to you automatically.</p>
           </div>
           <div class="ops-card rv">
             <span class="num">03</span>
@@ -1047,7 +1049,7 @@ document.querySelectorAll('.phone iframe').forEach(f => {
   document.addEventListener('click', e => { if (!e.target.closest('nav')) closePanel(); });
   document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', closePanel));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); closePanel(); } });
-  window.addEventListener('resize', () => { if (window.innerWidth > 860) closePanel(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 1000) closePanel(); });
 })();
 /* shared:navjs:end */
 </script>
