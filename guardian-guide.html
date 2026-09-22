@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
+<link rel="icon" href="favicon.ico">
 <title>Manifold Fedimint Guardian setup guide</title>
 <meta name="description" content="Step by step: run a Manifold Fedimint Guardian on Umbrel or Start9, get authorized, sell guardian seats to Federation Ambassadors, and withdraw what you earn.">
 <link rel="preconnect" href="https://api.fontshare.com">
@@ -242,10 +243,11 @@ nav{position:relative;top:auto;z-index:50;background:#fff;border-bottom:0;backdr
 .nav-trigger:hover,.nav-item.open .nav-trigger{opacity:.62;}
 .nav-trigger .caret{width:20px;height:20px;flex:none;fill:currentColor;transform:rotate(90deg);transition:transform .18s;}
 .nav-item.open .nav-trigger .caret{transform:rotate(-90deg);}
-.nav-menu{position:absolute;top:calc(100% + 18px);left:-16px;min-width:224px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 14px 40px rgba(11,16,19,.12);padding:10px;display:none;flex-direction:column;gap:2px;}
+.nav-menu{position:absolute;top:calc(100% + 14px);left:-18px;min-width:260px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 44px rgba(11,16,19,.13);padding:14px;display:none;flex-direction:column;gap:2px;}
 .nav-item.open .nav-menu{display:flex;}
-.nav-menu a{font-size:16px;font-weight:500;color:#565b60;text-decoration:none;padding:9px 12px;border-radius:10px;white-space:nowrap;transition:.15s;}
-.nav-menu a:hover{color:#0b1013;background:var(--wash);}
+/* menu text matches the bar: Satoshi Bold 18px / 1em, rgb(11,16,19) */
+.nav-menu a{font-family:var(--sans);font-size:18px;font-weight:700;line-height:1;color:#0b1013;text-decoration:none;padding:13px 14px;border-radius:12px;white-space:nowrap;transition:opacity .15s,background .15s;}
+.nav-menu a:hover{opacity:.62;background:var(--wash);}
 /* hamburger + mobile panel */
 .nav-burger{display:none;margin-left:auto;width:40px;height:40px;flex:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:0;}
 .nav-burger span{display:block;position:relative;width:17px;height:1.8px;border-radius:2px;background:var(--ink);transition:transform .2s,opacity .15s;}
@@ -266,7 +268,7 @@ nav.open .nav-burger span::after{transform:translateY(-5.5px) rotate(-45deg);}
   .nav-trigger{width:100%;justify-content:space-between;padding:16px 2px;font-size:18px;}
   .nav-menu{position:static;display:none;min-width:0;border:0;border-radius:0;box-shadow:none;padding:0 0 10px 2px;}
   .nav-item.open .nav-menu{display:flex;}
-  .nav-menu a{font-size:16px;padding:10px 10px;white-space:normal;}
+  .nav-menu a{font-size:18px;font-weight:700;color:#0b1013;padding:13px 10px;white-space:normal;}
   .nav-links>a{padding:16px 2px;font-size:18px;border-bottom:1px solid var(--line);}
   .nav-in .nav-cta-mobile{display:inline-flex;margin-top:18px;width:100%;}
 }
@@ -294,9 +296,9 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
       <div class="nav-item">
         <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Fedi For<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 15.46l3.88-3.88L9.29 7.7a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg></button>
         <div class="nav-menu">
-          <a href="https://fedi.xyz/fedi-for-u" target="_blank" rel="noopener">You</a>
+          <a href="https://fedi.xyz/fedi-for-you" target="_blank" rel="noopener">You</a>
           <a href="https://fedi.xyz/fedi-for-communities" target="_blank" rel="noopener">Communities</a>
-          <a href="https://fedi.xyz/fedi-for-orgs" target="_blank" rel="noopener">Organizations</a>
+          <a href="https://fedi.xyz/fedi-for-orgs" target="_blank" rel="noopener">Organisations</a>
           <a href="https://fedi.xyz/fedi-for-builders" target="_blank" rel="noopener">Builders</a>
         </div>
       </div>
@@ -304,8 +306,8 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
         <button type="button" class="nav-trigger" aria-expanded="false" aria-haspopup="true">Get Involved<svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 15.46l3.88-3.88L9.29 7.7a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg></button>
         <div class="nav-menu">
           <a href="https://fedi.xyz/get-the-app" target="_blank" rel="noopener">Get the App</a>
-          <a href="https://fedi.xyz/create-a-community" target="_blank" rel="noopener">Create a Community</a>
-          <a href="https://fedi.xyz/create-a-wallet-service" target="_blank" rel="noopener">Create a Wallet Service</a>
+          <a href="https://fedi.xyz/create-a-community" target="_blank" rel="noopener">Create a Community Space</a>
+          <a href="https://fedi.xyz/create-a-federation" target="_blank" rel="noopener">Create a Federation</a>
           <a href="https://fedi.xyz/explore-mini-apps" target="_blank" rel="noopener">Explore Mini Apps</a>
         </div>
       </div>
