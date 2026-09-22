@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="gate-locked">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -494,93 +494,9 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
 .foot-links a:hover{color:var(--ink);}
 .foot-note{flex-basis:100%;font-size:12.5px;color:#9a9ea3;margin-top:6px;}
 /* shared:css:end */
-/* ── Passphrase gate ──────────────────────────── */
-html.gate-locked,html.gate-locked body{overflow:hidden!important;height:100%;}
-html.gate-locked #gate{display:flex;}
-#gate{display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;padding:24px;background:#fff;background-image:radial-gradient(1000px 520px at 18% 8%,rgba(255,214,224,.5),transparent 60%),radial-gradient(900px 520px at 84% 22%,rgba(206,224,255,.55),transparent 62%),radial-gradient(760px 480px at 50% 96%,rgba(255,240,201,.5),transparent 60%);}
-.gate-card{width:100%;max-width:392px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 26px 70px rgba(11,16,19,.14);padding:34px 30px 30px;text-align:center;}
-.gate-card .logo{height:22px;width:auto;display:block;margin:0 auto 22px;}
-.gate-card h1{font-family:var(--sans);font-size:20px;font-weight:700;letter-spacing:-.02em;margin:0 0 8px;color:var(--ink);}
-.gate-card p{font-size:14.5px;color:var(--muted);margin:0 0 22px;line-height:1.55;}
-.gate-row{display:flex;flex-direction:column;gap:10px;}
-#gate-input{font-family:var(--sans);font-size:15px;color:var(--ink);background:var(--wash);border:1px solid var(--line);border-radius:12px;padding:13px 15px;width:100%;outline:none;transition:border-color .15s,box-shadow .15s;}
-#gate-input:focus{border-color:rgba(11,16,19,.35);box-shadow:0 0 0 4px rgba(11,16,19,.05);background:#fff;}
-#gate-input::placeholder{color:#a6abaf;}
-#gate-btn{width:100%;justify-content:center;cursor:pointer;border:0;font-family:var(--sans);}
-.gate-err{min-height:18px;margin:12px 0 0;font-size:13px;font-weight:500;color:#b4322f;opacity:0;transition:opacity .15s;}
-.gate-card.err .gate-err{opacity:1;}
-.gate-card.err{animation:gate-shake .34s;}
-@keyframes gate-shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(3px);}}
-.gate-note{margin:18px 0 0;font-size:12px;color:#a6abaf;}
 </style>
 </head>
 <body>
-<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
-  <div class="gate-card" id="gate-card">
-    <img class="logo" src="fedi-logo.svg" alt="Fedi">
-    <h1 id="gate-title">This page is private</h1>
-    <p>Enter the passphrase to view the Manifold preview.</p>
-    <div class="gate-row">
-      <input id="gate-input" type="password" placeholder="Passphrase" autocomplete="current-password" spellcheck="false" aria-describedby="gate-err">
-      <button type="button" class="btn btn-ink" id="gate-btn">Unlock</button>
-    </div>
-    <p class="gate-err" id="gate-err" role="alert">That passphrase doesn&rsquo;t match. Try again.</p>
-    <p class="gate-note">Internal preview &middot; please don&rsquo;t share this link.</p>
-  </div>
-</div>
-<script>
-/* Passphrase gate. Client-side only: this deters casual visitors, it is not
-   real access control. For that, put auth in front of the page at the host. */
-(function () {
-  var HASH = '0697657c8df78d1327b3fc930af06cde8ad553ff20c55dda76d7656be60c2067';
-  var KEY = 'manifold-gate';
-  var root = document.documentElement;
-
-  function unlock() {
-    root.classList.remove('gate-locked');
-    try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
-  }
-
-  /* already unlocked this session: drop the gate before first paint */
-  try { if (sessionStorage.getItem(KEY) === '1') root.classList.remove('gate-locked'); } catch (e) {}
-
-  document.addEventListener('DOMContentLoaded', function () {
-    var card = document.getElementById('gate-card');
-    var input = document.getElementById('gate-input');
-    var btn = document.getElementById('gate-btn');
-    if (!card || !input || !btn) return;
-
-    if (root.classList.contains('gate-locked')) input.focus();
-
-    function fail() {
-      card.classList.remove('err');
-      void card.offsetWidth;
-      card.classList.add('err');
-      input.select();
-    }
-
-    async function sha256(text) {
-      var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-      return [...new Uint8Array(buf)].map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
-    }
-
-    async function submit() {
-      var value = input.value;
-      if (!value) { fail(); return; }
-      try {
-        if ((await sha256(value)) === HASH) { unlock(); } else { fail(); }
-      } catch (e) {
-        fail();
-      }
-    }
-
-    btn.addEventListener('click', submit);
-    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
-    input.addEventListener('input', function () { card.classList.remove('err'); });
-  });
-})();
-</script>
-
 
 
 
