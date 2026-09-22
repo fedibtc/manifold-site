@@ -384,7 +384,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <a href="#box" class="os-minipc"><span class="num">02</span>Prepare the mini PC</a>
   <a href="#bitcoin"><span class="num">03</span>Bitcoin node</a>
   <a href="#install"><span class="num">04</span>Install</a>
-  <a href="#setup"><span class="num">05</span>Set up the fleet</a>
+  <a href="#setup"><span class="num">05</span>Set up the guardian</a>
   <a href="#discover"><span class="num">06</span>Get discovered</a>
   <a href="#earn"><span class="num">07</span>Earn</a>
   <a href="#withdraw"><span class="num">08</span>Withdraw</a>
@@ -403,11 +403,11 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <h2>Four things happen, in this order</h2>
     <p class="sec-sub">Manifold Fedimint Guardian is the guardian software behind Manifold. It runs one Fedimint guardian process per seat you sell, validates against a Bitcoin Core node on the same box (on StartOS, Bitcoin Knots works as well), and handles the selling for you. It is not a Lightning wallet, and it does not replace the Bitcoin node: it needs one.</p>
   </div>
-  <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Step zero: get your PeerBadge.</b> Ambassadors only see fleets that a PeerBadge holder at Trusted level or higher has authorized, and that holder is you: during setup you sign the authorization with your own badge. Get the badge before you buy hardware or start the node; the <a href="#faq">FAQ</a> says where to ask.</div></div>
+  <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Step zero: get your Fedi verification.</b> Ambassadors only see guardian hosts that a Fedi verification holder at Trusted level or higher has authorized, and that holder is you: during setup you sign the authorization with your own credential. Get verified before you buy hardware or start the node; the <a href="#faq">FAQ</a> says where to ask.</div></div>
   <div class="flow rv">
     <div class="f"><div class="n">1</div><h3>Prepare the box, start the node</h3><p><span class="os-minipc">umbrelOS on a mini PC with a 500 GB SSD, then Bitcoin Core.</span><span class="os-umbrel-only">Your Umbrel, then its Bitcoin Node app.</span><span class="os-startos">Your Start9 server on the latest StartOS 0.4 stable, then Bitcoin Core.</span> Its sync takes days, so it goes first and runs in the background.</p></div>
-    <div class="f"><div class="n">2</div><h3>Install and set up the guardian</h3><p>The guardian app installs from a store and holds a small fleet of guardian seats. Setup is a five screen wizard in your browser.</p></div>
-    <div class="f"><div class="n">3</div><h3>Get advertised, sell seats</h3><p>Once you have authorized your fleet with your PeerBadge and set a price, your open seats are announced on Nostr. An Ambassador in the Fedi app picks a set, pays once, and your box starts one guardian per seat sold.</p></div>
+    <div class="f"><div class="n">2</div><h3>Install and set up the guardian</h3><p>The guardian app installs from a store and holds a handful of guardian seats. Setup is a five screen wizard in your browser.</p></div>
+    <div class="f"><div class="n">3</div><h3>Get advertised, sell seats</h3><p>Once your host is approved with your Fedi verification and you have set a price, your open seats are announced on Nostr. An Ambassador in the Fedi app picks a set, pays once, and your box starts one guardian per seat sold.</p></div>
     <div class="f"><div class="n">4</div><h3>Earn and withdraw</h3><p>You receive the seat price up front and a share of that federation's transaction fees for as long as it runs. Both leave to a Lightning address from the Payouts page.</p></div>
   </div>
   <div class="call info rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Words used on this page.</b> A <b>seat</b> is one guardian slot you offer. A <b>Federation Ambassador</b> is the person creating a federation in the Fedi app (the code and the API still call them the initiator). The <b>dashboard</b> is the guardian software's own web page, served by your box. <b>The node</b> is the Bitcoin Core you run on the same box; the guardian validates against it.</div></div>
@@ -455,13 +455,13 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     </div>
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
-      <h3>A PeerBadge, before anything else</h3>
-      <p>Ambassadors only see fleets whose key carries an authorization from a PeerBadge holder at Trusted level or higher, and that holder is you. The dashboard shows your fleet's public key as a QR code; you scan it with the credential app that holds your badge, and the app publishes the authorization. <b>Get your badge before you start</b>, ahead of hardware and the node; the <a href="#faq">FAQ</a> lists where to ask.</p>
+      <h3>Fedi verification, before anything else</h3>
+      <p>Ambassadors only see guardian hosts whose key carries an authorization from a Fedi verification holder at Trusted level or higher, and that holder is you. The dashboard shows your Manifold Fedimint Guardian ID as a QR code; you scan it with the Holder app that carries your credential, and the app publishes the authorization. <b>Get verified before you start</b>, ahead of hardware and the node; the <a href="#faq">FAQ</a> lists where to ask.</p>
     </div>
     <div class="card">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16M6 16V8m6 8V4m6 12v-6"/></svg></div>
       <h3>Pen, paper, and patience</h3>
-      <p>The wizard shows a 12 word recovery phrase exactly once. Write it on paper before you continue: it is the entire identity of the fleet and its only backup. Plan about an hour hands on, the node sync running for days in the background, and however long the badge takes to arrive.</p>
+      <p>The wizard shows a 12 word recovery phrase exactly once. Write it on paper before you continue: it is the entire identity of this host and its only backup. Plan about an hour hands on, the node sync running for days in the background, and however long verification takes to arrive.</p>
     </div>
   </div>
 </section>
@@ -603,15 +603,11 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <li>
       <h3>Watch the sync, and know how to read it</h3>
       <p>The app's home screen shows the current <b>block height</b>, a <b>Synchronizing</b> percentage and the peers it is connected to. The percentage misleads: it is weighted by transactions, and early blocks hold almost none, so it sits under 1 percent for the first day while the block count climbs past hundreds of thousands, then races through the last years. Watch the block height instead and compare it with a public explorer such as <a href="https://mempool.space" target="_blank" rel="noopener">mempool.space</a>; when the two numbers match, the sync is done.</p>
-      <div class="shot"><img src="media/guardian-guide/bitcoin-node-gallery-1.jpg" alt="Umbrel's Bitcoin Node app, fully synchronized: block height, peers and latest blocks" width="2160" height="1350" loading="lazy"></div>
-      <p class="shot-cap"><b>What a synced node looks like.</b> Umbrel's Bitcoin Node app once it has caught up: Synchronized 100%, peer connections, latest blocks. Image from the app's store listing.</p>
     </li>
     <li>
       <h3>Know where the RPC details live</h3>
       <div class="path"><span>Bitcoin Node</span><i>&#8250;</i><span>Connect</span><i>&#8250;</i><span>Bitcoin Core RPC</span></div>
       <p>The guardian app declares Bitcoin Node as a dependency and reads the RPC connection from it, so you should not need to type anything. If the wizard ever asks, the Connect panel shows <b>Host</b>, <b>Port</b> (8332), <b>Username</b> and <b>Password</b>. The password is generated by the app and always visible here, so it cannot be lost, but a reinstall of the app generates a new one.</p>
-      <div class="shot"><img src="media/guardian-guide/bitcoin-node-gallery-2.jpg" alt="The Connect panel of Umbrel's Bitcoin Node app showing RPC username, password, host and port" width="2160" height="1350" loading="lazy"></div>
-      <p class="shot-cap"><b>The Connect panel.</b> RPC Details is the tab with the username, password, host and port. Image from the app's store listing.</p>
     </li>
     <li>
       <h3>Done when</h3>
@@ -721,7 +717,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
 <!-- 03 SETUP -->
 <section class="blk" id="setup">
   <div class="sec-head">
-    <div class="kicker">05 &#183; Set up the fleet</div>
+    <div class="kicker">05 &#183; Set up the guardian</div>
     <h2>The five screen setup wizard</h2>
     <p class="sec-sub">Setup happens once, in the dashboard. Every step is saved as you go, so a closed tab or a restarted box resumes where you left off. The same five screens on Umbrel and Start9. The dashboard still uses the technical name in a few of its own labels; read them as Manifold Fedimint Guardian.</p>
   </div>
@@ -729,41 +725,42 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <ol class="steps rv">
     <li>
       <span class="stepnum">SCREEN 1</span>
-      <h3>Choose: a new fleet, or recover one</h3>
-      <p>Two doors. <b>Start a new fleet</b> generates a fresh recovery phrase and starts with no seats. This is the usual choice. <b>Recover from your phrase</b> rebuilds a fleet whose original host is gone, from its 12 words, and brings its seats back with it.</p>
+      <h3>Choose: start fresh, or recover</h3>
+      <p>Two doors. <b>Start fresh</b> generates a fresh recovery phrase and starts with no seats. This is the usual choice. <b>Recover from your phrase</b> rebuilds a guardian host whose original box is gone, from its 12 words, and brings its seats back with it.</p>
       <p class="fine">Recovery is only offered here. Once a host is set up, the choice is made and cannot be revisited on that host.</p>
-      <div class="shot"><img src="media/guardian-guide/setup-doors.png" alt="Setup screen 1: Start a new fleet, or Recover from your phrase" width="1000" height="820" loading="lazy"></div>
+      <div class="shot"><img src="media/guardian-guide/setup-doors.png" alt="Setup screen 1: Start fresh, or Recover from your phrase" width="1000" height="820" loading="lazy"></div>
     </li>
     <li>
       <span class="stepnum">SCREEN 2</span>
       <h3>"Record your recovery phrase"</h3>
       <p>Click <b>Reveal phrase</b> and write the 12 words down on paper, in order. They are never stored in the browser, and there is no other backup: losing them loses every seat's guardian identity. Then click <b>I've written it down, continue</b>.</p>
-      <div class="call stop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><div><b>Do not photograph or type the phrase anywhere.</b> Anyone holding these words owns your fleet and everything it earns. You can reveal them again later from the Backup page if you need to check your copy.</div></div>
+      <div class="call stop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><div><b>Do not photograph or type the phrase anywhere.</b> Anyone holding these words owns your guardians and everything they earn. You can reveal them again later from the Backup page if you need to check your copy.</div></div>
       <div class="shot"><img src="media/guardian-guide/setup-phrase.png" alt="Setup screen 2: the twelve word recovery phrase" width="1000" height="820" loading="lazy"></div>
     </li>
     <li>
       <span class="stepnum">SCREEN 3</span>
-      <h3>"Get this fleet authorized"</h3>
-      <p>The screen shows a QR code and your fleet's <b>service Nostr public key</b> (a 64 character string). Ambassadors only see fleets whose key carries a PeerBadge authorization, so this step cannot be skipped.</p>
-      <p>Authorize it with your own PeerBadge: open the credential app that holds your badge, scan the QR code (or click <b>Copy the authorization request</b> and paste it into the app) and sign. Back in the wizard, click <b>Check now</b>. It does not poll in the background, so nothing happens until you click.</p>
+      <h3>"Get approved"</h3>
+      <p>The screen shows a QR code and your <b>Manifold Fedimint Guardian ID</b> (a 64 character string). Ambassadors only see guardian hosts whose ID carries a Fedi verification authorization, so this step cannot be skipped.</p>
+      <p>Approve it with your own Fedi verification: open the Holder app, scan the QR code (or click <b>Copy the authorization request</b> and paste it into the app) and sign. Back in the wizard, click <b>Check now</b>. It does not poll in the background, so nothing happens until you click.</p>
       <p class="fine">When the relay carries your authorization the status changes to "Authorization observed" and the wizard moves on to the terms by itself after two seconds.</p>
-      <div class="shot"><img src="media/guardian-guide/setup-authorization.png" alt="Setup screen 3: QR code and service Nostr public key, waiting for a holder authorization" width="1000" height="820" loading="lazy"></div>
+      <div class="shot"><img src="media/guardian-guide/setup-authorization.png" alt="Setup screen 3: QR code and Manifold Fedimint Guardian ID, waiting for an approval" width="1000" height="820" loading="lazy"></div>
     </li>
     <li>
       <span class="stepnum">SCREEN 4</span>
-      <h3>The terms</h3>
-      <p>The wizard shows the terms for running a Manifold guardian. Read them and accept to continue; the price step does not open until you have.</p>
+      <h3>"Accept the terms of service"</h3>
+      <p>The wizard shows the Fedi-Verified Guardian Terms of Service. Read them and click <b>Accept and continue</b>; the price step does not open until you have.</p>
+      <div class="shot"><img src="media/guardian-guide/setup-terms.png" alt="Setup screen 4: accept the terms of service" width="1000" height="820" loading="lazy"></div>
     </li>
     <li>
       <span class="stepnum">SCREEN 5</span>
       <h3>"Set your price"</h3>
       <p><b>Maximum active seats</b> is prefilled with the RAM based recommendation; lower it if the box does other work. <b>Price per seat (sats)</b> is the whole offer: the gross amount an Ambassador pays for one seat, before mint and Lightning fees. The dashboard suggests the equivalent of $2 to $3; a lower price fills seats sooner.</p>
       <p>Click <b>Finish setup</b>. Leaving the price blank finishes setup without selling anything; you can set a price any time from the Overview.</p>
-      <div class="call info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Expect "Loading…" for about two minutes after this step.</b> The fleet joins the network's shared setup payment federation, the one Ambassadors pay you through, and scans its history once. It only happens the first time.</div></div>
-      <div class="shot"><img src="media/guardian-guide/setup-price.png" alt="Setup screen 4: maximum active seats and price per seat" width="1000" height="820" loading="lazy"></div>
+      <div class="call info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Expect "Loading…" for about two minutes after this step.</b> The host joins the network's shared setup payment federation, the one Ambassadors pay you through, and scans its history once. It only happens the first time.</div></div>
+      <div class="shot"><img src="media/guardian-guide/setup-price.png" alt="Setup screen 5: maximum active seats and price per seat" width="1000" height="820" loading="lazy"></div>
     </li>
   </ol>
-  <div class="call ok rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><div><b>You are set up.</b> The dashboard now opens on the Overview with six pages in the left menu: Overview, Authorization, Seats, Wallet, Payouts and Backup. Your fleet has a two word name (for example <i>cranked-bonobo</i>) that Ambassadors and support can recognise it by; it is shown top left and on the Backup page.</div></div>
+  <div class="call ok rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><div><b>You are set up.</b> The dashboard now opens on the Overview with five pages in the left menu: Overview, Authorization, Seats, Payouts and Backup. Your host has a two word name (for example <i>cranked-bonobo</i>) that Ambassadors and support can recognise it by; it is shown top left and as <b>Host name</b> on the Backup page.</div></div>
   <div class="shot rv"><img src="media/guardian-guide/overview-fresh.png" alt="Overview right after setup: nothing sold yet" width="1000" height="820" loading="lazy"></div>
   <p class="shot-cap"><b>Overview right after setup.</b> Zero everywhere is normal. The next section is about getting from here to the first sale.</p>
 </section>
@@ -773,15 +770,15 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="sec-head">
     <div class="kicker">06 &#183; Get discovered</div>
     <h2>Three conditions</h2>
-    <p class="sec-sub">A fleet is invisible to Ambassadors until it has an authorization, a price, and a wallet that can receive payment. The dashboard shows all three. Then the software publishes your advertisement and keeps it fresh on its own.</p>
+    <p class="sec-sub">A host is invisible to Ambassadors until it has an authorization, a price, and a payment federation it can be paid through. The dashboard shows all three. Then the software publishes your advertisement and keeps it fresh on its own.</p>
   </div>
   <ul class="check rv">
-    <li><b>Authorization observed.</b> Open <b>Authorization</b> in the left menu. It should list at least one holder under "Observed holders". This is the badge from screen 3.</li>
-    <li><b>A price is set.</b> The Overview's "Your offer" card shows a price per seat rather than "Not selling seats". Change it any time with <b>Change price</b>.</li>
-    <li><b>The wallet can receive.</b> Open <b>Wallet</b>. At least one payment federation should be listed. You did not add it and cannot remove it: membership follows the network's published setup payment policy, and the fleet joins automatically.</li>
+    <li><b>Authorization observed.</b> Open <b>Authorization</b> in the left menu. It should list at least one approver under "Approved by". This is the approval from screen 3.</li>
+    <li><b>A price is set.</b> The Overview's "Seat price" card shows a price per seat rather than "Not selling seats". Change it any time with <b>Change price and seats</b>.</li>
+    <li><b>A payment federation is listed.</b> Open <b>Payouts</b> and look under <b>Seat sales</b>. At least one payment federation should be listed as accepting payments. You did not add it and cannot remove it: membership follows the network's published setup payment policy, and the host joins automatically.</li>
     <li><b>Confirm.</b> The Overview banner reads <b>Advertised and healthy</b>. That is the whole check. Anyone can additionally see your advertisement (a kind 37701 Nostr event) published from your service Nostr key on the Manifold relay.</li>
   </ul>
-  <div class="call warn rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><div><b>Still not advertised after a few minutes?</b> The loop runs every 30 minutes, and a cycle that fires while the wallet is still opening (about three minutes after a start) is skipped silently. Wait until the Wallet page shows the federation, then restart the app once (<span class="os-umbrel">Umbrel: the app tile's <b>&#8943;</b> menu &#8250; <b>Restart</b></span><span class="os-startos">StartOS: <b>Stop</b> the service, then <b>Start</b> it again</span>); a restart publishes immediately.</div></div>
+  <div class="call warn rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><div><b>Still not advertised after a few minutes?</b> The loop runs every 30 minutes, and a cycle that fires while the wallet is still opening (about three minutes after a start) is skipped silently. Wait until Payouts lists the federation under Seat sales, then restart the app once (<span class="os-umbrel">Umbrel: the app tile's <b>&#8943;</b> menu &#8250; <b>Restart</b></span><span class="os-startos">StartOS: <b>Stop</b> the service, then <b>Start</b> it again</span>); a restart publishes immediately.</div></div>
 </section>
 
 <!-- 05 EARN -->
@@ -789,17 +786,17 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="sec-head">
     <div class="kicker">07 &#183; Earn</div>
     <h2>What happens when someone buys your seat</h2>
-    <p class="sec-sub">You do nothing. Ambassadors pick, pay and form the federation from the Fedi app; the fleet accepts, starts a guardian and reports. Here is what you will see, and where the money comes from.</p>
+    <p class="sec-sub">You do nothing. Ambassadors pick, pay and form the federation from the Fedi app; the host accepts, starts a guardian and reports. Here is what you will see, and where the money comes from.</p>
   </div>
   <ol class="steps rv">
     <li>
       <h3>An Ambassador assembles a guardian set</h3>
-      <p>In the Fedi app the Ambassador opens Wallets, taps Create, and the app assembles a set of guardians from advertised fleets: cheapest first, then most free slots. One Ambassador buys at most one seat from your fleet per federation.</p>
+      <p>In the Fedi app the Ambassador opens Wallets, taps Create, and the app assembles a set of guardians from advertised guardian hosts: cheapest first, then most free slots. One Ambassador buys at most one seat from your host per federation.</p>
     </li>
     <li>
       <h3>They pay once, for the whole set</h3>
-      <p>The Ambassador pays the total in ecash through the shared setup payment federation. Your fleet receives your seat price, gross, before mint and Lightning fees. Every offered seat accepts automatically once a valid payment lands; there is no approval step and no "create seat" button on your side.</p>
-      <p class="fine">The Overview counts this as an accepted payment claim, which is not yet the same as a settled payment. The fleet reconciles the claim in the background and the Wallet balance follows.</p>
+      <p>The Ambassador pays the total in ecash through the shared setup payment federation. Your host receives your seat price, gross, before mint and Lightning fees. Every offered seat accepts automatically once a valid payment lands; there is no approval step and no "create seat" button on your side.</p>
+      <p class="fine">The Overview counts this as an accepted payment claim, which is not yet the same as a settled payment. The host reconciles the claim in the background and the Held in federations tile follows.</p>
     </li>
     <li>
       <h3>A seat appears and forms the federation</h3>
@@ -812,7 +809,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     </li>
   </ol>
   <div class="shot rv"><img src="media/guardian-guide/overview-earnings.png" alt="Overview with seat sales and guardian fees over several days" width="1000" height="993" loading="lazy"></div>
-  <p class="shot-cap"><b>Overview with revenue.</b> The four tiles are Wallet balance, Earned all time, Seat sales and Guardian fees. Everything is gross. The Earnings list groups seat sales and fee remittances by day. A dash means the fleet could not read that figure yet, not that it is zero.</p>
+  <p class="shot-cap"><b>Overview with revenue.</b> The four tiles are Held in federations, Earned all time, Seat sales all time and Guardian fees all time. Everything is gross. The Earnings list groups seat sales and fee remittances by day. A dash means the host could not read that figure yet, not that it is zero.</p>
   
 </section>
 
@@ -820,31 +817,31 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
 <section class="blk" id="withdraw">
   <div class="sec-head">
     <div class="kicker">08 &#183; Withdraw</div>
-    <h2>Payouts: one destination, two kinds of revenue</h2>
-    <p class="sec-sub">Payouts is the only page where money leaves the fleet. It is ordered the way the software is: destination first, then seat sales, then guardian fees. A sweep always sends the largest amount the wallet can economically fund, through a gateway the software selects. There is no amount to type and no gateway to pick.</p>
+    <h2>Payouts: one address, two kinds of revenue</h2>
+    <p class="sec-sub">Payouts is the only page where money leaves the host. It is ordered the way the software is: payout address first, then seat sales, then guardian fees. A withdrawal always sends the largest amount the wallet can economically fund, through a gateway the software selects. There is no amount to type and no gateway to pick.</p>
   </div>
   <ol class="steps rv">
     <li>
-      <h3>Save a payout destination</h3>
-      <p>In the <b>Payout destination</b> card, paste a <b>Lightning address or LNURL-pay</b> link (for example <code>you@wallet.example</code>) and click <b>Save destination</b>. Every sweep reuses it. A bolt11 invoice is refused because it can only be paid once.</p>
+      <h3>Save a payout address</h3>
+      <p>In the <b>Payout address</b> card, paste a <b>Lightning address or LNURL-pay</b> link (for example <code>you@wallet.example</code>) and click <b>Save address</b>. Every withdrawal reuses it. A bolt11 invoice is refused because it can only be paid once.</p>
       
     </li>
     <li>
-      <h3>Sweep seat sales</h3>
-      <p>The <b>Seat sales</b> table lists each payment federation your fleet has been paid through, with its balance. Click <b>Sweep</b> on a row. A small residue can stay behind when notes cannot cover the fees; that is expected and it is swept with the next sale.</p>
+      <h3>Withdraw seat sales</h3>
+      <p>The <b>Seat sales</b> table lists each payment federation your host has been paid through, with its balance. Click <b>Withdraw</b> on a row. A small residue can stay behind when notes cannot cover the fees; that is expected and it goes out with the next sale.</p>
     </li>
     <li>
-      <h3>Collect, then send guardian fees</h3>
-      <p>Guardian fees take two clicks per seat, because the money first has to be released from the federation's fee pool into ordinary ecash: <b>1. Collect out of the pool</b>, then <b>2. Send to destination</b>. Part of a collection can stay locked until the federation's next cycle; the dashboard shows it as awaiting the cycle and you collect it next time.</p>
-      <p class="fine">Collecting works without a destination, since it moves money inside the fleet. Sending does not.</p>
+      <h3>Collect, then withdraw guardian fees</h3>
+      <p>Guardian fees take two clicks per seat, because the money first has to be released from the federation's fee pool into ordinary ecash: <b>1. Collect fees</b>, then <b>2. Withdraw</b>. Part of a collection can stay locked until the federation's next cycle; the dashboard shows it as awaiting the cycle and you collect it next time.</p>
+      <p class="fine">Collecting works without a payout address, since it moves money inside the host. Withdrawing does not.</p>
     </li>
     <li>
       <h3>Keep the operation id</h3>
-      <p>Each sweep shows an operation id with a copy button. It is the reference support will ask for if a payment needs tracing. The <b>Wallet</b> page stays read only: balances per payment federation, nothing to configure.</p>
+      <p>Each withdrawal shows an operation id with a copy button. It is the reference support will ask for if a payment needs tracing.</p>
     </li>
   </ol>
-  <div class="shot rv"><img src="media/guardian-guide/payouts.png" alt="Payouts page: payout destination, seat sales sweep, guardian fee collect and send" width="1000" height="1193" loading="lazy"></div>
-  <p class="shot-cap"><b>Payouts with revenue on both sides.</b> Destination at the top, then per federation seat sales, then per seat guardian fees with their two step buttons.</p>
+  <div class="shot rv"><img src="media/guardian-guide/payouts.png" alt="Payouts page: payout address, seat sales withdrawal, guardian fee collect and withdraw" width="1000" height="1193" loading="lazy"></div>
+  <p class="shot-cap"><b>Payouts with revenue on both sides.</b> Payout address at the top, then per federation seat sales, then per seat guardian fees with their two step buttons.</p>
 </section>
 
 <!-- 07 MAINTAIN -->
@@ -854,16 +851,16 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <h2>A guardian's only job is to stay up</h2>
     <p class="sec-sub">Every running seat is one of the guardians a real federation depends on. Nothing needs daily attention, but these five things are yours to own.</p>
     <div class="grid">
-      <div class="g"><span class="num">01</span><h3>Updates are manual, and due the day the network asks</h3><p><span class="os-umbrel">Umbrel shows an Update button on the app once the store has a new version.</span><span class="os-startos">Download the new .s9pk from the releases page and sideload it again.</span> When the network names a newer release than yours, the dashboard takes the screen over with a notice; out of date fleets show up in the app as "not enough guardians" or "unauthorized request". Data survives updates, not uninstall.</p></div>
+      <div class="g"><span class="num">01</span><h3>Updates are manual, and due the day the network asks</h3><p><span class="os-umbrel">Umbrel shows an Update button on the app once the store has a new version.</span><span class="os-startos">Download the new .s9pk from the releases page and sideload it again.</span> When the network names a newer release than yours, the dashboard takes the screen over with a notice; out of date hosts show up in the app as "not enough guardians" or "unauthorized request". Data survives updates, not uninstall.</p></div>
       <div class="g"><span class="num">02</span><h3>Keep the node synced</h3><p>The guardian is only as current as its Bitcoin node. The Bitcoin Node app updates like any other app, and after an outage it catches up by itself. If a federation reports trouble, check the block height against mempool.space before anything else.</p></div>
-      <div class="g"><span class="num">03</span><h3>The 12 words are the whole backup</h3><p>Every key is derived from them and your seat records are published, encrypted, to the relay. The Backup page shows your fleet name, keys, and a Reveal recovery phrase link. Nothing else to export.</p></div>
+      <div class="g"><span class="num">03</span><h3>The 12 words are the whole backup</h3><p>Every key is derived from them and your seat records are published, encrypted, to the relay. The Backup page shows your host name, keys, and a Reveal recovery phrase link. Nothing else to export.</p></div>
       <div class="g"><span class="num">04</span><h3>One phrase, one host</h3><p>Recovery is only possible while setting up a fresh host ("Recover from your phrase"). Never run two boxes from the same words: two guardians with one identity would contradict each other and break the federation.</p></div>
       <div class="g"><span class="num">05</span><h3>Change price and capacity any time</h3><p>Overview &#8250; Change price. A blank price stops selling; 0 gives seats away and keeps you advertised. Seat capacity is on the same page and can never go below the seats already active.</p></div>
     </div>
   </div>
   <div class="shots2 rv">
-    <div><div class="shot" style="margin-top:0;"><img src="media/guardian-guide/backup.png" alt="Backup page: fleet name, keys, reveal recovery phrase" width="1000" height="820" loading="lazy"></div><p class="shot-cap"><b>Backup.</b> Name, service key, service Nostr key, and the phrase behind a deliberate extra click.</p></div>
-    <div><div class="shot" style="margin-top:0;"><img src="media/guardian-guide/offer.png" alt="Your offer page: seat capacity and price per seat" width="1000" height="820" loading="lazy"></div><p class="shot-cap"><b>Your offer.</b> Seat capacity and price are saved separately; each change re-issues the offer to Ambassadors.</p></div>
+    <div><div class="shot" style="margin-top:0;"><img src="media/guardian-guide/backup.png" alt="Backup page: host name, keys, reveal recovery phrase" width="1000" height="820" loading="lazy"></div><p class="shot-cap"><b>Backup.</b> Name, service key, service Nostr key, and the phrase behind a deliberate extra click.</p></div>
+    <div><div class="shot" style="margin-top:0;"><img src="media/guardian-guide/offer.png" alt="Seat price page: seat capacity and price per seat" width="1000" height="820" loading="lazy"></div><p class="shot-cap"><b>Seat price.</b> Seat capacity and price are saved separately; each change re-issues the offer to Ambassadors.</p></div>
   </div>
 </section>
 
@@ -877,13 +874,13 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   <div class="trouble rv">
     <div class="r h"><span>What you see</span><span>Why</span><span>What to do</span></div>
     <div class="r"><b>"Loading…" for minutes right after setup</b><span>First join of the setup payment federation scans its whole history.</span><span>Wait. About two minutes, once only.</span></div>
-    <div class="r"><b>Price set, but no "Advertised and healthy"</b><span>The advertisement loop skipped a cycle while the wallet was still opening, and nothing wakes it.</span><span>Check Wallet lists a federation, then restart the app once. <span class="os-umbrel">Umbrel: app &#8943; &#8250; Restart.</span><span class="os-startos">StartOS: Stop, then Start.</span></span></div>
-    <div class="r"><b>Authorization never observed</b><span>The authorization was signed over a different key, or the relay read has not been repeated.</span><span>Compare the full key on the Authorization page with the one your credential app scanned. Click Check now; setup never polls by itself.</span></div>
-    <div class="r"><b>A dash instead of a number on the Overview</b><span>The fleet could not read that account yet (a seat still forming has no fee account).</span><span>Nothing. A dash is "unknown", not zero. It fills in once the seat is running.</span></div>
-    <div class="r"><b>Sweep button greyed out</b><span>No payout destination saved, or that wallet holds nothing.</span><span>Save a Lightning address in the card at the top of Payouts, then retry.</span></div>
-    <div class="r"><b>"Send to destination" greyed out on a seat</b><span>Fees are still in the pool; only collected ecash can be sent.</span><span>Click 1. Collect out of the pool first. Locked deposits release at the next cycle.</span></div>
-    <div class="r"><b>App crash loops after an update with a migration error</b><span>The new build's database schema is incompatible with the data on disk (release notes flag these).</span><span>Uninstall, reinstall, and choose Recover from your phrase on the first setup screen; the fleet and its seats come back from the 12 words.</span></div>
-    <div class="r"><b>Ambassadors see "not enough guardians" or "unauthorized request"</b><span>Version skew between fleets, the app and the network.</span><span>Update the fleet to the current release (see Keep it running).</span></div>
+    <div class="r"><b>Price set, but no "Advertised and healthy"</b><span>The advertisement loop skipped a cycle while the wallet was still opening, and nothing wakes it.</span><span>Check that Payouts lists a federation under Seat sales, then restart the app once. <span class="os-umbrel">Umbrel: app &#8943; &#8250; Restart.</span><span class="os-startos">StartOS: Stop, then Start.</span></span></div>
+    <div class="r"><b>Authorization never observed</b><span>The authorization was signed over a different key, or the relay read has not been repeated.</span><span>Compare the full key on the Authorization page with the one your Holder app scanned. Click Check now; setup never polls by itself.</span></div>
+    <div class="r"><b>A dash instead of a number on the Overview</b><span>The host could not read that account yet (a seat still forming has no fee account).</span><span>Nothing. A dash is "unknown", not zero. It fills in once the seat is running.</span></div>
+    <div class="r"><b>Withdraw button greyed out</b><span>No payout address saved, or that federation holds nothing.</span><span>Save a Lightning address in the card at the top of Payouts, then retry.</span></div>
+    <div class="r"><b>Withdraw greyed out on a seat</b><span>Fees are still in the pool; only collected fees can be withdrawn.</span><span>Click Collect fees first. Locked deposits release at the next cycle.</span></div>
+    <div class="r"><b>App crash loops after an update with a migration error</b><span>The new build's database schema is incompatible with the data on disk (release notes flag these).</span><span>Uninstall, reinstall, and choose Recover from your phrase on the first setup screen; the host and its seats come back from the 12 words.</span></div>
+    <div class="r"><b>Ambassadors see "not enough guardians" or "unauthorized request"</b><span>Version skew between guardian hosts, the app and the network.</span><span>Update the host to the current release (see Keep it running).</span></div>
     <div class="r os-umbrel"><b><code>[object Object]</code> error before the wizard</b><span>Frontend rendering bug on the pre setup screen.</span><span>Ignore or reload. The wizard still works.</span></div>
     <div class="r os-startos"><b>Sideload page: "alerts is undefined"</b><span>StartOS 0.4.0 beta.</span><span>System &#8250; Software Update to 0.4.0 stable or later.</span></div>
     <div class="r os-startos"><b>Open button leads to a dead 127.0.0.1 link</b><span>You are browsing StartOS from the server itself.</span><span>Use the interface's Local address entry instead.</span></div>
@@ -906,14 +903,14 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <h2>Questions people ask before they start</h2>
   </div>
   <div class="faq rv">
-    <details><summary>Do I need a public IP address, a domain, or a certificate?</summary><div class="a">No, and by design you never will. Ambassadors reach your fleet over hole punched connections with public relays as fallback, your advertisement goes out over Nostr, and the dashboard is either behind Umbrel's login or protected by StartOS's generated password. Forwarding UDP 31000 to 31031 is optional and only improves direct connections.</div></details>
+    <details><summary>Do I need a public IP address, a domain, or a certificate?</summary><div class="a">No, and by design you never will. Ambassadors reach your host over hole punched connections with public relays as fallback, your advertisement goes out over Nostr, and the dashboard is either behind Umbrel's login or protected by StartOS's generated password. Forwarding UDP 31000 to 31031 is optional and only improves direct connections.</div></details>
     <details><summary>Do I need to run Bitcoin Core or Lightning?</summary><div class="a">Bitcoin Core yes (Bitcoin Knots works as well), Lightning no. A mainnet guardian validates against your own Bitcoin node on the same box, pruned or full; <a href="#bitcoin">Bitcoin node</a> covers it, and its sync is the longest step of the setup. A Lightning node is never required; payouts go to any Lightning address you already have.</div></details>
     <details><summary>Can I choose which federations I host?</summary><div class="a">No. You set a price and a seat count; Ambassadors choose you. Every offered seat accepts automatically once a valid payment lands. If you want to stop being chosen, clear the price on the Overview.</div></details>
     <details><summary>How much will I earn?</summary><div class="a">Two things: the seat price you set, paid once per seat sold, and one share of the federation's transaction fees for as long as it runs. The dashboard suggests a seat price around the equivalent of $2 to $3. Fee income depends entirely on how much the federation's members transact, so no number is promised here.</div></details>
-    <details><summary>What if I lose the 12 words?</summary><div class="a">While the box runs, nothing changes and you can reveal the phrase again from Backup. If the box dies and you do not have the words, the fleet and its seats cannot be recovered. Write them down before continuing past screen 2.</div></details>
-    <details><summary>Can I move my fleet to a new box?</summary><div class="a">Yes: set the new box up, choose "Recover from your phrase" on screen 1, and the seats rebuild from the encrypted records the fleet published to the relay. Turn the old box off first. Two hosts with one identity would contradict each other.</div></details>
-    <details><summary>Can I run more than one fleet, or raise the seat count later?</summary><div class="a">One fleet per box and per phrase. The seat limit is adjustable at any time on the Your offer page (or with <code>fman-cli capacity set N</code>); it just cannot drop below the seats already active.</div></details>
-    <details><summary>Where do I get help?</summary><div class="a">For the Umbrel app, the package's issue tracker at <a href="https://github.com/fedibtc/manifold-umbrel-store/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-store/issues</a>. For the StartOS package, <a href="https://github.com/fedibtc/manifold-fman-startos/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-fman-startos/issues</a>. For everything else, including getting a PeerBadge, <a href="https://fedi.xyz" target="_blank" rel="noopener">fedi.xyz</a>.</div></details>
+    <details><summary>What if I lose the 12 words?</summary><div class="a">While the box runs, nothing changes and you can reveal the phrase again from Backup. If the box dies and you do not have the words, the host and its seats cannot be recovered. Write them down before continuing past screen 2.</div></details>
+    <details><summary>Can I move my guardians to a new box?</summary><div class="a">Yes: set the new box up, choose "Recover from your phrase" on screen 1, and the seats rebuild from the encrypted records the host published to the relay. Turn the old box off first. Two hosts with one identity would contradict each other.</div></details>
+    <details><summary>Can I run more than one host, or raise the seat count later?</summary><div class="a">One host per box and per phrase. The seat limit is adjustable at any time on the Seat price page (or with <code>fman-cli capacity set N</code>); it just cannot drop below the seats already active.</div></details>
+    <details><summary>Where do I get help?</summary><div class="a">For the Umbrel app, the package's issue tracker at <a href="https://github.com/fedibtc/manifold-umbrel-store/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-store/issues</a>. For the StartOS package, <a href="https://github.com/fedibtc/manifold-fman-startos/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-fman-startos/issues</a>. For everything else, including getting Fedi verification, <a href="https://fedi.xyz" target="_blank" rel="noopener">fedi.xyz</a>.</div></details>
   </div>
 </section>
 
