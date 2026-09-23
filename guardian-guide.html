@@ -85,13 +85,6 @@ html[data-os="umbrel"] .os-startos,html[data-os="minipc"] .os-startos{display:no
 html:not([data-os="minipc"]) .os-minipc{display:none!important;}
 html:not([data-os="umbrel"]) .os-umbrel-only{display:none!important;}
 
-/* walkthrough video */
-.videoband{padding:8px 0 40px;}
-.video-head{max-width:720px;margin:0 0 22px;}
-.video-head h2{font-size:clamp(24px,3vw,32px);}
-.player{border-radius:var(--r-card);overflow:hidden;background:#0b1013;box-shadow:0 30px 80px -40px rgba(11,16,19,.55);border:1px solid var(--line);}
-.player video{width:100%;height:auto;display:block;aspect-ratio:16/10;background:#0b1013;}
-
 /* layout: sticky toc + content */
 .page{display:grid;grid-template-columns:210px minmax(0,1fr);min-width:0;gap:56px;align-items:start;padding-top:24px;}
 .toc{position:sticky;top:84px;font-size:13.5px;min-width:0;}
@@ -357,24 +350,6 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
   </div>
 </header>
 
-<section class="videoband" id="video">
-  <div class="wrap">
-    <div class="video-head">
-      <div class="kicker">Walkthrough &#183; 3 minutes &#183; <span class="os-umbrel">Umbrel</span><span class="os-startos">Start9</span></div>
-      <h2>Manifold Fedimint Guardian install step by step guide</h2>
-    </div>
-    <div class="player os-umbrel">
-      <video controls preload="none" playsinline poster="media/guardian-guide/guardian-umbrel-poster.jpg" width="1280" height="800">
-        <source src="media/guardian-guide/guardian-umbrel-walkthrough.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="player os-startos">
-      <video controls preload="none" playsinline poster="media/guardian-guide/guardian-startos-poster.jpg" width="1280" height="800">
-        <source src="media/guardian-guide/guardian-startos-walkthrough.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</section>
 
 <div class="wrap page">
 <aside class="toc" aria-label="On this page">
