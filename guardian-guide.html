@@ -401,7 +401,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
       <h3><span class="os-minipc">A mini PC with a 500 GB SSD</span><span class="os-umbrel-only">An Umbrel with a 500 GB SSD</span><span class="os-startos">A Start9 server on the latest StartOS 0.4 stable</span></h3>
       <p class="os-minipc">Any 64 bit Intel or AMD PC; a refurbished corporate mini is the sweet spot. Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>500 GB SSD as the system disk</b>, because the chain and your seats live on it. New box? <a href="#box" data-switch="minipc">Prepare the mini PC</a> walks through the one time install; umbrelOS is x86 only.</p>
       <p class="os-umbrel-only">An Umbrel Home comes with 16 GB of RAM and a 1, 2 or 4 TB SSD: with a pruned node any of them is enough, the 1 TB model included. Running umbrelOS on your own x86 box? Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>500 GB SSD as the system disk</b>; <a href="#box" data-switch="minipc">Prepare the mini PC</a> covers the install.</p>
-      <p class="os-startos">A Start9 server comes with StartOS installed and at least a 2 TB drive, so there is nothing to build. Before you start, update it to the <b>latest StartOS 0.4 stable</b> release (System &#8250; Software Update): the package sideload fails on 0.4 beta builds. Running StartOS on your own x86 or ARM box? Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>500 GB SSD as the system disk</b>, because the chain and your seats live on it.</p>
+      <p class="os-startos">A Start9 server comes with StartOS installed and at least a 2 TB drive, so there is nothing to build. Before you start, update it to the <b>latest StartOS 0.4 stable</b> release (System &#8250; Software Update): the package will not install on 0.4 beta builds. Running StartOS on your own x86 or ARM box? Aim for a <b>quad core</b>, <b>16 GB of RAM</b> and a <b>500 GB SSD as the system disk</b>, because the chain and your seats live on it.</p>
       <ul><li>Wired ethernet to your router. Wi‑Fi will not get you through setup or the sync.</li><li>A laptop or phone on the same network with a browser.</li></ul>
     </div>
     <div class="card">
@@ -558,7 +558,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <li>
       <h3>Install the Bitcoin Node app</h3>
       <div class="path"><span>App Store</span><i>&#8250;</i><span>Bitcoin</span><i>&#8250;</i><span>Bitcoin Node</span><i>&#8250;</i><span>Install</span></div>
-      <p>This is Umbrel's official app, powered by Bitcoin Core, in the main App Store rather than the Fedi Dev one. Version 1.4.0 (Sep 2026) ships Bitcoin Core v31.1. It starts syncing the moment it is installed. Prefer Knots? Umbrel's <b>Bitcoin Knots</b> app implements the same dependency, so the guardian app accepts it in place of Bitcoin Node and should work as well; the settings below are Bitcoin Node's.</p>
+      <p>This is Umbrel's official app, powered by Bitcoin Core, in the main App Store rather than the Manifold community store. Version 1.4.0 (Sep 2026) ships Bitcoin Core v31.1. It starts syncing the moment it is installed. Prefer Knots? Umbrel's <b>Bitcoin Knots</b> app implements the same dependency, so the guardian app accepts it in place of Bitcoin Node and should work as well; the settings below are Bitcoin Node's.</p>
       <p><a class="btn btn-ghost btn-sm" href="https://apps.umbrel.com/app/bitcoin" target="_blank" rel="noopener">Bitcoin Node on apps.umbrel.com &#8594;</a> &nbsp; <a class="btn btn-ghost btn-sm" href="https://github.com/getumbrel/umbrel-bitcoin" target="_blank" rel="noopener">Source on GitHub &#8594;</a></p>
     </li>
     <li>
@@ -627,7 +627,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <div class="kicker">04 &#183; Install</div>
     <h2 class="os-umbrel">Install on Umbrel</h2>
     <h2 class="os-startos">Install on Start9 (StartOS)</h2>
-    <p class="sec-sub os-umbrel">The guardian software is published in a community app store, so Umbrel installs and updates it like any other app. Umbrel's own login protects the dashboard, so there is no extra password.</p>
+    <p class="sec-sub os-umbrel">The guardian software is published in a community app store, so Umbrel installs and updates it like any other app. The dashboard is protected by an app password that Umbrel generates and shows on the app's page.</p>
     <p class="sec-sub os-startos">StartOS installs Manifold Fedimint Guardian from the Start9 Community Registry, so there&#8217;s no file to download. The dashboard has its own generated password, shown by an action inside StartOS.</p>
   </div>
 
@@ -637,23 +637,25 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
       <p>Install umbrelOS on the box if you have not (<a href="https://umbrel.com/umbrelos" target="_blank" rel="noopener">umbrel.com/umbrelos</a>: flash a USB stick, boot the box from it, follow the on screen setup). Then open the Umbrel dashboard from a browser on the same network, sign in, and take any pending umbrelOS update from Settings before you add the store, so the app meets a current OS.</p>
     </li>
     <li>
-      <h3>Add the Fedi Dev community app store</h3>
+      <h3>Add the Manifold community app store</h3>
       <div class="path"><span>App Store</span><i>&#8250;</i><span>&#8943; menu, top right</span><i>&#8250;</i><span>Community App Stores</span></div>
       <p>Paste this address and click Add:</p>
-      <pre><code>https://github.com/fedibtc/manifold-umbrel-store.git</code></pre>
+      <pre><code>https://github.com/fedibtc/manifold-umbrel-community-store</code></pre>
       <p class="fine">The store is public. Nothing to log into and no token to paste.</p>
     </li>
     <li>
-      <h3>Install Manifold Fedimint Guardian, the mainnet one</h3>
-      <p>Open the new <b>Fedi Dev</b> store. It lists two guardian apps side by side: install the one called just <b>Fleet Manager</b> (tagline "Run Fedimint guardians on Bitcoin mainnet"); that is Manifold Fedimint Guardian under its technical name. <b>Fleet Manager (staging)</b> next to it is a test network build: skip it. Umbrel lists <b>Bitcoin Node</b> as the app's dependency and offers to install it if it is missing, or lets you pick Bitcoin Knots in its place if that is the node you run. The image pulls from GitHub's registry; the first pull takes a minute or two.</p>
-      
+      <h3>Install Manifold Fedimint Guardian</h3>
+      <p>Open the new <b>Manifold</b> store and install <b>Manifold Fedimint Guardian</b>. Umbrel lists <b>Bitcoin Node</b> on mainnet as the app's dependency and offers to install it if it is missing, or lets you pick Bitcoin Knots in its place if that is the node you run. The image pulls from GitHub's registry; the first pull takes a minute or two.</p>
+
     </li>
     <li>
       <h3>Open the app</h3>
-      <p>Click the app tile. The dashboard opens behind Umbrel's own login, so you are already signed in. It lands on the setup wizard described in the next section.</p>
+      <p>Click the app tile. The guardian dashboard opens and asks for a password: use the app password Umbrel shows on the app's page (Umbrel generates it for you). It then lands on the setup wizard described in the next section.</p>
       <div class="call warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><div><b>Known quirk.</b> The screen before the wizard may briefly flash an <code>[object Object]</code> error. It is a display bug; the wizard works. Reload if it does not appear within a few seconds.</div></div>
     </li>
   </ol>
+
+  <div class="call info os-umbrel rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>When the official Umbrel listing goes live.</b> This community store uses the same app ID as the official submission, so the handoff is seamless. Once <b>Manifold Fedimint Guardian</b> appears in Umbrel's main App Store, remove the <b>Manifold</b> store from Community App Stores &mdash; but <b>do not uninstall the app</b>, which would delete its data. Updates then come from the official store, with no reinstall or data move.</div></div>
 
   <ol class="steps os-startos rv">
     <li>
@@ -823,7 +825,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <h2>A guardian's only job is to stay up</h2>
     <p class="sec-sub">Every running seat is one of the guardians a real federation depends on. Nothing needs daily attention, but these five things are yours to own.</p>
     <div class="grid">
-      <div class="g"><span class="num">01</span><h3>Updates are manual, and due the day the network asks</h3><p><span class="os-umbrel">Umbrel shows an Update button on the app once the store has a new version.</span><span class="os-startos">Download the new .s9pk from the releases page and sideload it again.</span> When the network names a newer release than yours, the dashboard takes the screen over with a notice; out of date hosts show up in the app as "not enough guardians" or "unauthorized request". Data survives updates, not uninstall.</p></div>
+      <div class="g"><span class="num">01</span><h3>Updates are manual, and due the day the network asks</h3><p><span class="os-umbrel">Umbrel shows an Update button on the app once the store has a new version.</span><span class="os-startos">StartOS shows an update for the service once the Community Registry has a new version.</span> When the network names a newer release than yours, the dashboard takes the screen over with a notice; out of date hosts show up in the app as "not enough guardians" or "unauthorized request". Data survives updates, not uninstall.</p></div>
       <div class="g"><span class="num">02</span><h3>Keep the node synced</h3><p>The guardian is only as current as its Bitcoin node. The Bitcoin Node app updates like any other app, and after an outage it catches up by itself. If a federation reports trouble, check the block height against mempool.space before anything else.</p></div>
       <div class="g"><span class="num">03</span><h3>The 12 words are the whole backup</h3><p>Every key is derived from them and your seat records are published, encrypted, to the relay. The Backup page shows your host name, keys, and a Reveal recovery phrase link. Nothing else to export.</p></div>
       <div class="g"><span class="num">04</span><h3>One phrase, one host</h3><p>Recovery is only possible while setting up a fresh host ("Recover from your phrase"). Never run two boxes from the same words: two guardians with one identity would contradict each other and break the federation.</p></div>
@@ -854,7 +856,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <div class="r"><b>App crash loops after an update with a migration error</b><span>The new build's database schema is incompatible with the data on disk (release notes flag these).</span><span>Uninstall, reinstall, and choose Recover from your phrase on the first setup screen; the host and its seats come back from the 12 words.</span></div>
     <div class="r"><b>Ambassadors see "not enough guardians" or "unauthorized request"</b><span>Version skew between guardian hosts, the app and the network.</span><span>Update the host to the current release (see Keep it running).</span></div>
     <div class="r os-umbrel"><b><code>[object Object]</code> error before the wizard</b><span>Frontend rendering bug on the pre setup screen.</span><span>Ignore or reload. The wizard still works.</span></div>
-    <div class="r os-startos"><b>Sideload page: "alerts is undefined"</b><span>StartOS 0.4.0 beta.</span><span>System &#8250; Software Update to 0.4.0 stable or later.</span></div>
+    <div class="r os-startos"><b>Package won't install, or isn't offered in the registry</b><span>StartOS is on an older build (pre 0.4.0 stable).</span><span>System &#8250; Software Update to 0.4.0 stable or later, then install from the Community Registry.</span></div>
     <div class="r os-startos"><b>Open button leads to a dead 127.0.0.1 link</b><span>You are browsing StartOS from the server itself.</span><span>Use the interface's Local address entry instead.</span></div>
     <div class="r os-minipc"><b>"Secure Boot Violation", or the stick will not boot</b><span>Secure Boot is still on.</span><span>Back into the BIOS: Security &#8250; Secure Boot &#8250; Disabled. Keep UEFI mode.</span></div>
     <div class="r os-minipc"><b>The installer lists the wrong disk, or none</b><span>An external drive is plugged in, or the internal disk is in a RAID/Optane mode.</span><span>Unplug external drives and pick the internal SSD by size. If it is missing, set the SATA mode to AHCI in the BIOS.</span></div>
@@ -882,7 +884,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <details><summary>What if I lose the 12 words?</summary><div class="a">While the box runs, nothing changes and you can reveal the phrase again from Backup. If the box dies and you do not have the words, the host and its seats cannot be recovered. Write them down before continuing past screen 2.</div></details>
     <details><summary>Can I move my guardians to a new box?</summary><div class="a">Yes: set the new box up, choose "Recover from your phrase" on screen 1, and the seats rebuild from the encrypted records the host published to the relay. Turn the old box off first. Two hosts with one identity would contradict each other.</div></details>
     <details><summary>Can I run more than one host, or raise the seat count later?</summary><div class="a">One host per box and per phrase. The seat limit is adjustable at any time on the Seat price page (or with <code>fman-cli capacity set N</code>); it just cannot drop below the seats already active.</div></details>
-    <details><summary>Where do I get help?</summary><div class="a">For the Umbrel app, the package's issue tracker at <a href="https://github.com/fedibtc/manifold-umbrel-store/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-store/issues</a>. For the StartOS package, <a href="https://github.com/fedibtc/manifold-fman-startos/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-fman-startos/issues</a>. For everything else, including getting Fedi verification, <a href="https://fedi.xyz" target="_blank" rel="noopener">fedi.xyz</a>.</div></details>
+    <details><summary>Where do I get help?</summary><div class="a">For the Umbrel app, the package's issue tracker at <a href="https://github.com/fedibtc/manifold-umbrel-community-store/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-community-store/issues</a>. For the StartOS package, <a href="https://github.com/fedibtc/manifold-fman-startos/issues" target="_blank" rel="noopener">github.com/fedibtc/manifold-fman-startos/issues</a>. For everything else, including getting Fedi verification, <a href="https://fedi.xyz" target="_blank" rel="noopener">fedi.xyz</a>.</div></details>
   </div>
 </section>
 
@@ -894,8 +896,8 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <p class="sec-sub">Checked against these on Sep 11, 2026; the StartOS release, the Umbrel manifests and Umbrel Home on Sep 18.</p>
   </div>
   <div class="rowlist rv">
-    <div class="r"><b>Umbrel store and steps</b><a href="https://github.com/fedibtc/manifold-umbrel-store" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-store</a></div>
-    <div class="r"><b>Umbrel app manifests: mainnet vs staging tile, Bitcoin dependency, Knots</b><a href="https://github.com/fedibtc/manifold-umbrel-store/blob/master/fedi-dev-fleet-manager-production/umbrel-app.yml" target="_blank" rel="noopener">fedi-dev-fleet-manager-production/umbrel-app.yml</a> (v0.1.1, dependencies: bitcoin), <a href="https://github.com/getumbrel/umbrel-apps/blob/master/bitcoin-knots/umbrel-app.yml" target="_blank" rel="noopener">umbrel-apps &#8250; bitcoin-knots</a> (implements: bitcoin), <a href="https://umbrel.com/umbrel-home" target="_blank" rel="noopener">umbrel.com/umbrel-home</a> (16 GB RAM, 1, 2 or 4 TB SSD)</div>
+    <div class="r"><b>Umbrel store and steps</b><a href="https://github.com/fedibtc/manifold-umbrel-community-store" target="_blank" rel="noopener">github.com/fedibtc/manifold-umbrel-community-store</a></div>
+    <div class="r"><b>Umbrel app manifest: Bitcoin dependency, app password, Knots</b><a href="https://github.com/fedibtc/manifold-umbrel-community-store/blob/main/manifold-fedimint-guardian/umbrel-app.yml" target="_blank" rel="noopener">manifold-fedimint-guardian/umbrel-app.yml</a> (v0.1.0, dependencies: bitcoin, deterministicPassword), <a href="https://github.com/getumbrel/umbrel-apps/blob/master/bitcoin-knots/umbrel-app.yml" target="_blank" rel="noopener">umbrel-apps &#8250; bitcoin-knots</a> (implements: bitcoin), <a href="https://umbrel.com/umbrel-home" target="_blank" rel="noopener">umbrel.com/umbrel-home</a> (16 GB RAM, 1, 2 or 4 TB SSD)</div>
     <div class="r"><b>StartOS package and in-app instructions</b><a href="https://github.com/fedibtc/manifold-fman-startos/blob/master/instructions.md" target="_blank" rel="noopener">github.com/fedibtc/manifold-fman-startos › instructions.md</a></div>
     <div class="r"><b>The guardian software architecture</b><a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/ARCH-fleet-manager.md" target="_blank" rel="noopener">crates/fman/specs/ARCH-fleet-manager.md</a></div>
     <div class="r"><b>Packaging contract, RAM sizing, no public IP</b><a href="https://github.com/fedibtc/manifold/tree/master/packages/fleet-manager" target="_blank" rel="noopener">packages/fleet-manager/README.md</a>, <a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/REQ-seat-capacity-default.md" target="_blank" rel="noopener">REQ-seat-capacity-default.md</a>, <a href="https://github.com/fedibtc/manifold/blob/master/crates/fman/specs/REQ-no-public-ip.md" target="_blank" rel="noopener">REQ-no-public-ip.md</a></div>
