@@ -628,7 +628,7 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <h2 class="os-umbrel">Install on Umbrel</h2>
     <h2 class="os-startos">Install on Start9 (StartOS)</h2>
     <p class="sec-sub os-umbrel">The guardian software is published in a community app store, so Umbrel installs and updates it like any other app. Umbrel's own login protects the dashboard, so there is no extra password.</p>
-    <p class="sec-sub os-startos">StartOS installs the package from a single file you download from GitHub and sideload. The dashboard has its own generated password, shown by an action inside StartOS.</p>
+    <p class="sec-sub os-startos">StartOS installs Manifold Fedimint Guardian from the Start9 Community Registry, so there&#8217;s no file to download. The dashboard has its own generated password, shown by an action inside StartOS.</p>
   </div>
 
   <ol class="steps os-umbrel rv">
@@ -659,22 +659,19 @@ footer{padding:56px 0 72px;border-top:1px solid var(--line);margin-top:104px;}
     <li>
       <h3>Make sure StartOS is on 0.4.0 stable or later</h3>
       <div class="path"><span>System</span><i>&#8250;</i><span>Software Update</span></div>
-      <p>On a 0.4.0 beta build the sideload page fails with an <code>alerts is undefined</code> error. Update the OS first.</p>
+      <p>Older versions can&#8217;t install this package. Update the OS first.</p>
       <p class="fine">Bare mini PC? StartOS installs like umbrelOS does: download <code>x86_64.iso</code> from Start9's releases, flash it with balenaEtcher to an 8 GB stick, boot from it with Secure Boot off, and run the setup wizard at <code>http://start.local</code>. Start9's guide: <a href="https://docs.start9.com/latest/flashing-guides/os-x86.html" target="_blank" rel="noopener">docs.start9.com &#8250; flashing guides &#8250; x86</a>. The mini PC shopping list and BIOS settings in this guide's Mini PC path apply to StartOS too.</p>
     </li>
     <li>
-      <h3>Download the package file</h3>
-      <p>From the latest production release of the packaging repo, download <code>fleet-manager_x86_64.s9pk</code> (about 53 MB). ARM servers take <code>fleet-manager_aarch64.s9pk</code> instead. Skip any file with a <code>fedi-dev-</code> prefix: that is the staging build.</p>
-      <p><a class="btn btn-ghost btn-sm" href="https://github.com/fedibtc/manifold-fman-startos/releases/latest" target="_blank" rel="noopener">Latest release on GitHub &#8594;</a></p>
+      <h3>Install from the Community Registry</h3>
+      <p>Open the <b>Manifold Fedimint Guardian</b> listing in the Start9 <a href="https://community-registry.start9.com/" target="_blank" rel="noopener">Community Registry</a> and select <b>Install</b>.</p>
+      <p>If the link doesn&#8217;t open on your server, go to <b>Marketplace</b> in StartOS, switch the registry to <b>Community Registry</b> (<code>https://community-registry.start9.com/</code>), search for <b>Manifold Fedimint Guardian</b>, and install it.</p>
+      <p>StartOS will ask you to install <b>Bitcoin</b> too if it isn&#8217;t already running. Manifold needs a local Bitcoin node for the mainnet chain.</p>
+      <p class="fine">After installing, generate the dashboard password before running the app.</p>
     </li>
     <li>
-      <h3>Sideload it</h3>
-      <div class="path"><span>Top navigation bar</span><i>&#8250;</i><span>Sideload</span></div>
-      <p>Drop the file in and wait for the install to finish. The image is embedded in the file, so the box never pulls from a registry.</p>
-    </li>
-    <li>
-      <h3>Start the service and wait for the health check</h3>
-      <p>Start the <b>Manifold Fedimint Guardian</b> service (listed under its technical name, Fleet Manager) and wait until the <b>Operator Dashboard</b> health check turns green.</p>
+      <h3>Start the service</h3>
+      <p>Start the <b>Manifold Fedimint Guardian</b> service and wait until the <b>Operator Dashboard</b> health check turns green.</p>
     </li>
     <li>
       <h3>Get the dashboard password</h3>
